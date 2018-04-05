@@ -15,15 +15,17 @@ public class PhysicsForces : MonoBehaviour {
 	[SerializeField]
 	private float jumpInitialVelocity;
 	[SerializeField]
+	private float jumpMaxVelocity;
+	[SerializeField]
 	private float jumpInitialGravity;
 	[SerializeField]
 	private Vector2 jumpVector;//{ public get; private set; }
 	#endregion
 	//==============================================
 	#region MovementVariables
-	public float topSpeed;
-	public float acceleration;
-	public float deceleration;
+	public float topSpeed = 10f;
+	public float acceleration = 1f;
+	public float deceleration = 1f;
 	#endregion
 	//==============================================
 
@@ -40,6 +42,7 @@ public class PhysicsForces : MonoBehaviour {
 		jumpInitialVelocity = (2 * jumpHeight) / (jumpTime);
 		jumpInitialGravity = -(-2 * jumpHeight) / (jumpTime * jumpTime);
 		jumpVector = Vector2.up * jumpInitialVelocity;
+		jumpMaxVelocity = jumpInitialVelocity * jumpFallingMultiplier;
 	}
 
 	public Vector2 getJumpVector(){
@@ -48,6 +51,13 @@ public class PhysicsForces : MonoBehaviour {
 
 	public float getJumpInitialGravity(){
 		return jumpInitialGravity;
+	}
+	public float getJumpInitialVelocity(){
+		return jumpInitialVelocity;
+	}
+
+	public float getJumpMaxVelocity(){
+		return jumpMaxVelocity;
 	}
 
 	public float getFallingGravity(){
