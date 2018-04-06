@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - SolidPlatform
+  - Balloon
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - 
   - PlayerCharacter
-  - 
+  - Balloon
   - SolidPlatform
   - 
   - 
@@ -41,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PlayerCharacter
+    uniqueID: 2023961015
     locked: 0
