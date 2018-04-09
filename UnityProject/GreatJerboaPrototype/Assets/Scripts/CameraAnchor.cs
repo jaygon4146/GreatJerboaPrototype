@@ -14,7 +14,8 @@ public class CameraAnchor : AnchoredObject {
 	}
 
 	override public void FollowAnchor(){
-		SimpleClampPosition();
+		//SimpleClampPosition();
+		SimpleElasticity ();
 	}
 
 

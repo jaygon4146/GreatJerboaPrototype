@@ -19,52 +19,27 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 0.075, y: -0.375, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 0.5
-        value: {x: -0.25, y: -0.375, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: {x: 0.075, y: -0.375, z: 0}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    path: IKTargets/BFootTarget
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
         value: {x: -0.30709386, y: -0.375, z: 0}
         inSlope: {x: -0.5563327, y: 0, z: 0}
-        outSlope: {x: -0.5563327, y: 0, z: 0}
+        outSlope: {x: -0.69541585, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.083333336
-        value: {x: -0.35345492, y: -0.3456365, z: 0}
-        inSlope: {x: 0, y: 0.5946112, z: 0}
-        outSlope: {x: 0, y: 0.5946112, z: 0}
+        time: 0.06666667
+        value: {x: -0.35345492, y: -0.3550328, z: 0}
+        inSlope: {x: 0, y: 0.5285435, z: 0}
+        outSlope: {x: 0, y: 0.5285435, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.23333333
-        value: {x: -0.16045183, y: -0.2742831, z: 0}
-        inSlope: {x: 2.021937, y: 0, z: 0}
-        outSlope: {x: 2.021937, y: 0, z: 0}
+        value: {x: -0.15738562, y: -0.2742831, z: 0}
+        inSlope: {x: 1.8413467, y: 0, z: 0}
+        outSlope: {x: 1.8413467, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.41666666
-        value: {x: 0.100402966, y: -0.33676398, z: 0}
-        inSlope: {x: 0, y: -0.5030927, z: 0}
-        outSlope: {x: 0, y: -0.5030927, z: 0}
+        time: 0.43333334
+        value: {x: 0.100402966, y: -0.3450997, z: 0}
+        inSlope: {x: 0, y: -0.49571595, z: 0}
+        outSlope: {x: 0, y: -0.49571595, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.5
@@ -76,7 +51,7 @@ AnimationClip:
         time: 1
         value: {x: -0.30709386, y: -0.375, z: 0}
         inSlope: {x: -0.7841047, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: -0.92722094, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -92,13 +67,6 @@ AnimationClip:
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
     genericBindings:
-    - serializedVersion: 2
-      path: 1402630596
-      attribute: 1
-      script: {fileID: 0}
-      typeID: 4
-      customType: 0
-      isPPtrCurve: 0
     - serializedVersion: 2
       path: 3812819526
       attribute: 1
@@ -133,96 +101,18 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.075
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.5
-        value: -0.25
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1
-        value: 0.075
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.x
-    path: IKTargets/BFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: -0.375
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1
-        value: -0.375
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.y
-    path: IKTargets/BFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.5
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.z
-    path: IKTargets/BFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
         value: -0.30709386
         inSlope: -0.5563327
-        outSlope: -0.5563327
+        outSlope: -0.69541585
         tangentMode: 69
       - serializedVersion: 2
-        time: 0.083333336
+        time: 0.06666667
         value: -0.35345492
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.41666666
+        time: 0.43333334
         value: 0.100402966
         inSlope: 0
         outSlope: 0
@@ -237,7 +127,7 @@ AnimationClip:
         time: 1
         value: -0.30709386
         inSlope: -0.7841047
-        outSlope: 0
+        outSlope: -0.92722094
         tangentMode: 69
       m_PreInfinity: 2
       m_PostInfinity: 2

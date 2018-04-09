@@ -38,7 +38,7 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/LowSpine/HighSpine/FArm/FHandBone
     localPosition: {x: 0.1, y: 0.00000005029142, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.23522693, w: 0.97194046}
+    localRotation: {x: 0, y: 0, z: 0.23522694, w: 0.9719405}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/FThighBone
     localPosition: {x: -0.07923956, y: -0.02774061, z: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/FThighBone/FCalfBone/FFootBone
     localPosition: {x: 0.3765315, y: 0.000000029802322, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.85455674, w: 0.5193581}
+    localRotation: {x: -0, y: 0, z: -0.8571674, w: -0.515038}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/FThighBone/FCalfBone/FFootBone/FToeBone
     localPosition: {x: 0.32956773, y: -0.00000008940697, z: 0}
@@ -62,83 +62,79 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1
     localPosition: {x: 0.10000004, y: 0.000000007450581, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.028420597, w: 0.99959606}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2
     localPosition: {x: 0.10000004, y: 0.000000007450581, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.029814405, w: 0.9995555}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3
     localPosition: {x: 0.10000005, y: 0.000000044703484, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.030312186, w: 0.9995405}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4
     localPosition: {x: 0.10000004, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.028459601, w: 0.9995949}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5
     localPosition: {x: 0.1000001, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.022941109, w: 0.99973685}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6
     localPosition: {x: 0.100000024, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.011370492, w: 0.9999354}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7
     localPosition: {x: 0.10000025, y: 0.000000059604645, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: -0.00837227, w: 0.999965}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8
     localPosition: {x: 0.10000022, y: 0.000000059604645, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: -0.0391073, w: 0.9992351}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9
     localPosition: {x: 0.10000014, y: -0.000000059604645, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: -0.080765165, w: 0.9967331}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10
     localPosition: {x: 0.10000013, y: -0.00000011920929, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: -0.12394715, w: 0.9922888}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11
     localPosition: {x: 0.10000016, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: -0.14755408, w: 0.989054}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12
     localPosition: {x: 0.10000014, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: -0.018019551, w: 0.99983764}
     localScale: {x: 1, y: 1, z: 1}
-  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/T13
-    localPosition: {x: 0.10000037, y: 0.00000011920929, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
-    localScale: {x: 1, y: 1, z: 1}
-  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/T13/T14
+  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/TailTip
     localPosition: {x: 0.1000004, y: 0.00000011920929, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localRotation: {x: 0, y: 0, z: 0.26257646, w: 0.9649112}
     localScale: {x: 1, y: 1, z: 1}
-  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/T13/T14/T15
+  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/TailTip/T14
+    localPosition: {x: 0.1000004, y: 0.00000011920929, z: 0}
+    localRotation: {x: -0, y: -0, z: 0.049178254, w: 0.99879}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/TailTip/T14/T15
     localPosition: {x: 0.10000032, y: -0.00000023841858, z: 0}
     localRotation: {x: 0, y: 0, z: 0, w: 1}
     localScale: {x: 1, y: 1, z: 1}
-  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/T13/T14/T15/T16
+  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/TailTip/T14/T15/T16
     localPosition: {x: 0.10000037, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0, w: 1}
-    localScale: {x: 1, y: 1, z: 1}
-  - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/T13/T14/T15/T16/T17
-    localPosition: {x: 0.1000004, y: -0.00000011920929, z: 0}
     localRotation: {x: 0, y: 0, z: 0, w: 1}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/BThighBone
     localPosition: {x: -0.07923956, y: -0.02774061, z: 0}
     localRotation: {x: -0, y: -0, z: -0.37437665, w: 0.9272768}
-    localScale: {x: 0.9999999, y: 0.9999999, z: 1}
+    localScale: {x: 1, y: 1, z: 1}
   - path: Hip/BThighBone/BCalfBone
     localPosition: {x: 0.30139887, y: 0.000000018626451, z: 0}
     localRotation: {x: 0, y: 0, z: -0.9794872, w: 0.20150678}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/BThighBone/BCalfBone/BFootBone
     localPosition: {x: 0.3765315, y: 0.000000029802322, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.85455674, w: 0.5193581}
+    localRotation: {x: -0, y: 0, z: -0.8571674, w: -0.515038}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/BThighBone/BCalfBone/BFootBone/BToeBone
     localPosition: {x: 0.32956773, y: -0.00000008940697, z: 0}

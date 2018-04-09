@@ -20,6 +20,8 @@ public class PlayerCharacter : MonoBehaviour {
 	[SerializeField]
 	private bool canJump;
 	private bool canCancelJump;
+	[SerializeField]
+	private bool facingRight = true;
 	#endregion
 
 
@@ -35,6 +37,7 @@ public class PlayerCharacter : MonoBehaviour {
 
 		JumpAction ();
 		MoveAction ();
+		CheckFacing ();
 		HorizontalAction ();
 		VerticalAction ();
 
@@ -77,6 +80,29 @@ public class PlayerCharacter : MonoBehaviour {
 
 		PCUnitController2D.MoveTowardMaxVelocityX (direction, accel);
 		//PCUnitController2D.addImpulse (force);	
+		if (direction > 0)
+			facingRight = true;
+
+		if (direction < 0)
+			facingRight = false;
+
+	}
+
+	void CheckFacing(){
+		float rY = transform.rotation.y;
+
+		float right = 0f;
+		float left = 180f;
+
+		if (facingRight && rY != 0) {
+			transform.rotation = Quaternion.Euler (0f, right, 0f);
+			//print ("Flip to Right");
+		}
+
+		if (!facingRight && rY != -1) {
+			transform.rotation = Quaternion.Euler (0f, left, 0f);
+			//print ("Flip to Left");
+		}
 	}
 
 	void HorizontalAction(){
