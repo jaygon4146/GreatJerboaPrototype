@@ -8,7 +8,7 @@ public class JerboaAnimationManager : MonoBehaviour {
 
 	private Animator animator;
 	private AnimatorStateInfo stateInfo;
-
+	[SerializeField]
 	private Vector2 CurrentVelocity;
 	private Vector2 MinVelocity;
 	private Vector2 MaxVelocity;
@@ -27,6 +27,9 @@ public class JerboaAnimationManager : MonoBehaviour {
 	private static int TakeOffAirborneHash = Animator.StringToHash("TakeOffToAirborne");
 	private static int LandedHash = Animator.StringToHash("Landed");
 
+	private static int JumpTakeOffState = Animator.StringToHash ("JumpTakeOff");
+
+
 	void Awake(){
 		animator = GetComponent<Animator> ();
 	}
@@ -34,17 +37,36 @@ public class JerboaAnimationManager : MonoBehaviour {
 	void FixedUpdate(){
 		stateInfo = animator.GetCurrentAnimatorStateInfo (0);
 		UpdateAnimatorVariables ();
+
+
+		/*
+		if (stateInfo.shortNameHash == JumpTakeOffState) {
+			print ("ShortNameHash; JumpTakeOffState");
+		}
+		*/
+
 	}
 
 	void UpdateAnimatorVariables(){
+
+		HorizontalVelocity = CurrentVelocity.x;
+		HorizontalMagnitude = HorizontalVelocity;
+		if (HorizontalMagnitude < 0) {			
+			HorizontalMagnitude *= -1;
+		}
+		animator.SetFloat (HMagnitudeHash, HorizontalMagnitude);
 		animator.SetFloat (HorizontalHash, HorizontalVelocity);
+
+
+		float y = 0;
+		if (CurrentVelocity.y > 0) { //If moving upward
+			y = CurrentVelocity.y / MaxVelocity.y;
+		} else { //Otherwise, we are moving downward
+			y = -(CurrentVelocity.y / MinVelocity.y);
+		}
+		VerticalVelocity = y;
 		animator.SetFloat (VerticalHash, VerticalVelocity);
 
-		HorizontalMagnitude = HorizontalVelocity;
-		if (HorizontalMagnitude < 0)
-			HorizontalMagnitude *= -1;
-		animator.SetFloat (HMagnitudeHash, HorizontalMagnitude);
-		////
 	}
 
 	public void PassCurrentVelocity(Vector2 current){
@@ -61,12 +83,11 @@ public class JerboaAnimationManager : MonoBehaviour {
 	}
 
 	public void TakeOffTransitionAirborne(){
-		//print ("TEST STATE INFO NAME");
-		if (stateInfo.IsName ("JumpTakeOff")) {
-			animator.SetTrigger (TakeOffAirborneHash);
-			//print ("True");
-		}
 		
+		if (stateInfo.shortNameHash == JumpTakeOffState) {
+			animator.SetTrigger (TakeOffAirborneHash);			
+		}	
+
 	}
 
 	public void FoundLandingPos(Vector2 land){

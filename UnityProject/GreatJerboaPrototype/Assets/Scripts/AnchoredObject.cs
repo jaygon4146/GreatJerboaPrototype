@@ -6,7 +6,7 @@ public abstract class AnchoredObject : MonoBehaviour {
 
 	public GameObject anchor;
 	public float chainLength;
-	private Rigidbody2D rb;
+	public Rigidbody2D rb;
 
 	[Tooltip("Specifies at what percentage of tension the chain should retract")]
 	[Range(0f,1f)]

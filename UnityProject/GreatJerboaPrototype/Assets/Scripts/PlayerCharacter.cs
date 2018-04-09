@@ -50,7 +50,6 @@ public class PlayerCharacter : MonoBehaviour {
 		JAnimManager.SetMinMaxVelocity (minV, maxV);
 		JAnimManager.PassCurrentVelocity (PCUnitController2D.getVelocity());
 
-
 		if (!PCPhysicsForces.applyGravity) {
 			PCUnitController2D.setGravityScale (0);
 		}
