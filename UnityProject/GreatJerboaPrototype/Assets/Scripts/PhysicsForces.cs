@@ -19,7 +19,7 @@ public class PhysicsForces : MonoBehaviour {
 	[SerializeField]
 	private float jumpInitialGravity;
 	[SerializeField]
-	private Vector2 jumpVector;//{ public get; private set; }
+	private Vector2 jumpVector;
 	#endregion
 	//==============================================
 	#region MovementVariables
@@ -28,9 +28,6 @@ public class PhysicsForces : MonoBehaviour {
 	public float deceleration = 1f;
 	#endregion
 	//==============================================
-
-
-
 
 	void Awake(){
 		CalculateJumpForces ();

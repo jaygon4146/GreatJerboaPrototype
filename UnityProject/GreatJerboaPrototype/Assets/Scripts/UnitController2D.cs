@@ -72,4 +72,8 @@ public class UnitController2D : MonoBehaviour {
 	public Vector2 getVelocity(){
 		return unitRigidBody2D.velocity;
 	}
+
+	public Vector2 getClampVelocity(){
+		return maxVelocity ;
+	}
 }

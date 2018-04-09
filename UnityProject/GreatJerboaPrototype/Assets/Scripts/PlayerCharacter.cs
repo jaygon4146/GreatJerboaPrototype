@@ -5,12 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(UnitController2D))]
 [RequireComponent(typeof(PhysicsForces))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(JerboaAnimationManager))]
 
 public class PlayerCharacter : MonoBehaviour {
 
 	#region GameComponents
 	protected UnitController2D 	PCUnitController2D;
 	protected PhysicsForces 	PCPhysicsForces;
+	protected JerboaAnimationManager JAnimManager;
 	private Collider2D Collider;
 	#endregion
 
@@ -24,12 +26,10 @@ public class PlayerCharacter : MonoBehaviour {
 	private bool facingRight = true;
 	#endregion
 
-
-
-
 	void Awake(){
 		PCUnitController2D = GetComponent<UnitController2D> ();
 		PCPhysicsForces = GetComponent<PhysicsForces> ();
+		JAnimManager = GetComponent<JerboaAnimationManager> ();
 		Collider = GetComponent<Collider2D> ();
 	}
 
@@ -41,8 +41,15 @@ public class PlayerCharacter : MonoBehaviour {
 		HorizontalAction ();
 		VerticalAction ();
 
-		Vector2 maxV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity());
-		PCUnitController2D.setClampVelocity (maxV);
+
+		Vector2 clampV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity());
+		PCUnitController2D.setClampVelocity (clampV);
+
+		Vector2 maxV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpInitialVelocity ());
+		Vector2 minV = new Vector2 (-PCPhysicsForces.topSpeed, -PCPhysicsForces.getJumpMaxVelocity());
+		JAnimManager.SetMinMaxVelocity (minV, maxV);
+		JAnimManager.PassCurrentVelocity (PCUnitController2D.getVelocity());
+
 
 		if (!PCPhysicsForces.applyGravity) {
 			PCUnitController2D.setGravityScale (0);
@@ -58,14 +65,19 @@ public class PlayerCharacter : MonoBehaviour {
 			PCUnitController2D.setGravityScale (PCPhysicsForces.getJumpInitialGravity());
 			Vector2 jumpVector = PCPhysicsForces.getJumpVector ();
 			PCUnitController2D.addImpulse (jumpVector);
+			JAnimManager.JumpTakeOff ();
 			canCancelJump = true;
 		}
 
 		if (PlayerInput.Instance.Jump.Up && canCancelJump) {
 			PCUnitController2D.multiplyVelocityY (0.5f);
+			JAnimManager.TakeOffTransitionAirborne ();
 			canCancelJump = false;
 		}
+
+
 	}
+
 
 	void MoveAction(){
 		float inputDead = 0.01f;
@@ -123,6 +135,7 @@ public class PlayerCharacter : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D c){
 		if (c.collider.tag == "SolidPlatform") {
 			touchingPlatform = true;
+			JAnimManager.FoundLandingPos (Vector2.zero); //TESTING ONLY
 		}
 	}
 

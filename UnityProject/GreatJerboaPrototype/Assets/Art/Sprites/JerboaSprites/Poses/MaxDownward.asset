@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
-  m_Name: FeetTogetherBind
+  m_Name: MaxDownward
   m_EditorClassIdentifier: 
   m_PoseEntries:
   - path: Hip
-    localPosition: {x: -0.4, y: 0.1, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.33673272, w: 0.9416003}
+    localPosition: {x: -0.22600992, y: 0.4359934, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.043619405, w: 0.9990483}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/LowSpine
     localPosition: {x: 0.1, y: 9.313226e-10, z: 0}
@@ -42,15 +42,15 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/FThighBone
     localPosition: {x: -0.07923956, y: -0.02774061, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.37563917, w: 0.92676604}
+    localRotation: {x: 0, y: 0, z: -0.37651575, w: 0.92641026}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/FThighBone/FCalfBone
     localPosition: {x: 0.30139887, y: 0.000000018626451, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.9777288, w: 0.20987247}
+    localRotation: {x: 0, y: 0, z: -0.74881625, w: 0.66277766}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/FThighBone/FCalfBone/FFootBone
     localPosition: {x: 0.3765315, y: 0.000000029802322, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.8519661, w: 0.52359694}
+    localRotation: {x: 0, y: 0, z: 0.680096, w: 0.73312306}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/FThighBone/FCalfBone/FFootBone/FToeBone
     localPosition: {x: 0.32956773, y: -0.00000008940697, z: 0}
@@ -62,55 +62,55 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1
     localPosition: {x: 0.10000004, y: 0.000000007450581, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.028420597, w: 0.99959606}
+    localRotation: {x: 0, y: 0, z: 0.122662455, w: 0.99244845}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2
     localPosition: {x: 0.10000004, y: 0.000000007450581, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.029814405, w: 0.9995555}
+    localRotation: {x: 0, y: 0, z: 0.1253721, w: 0.99210984}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3
     localPosition: {x: 0.10000005, y: 0.000000044703484, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.030312186, w: 0.9995405}
+    localRotation: {x: 0, y: 0, z: 0.12557212, w: 0.9920845}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4
     localPosition: {x: 0.10000004, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.028459601, w: 0.9995949}
+    localRotation: {x: 0, y: 0, z: 0.1216258, w: 0.992576}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5
     localPosition: {x: 0.1000001, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.022941109, w: 0.99973685}
+    localRotation: {x: 0, y: 0, z: 0.11139243, w: 0.99377656}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6
     localPosition: {x: 0.100000024, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.011370492, w: 0.9999354}
+    localRotation: {x: 0, y: 0, z: 0.0923624, w: 0.99572545}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7
     localPosition: {x: 0.10000025, y: 0.000000059604645, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.00837227, w: 0.999965}
+    localRotation: {x: 0, y: 0, z: 0.0628727, w: 0.99802154}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8
     localPosition: {x: 0.10000022, y: 0.000000059604645, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.0391073, w: 0.9992351}
+    localRotation: {x: 0, y: 0, z: 0.021262955, w: 0.999774}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9
     localPosition: {x: 0.10000014, y: -0.000000059604645, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.080765165, w: 0.9967331}
+    localRotation: {x: 0, y: 0, z: -0.029805338, w: 0.99955577}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10
     localPosition: {x: 0.10000013, y: -0.00000011920929, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.12394715, w: 0.9922888}
+    localRotation: {x: 0, y: 0, z: -0.079130776, w: 0.99686426}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11
     localPosition: {x: 0.10000016, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.14755408, w: 0.989054}
+    localRotation: {x: 0, y: 0, z: -0.11290964, w: 0.99360526}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12
     localPosition: {x: 0.10000014, y: 0, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.018019551, w: 0.99983764}
+    localRotation: {x: 0, y: 0, z: -0.060178492, w: 0.99818766}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/TailTip
     localPosition: {x: 0.1000004, y: 0.00000011920929, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.26257646, w: 0.9649112}
+    localRotation: {x: 0, y: 0, z: 0.029980691, w: 0.9995505}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/TailRoot/T1/T2/T3/T4/T5/T6/T7/T8/T9/T10/T11/T12/TailTip/T14
     localPosition: {x: 0.1000004, y: 0.00000011920929, z: 0}
@@ -126,15 +126,15 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/BThighBone
     localPosition: {x: -0.07923956, y: -0.02774061, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.3753495, w: 0.9268834}
+    localRotation: {x: 0, y: 0, z: -0.37660858, w: 0.9263725}
     localScale: {x: 1.0000001, y: 1.0000001, z: 1}
   - path: Hip/BThighBone/BCalfBone
     localPosition: {x: 0.30139887, y: 0.000000018626451, z: 0}
-    localRotation: {x: 0, y: 0, z: -0.9776846, w: 0.21007821}
+    localRotation: {x: 0, y: 0, z: -0.74838907, w: 0.6632601}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/BThighBone/BCalfBone/BFootBone
     localPosition: {x: 0.3765315, y: 0.000000029802322, z: 0}
-    localRotation: {x: 0, y: 0, z: 0.8516086, w: 0.5241783}
+    localRotation: {x: 0, y: 0, z: 0.67948645, w: 0.73368806}
     localScale: {x: 1, y: 1, z: 1}
   - path: Hip/BThighBone/BCalfBone/BFootBone/BToeBone
     localPosition: {x: 0.32956773, y: -0.00000008940697, z: 0}
