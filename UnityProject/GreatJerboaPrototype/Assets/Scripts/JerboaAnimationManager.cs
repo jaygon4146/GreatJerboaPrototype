@@ -44,7 +44,7 @@ public class JerboaAnimationManager : MonoBehaviour {
 		if (HorizontalMagnitude < 0)
 			HorizontalMagnitude *= -1;
 		animator.SetFloat (HMagnitudeHash, HorizontalMagnitude);
-
+		////
 	}
 
 	public void PassCurrentVelocity(Vector2 current){
@@ -61,10 +61,10 @@ public class JerboaAnimationManager : MonoBehaviour {
 	}
 
 	public void TakeOffTransitionAirborne(){
-		print ("TEST STATE INFO NAME");
+		//print ("TEST STATE INFO NAME");
 		if (stateInfo.IsName ("JumpTakeOff")) {
 			animator.SetTrigger (TakeOffAirborneHash);
-			print ("True");
+			//print ("True");
 		}
 		
 	}
