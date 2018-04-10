@@ -72,6 +72,9 @@ public class FeetAnchor : AnchoredObject {
 		if (rayHit.collider != null) {
 			visibleGroundRay.drawColor = Color.green;
 			visibleGroundPoint.updateVectors (pos + Vector2.right, rayHit.point);
+
+			//
+
 			//transform.position = rayHit.point;
 		}
 		else{
