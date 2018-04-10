@@ -74,7 +74,6 @@ public class PlayerCharacter : MonoBehaviour {
 			canCancelJump = false;
 		}
 
-
 	}
 
 

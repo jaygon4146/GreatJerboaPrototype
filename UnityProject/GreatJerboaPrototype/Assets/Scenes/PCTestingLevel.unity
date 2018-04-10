@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Length: 0.32956803
+  m_Length: 0.32956785
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 1870714026}
   m_AttachedIK: {fileID: 859092641}
@@ -933,6 +933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anchor: {fileID: 1037520444}
   chainLength: 1.6
+  rb: {fileID: 0}
   chainStretch: 0.5
   elasticMagnitude: 1
   LocalToAnchor: {x: 0, y: 0}
@@ -1299,7 +1300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 0.49459347, b: 0.16176474, a: 1}
-  m_Length: 0.32956773
+  m_Length: 0.32956785
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 199722080}
   m_AttachedIK: {fileID: 1941840044}
@@ -3183,6 +3184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anchor: {fileID: 1080527983}
   chainLength: 2
+  rb: {fileID: 0}
   chainStretch: 0.5
   elasticMagnitude: 1
   LocalToAnchor: {x: 0, y: 0}
@@ -3983,6 +3985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anchor: {fileID: 231139523}
   chainLength: 1
+  rb: {fileID: 0}
   chainStretch: 1
   elasticMagnitude: 0
   LocalToAnchor: {x: 0, y: 0}
@@ -3991,6 +3994,8 @@ MonoBehaviour:
   directionToAnchor: {x: 0, y: 0}
   clampMaxLerp: {x: 0, y: 0}
   clampMinLerp: {x: 0, y: -1}
+  calcVelocity: {x: 0, y: 0}
+  pullingToGround: 0
   debugging: 1
   PlatformLayer:
     serializedVersion: 2
@@ -4677,6 +4682,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentVelocity: {x: 0, y: 0}
+  FrontFootTarget: {fileID: 859092639}
+  BackFootTarget: {fileID: 1941840042}
+  FeetAnchoredObj: {fileID: 1825912329}
+  AnchorFeetY: 0
+  debugging: 1
 --- !u!1 &1920632855
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,7 +5493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 0, g: 1, b: 1, a: 1}
-  m_Length: 0.100000285
+  m_Length: 0.10000043
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 1048048563}
   m_AttachedIK: {fileID: 293058899}

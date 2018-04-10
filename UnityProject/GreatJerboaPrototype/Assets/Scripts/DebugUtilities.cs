@@ -87,4 +87,51 @@ namespace DebugUtilities{
 		}
 
 	}
+
+
+
+	[Serializable]
+	public class VisibleBool{
+		public bool isTrue;
+
+		public Vector2 drawOrigin = Vector2.zero;
+
+		public Color trueColor = Color.green;
+		public Color falseColor = Color.red;
+
+		private bool debugging = false;
+
+		public VisibleBool(){
+
+		}
+
+		public void turnOn(){
+			debugging = true;
+		}
+		public void turnOff(){
+			debugging = false;
+		}
+
+		public void updateValue(bool b){
+			isTrue = b;
+
+			if (debugging) {
+				drawBoolLine ();
+			}
+
+		}
+
+		private void drawBoolLine(){
+			Color drawColor = falseColor;
+
+			if (isTrue)
+				drawColor = trueColor;
+			
+			Debug.DrawLine (drawOrigin, drawOrigin + Vector2.down * 5, drawColor);
+		}
+	}
+
+
+
+
 }

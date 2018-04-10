@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DebugUtilities;
 
 [RequireComponent(typeof(Animator))]
 
@@ -29,15 +30,36 @@ public class JerboaAnimationManager : MonoBehaviour {
 
 	private static int JumpTakeOffState = Animator.StringToHash ("JumpTakeOff");
 
+	public GameObject FrontFootTarget;
+	public GameObject BackFootTarget;
+	public FeetAnchor FeetAnchoredObj;
+	public bool AnchorFeetY = false;
+	private VisibleBool VisAnchorFeetY = new VisibleBool();
+
+	public bool debugging = false;
 
 	void Awake(){
 		animator = GetComponent<Animator> ();
+
+		if (debugging)
+			VisAnchorFeetY.turnOn ();
+
 	}
 
 	void FixedUpdate(){
 		stateInfo = animator.GetCurrentAnimatorStateInfo (0);
 		UpdateAnimatorVariables ();
 
+		if (AnchorFeetY) {
+			AdjustFeetVertical ();
+		}
+		FeetAnchoredObj.SetPullingToGround (AnchorFeetY);
+
+		if (debugging) {
+			Vector2 pos = transform.position;
+			VisAnchorFeetY.drawOrigin = pos + new Vector2 (4, 2);
+			VisAnchorFeetY.updateValue (AnchorFeetY);
+		}
 
 		/*
 		if (stateInfo.shortNameHash == JumpTakeOffState) {
@@ -69,6 +91,14 @@ public class JerboaAnimationManager : MonoBehaviour {
 
 	}
 
+	void AdjustFeetVertical(){
+		Vector2 f = new Vector2 (FrontFootTarget.transform.position.x, FeetAnchoredObj.transform.position.y);
+		Vector2 b = new Vector2 (BackFootTarget.transform.position.x, FeetAnchoredObj.transform.position.y);
+
+		FrontFootTarget.transform.position = f;
+		BackFootTarget.transform.position = b;
+	}
+
 	public void PassCurrentVelocity(Vector2 current){
 		CurrentVelocity = current;
 	}
@@ -82,12 +112,13 @@ public class JerboaAnimationManager : MonoBehaviour {
 		animator.SetTrigger(BeginJumpHash);
 	}
 
-	public void TakeOffTransitionAirborne(){
-		
-		if (stateInfo.shortNameHash == JumpTakeOffState) {
-			animator.SetTrigger (TakeOffAirborneHash);			
-		}	
+	public void TakeOffTransitionAirborne(){		
 
+		FeetAnchoredObj.UpdateJumpVelocity ();
+
+		if (stateInfo.shortNameHash == JumpTakeOffState) {
+			animator.SetTrigger (TakeOffAirborneHash);
+		}	
 	}
 
 	public void FoundLandingPos(Vector2 land){
