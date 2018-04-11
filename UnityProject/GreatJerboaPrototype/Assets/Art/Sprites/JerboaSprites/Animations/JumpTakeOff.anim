@@ -70,7 +70,7 @@ AnimationClip:
         outSlope: Infinity
         tangentMode: 103
       - serializedVersion: 2
-        time: 0.2
+        time: 0.33333334
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -78,7 +78,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: AnchorFeetY
+    attribute: isJumping
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 851e94db1ae41654091e7bce70b4751c, type: 3}
@@ -106,7 +106,7 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 0
-      attribute: 573055768
+      attribute: 3937489530
       script: {fileID: 11500000, guid: 851e94db1ae41654091e7bce70b4751c, type: 3}
       typeID: 114
       customType: 0
@@ -275,7 +275,7 @@ AnimationClip:
         outSlope: Infinity
         tangentMode: 103
       - serializedVersion: 2
-        time: 0.2
+        time: 0.33333334
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -283,7 +283,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: AnchorFeetY
+    attribute: isJumping
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 851e94db1ae41654091e7bce70b4751c, type: 3}

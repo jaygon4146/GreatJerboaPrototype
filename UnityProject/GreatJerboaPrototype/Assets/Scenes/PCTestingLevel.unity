@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Length: 0.32956785
+  m_Length: 0.32956803
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 1870714026}
   m_AttachedIK: {fileID: 859092641}
@@ -728,7 +728,7 @@ GameObject:
   m_Layer: 10
   m_Name: FeetAnchor
   m_TagString: Untagged
-  m_Icon: {fileID: 6926474624037801865, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 0.49459347, b: 0.16176474, a: 1}
-  m_Length: 0.32956785
+  m_Length: 0.32956773
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 199722080}
   m_AttachedIK: {fileID: 1941840044}
@@ -3995,7 +3995,7 @@ MonoBehaviour:
   clampMaxLerp: {x: 0, y: 0}
   clampMinLerp: {x: 0, y: -1}
   calcVelocity: {x: 0, y: 0}
-  pullingToGround: 0
+  isJumping: 0
   debugging: 1
   PlatformLayer:
     serializedVersion: 2
@@ -4606,7 +4606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applyGravity: 1
   jumpHeight: 35
-  jumpTime: 5
+  jumpTime: 10
   jumpFallingMultiplier: 2.5
   jumpInitialVelocity: 0
   jumpMaxVelocity: 0
@@ -4686,6 +4686,7 @@ MonoBehaviour:
   BackFootTarget: {fileID: 1941840042}
   FeetAnchoredObj: {fileID: 1825912329}
   AnchorFeetY: 0
+  isJumping: 0
   debugging: 1
 --- !u!1 &1920632855
 GameObject:
@@ -5493,7 +5494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 0, g: 1, b: 1, a: 1}
-  m_Length: 0.10000043
+  m_Length: 0.100000285
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 1048048563}
   m_AttachedIK: {fileID: 293058899}
