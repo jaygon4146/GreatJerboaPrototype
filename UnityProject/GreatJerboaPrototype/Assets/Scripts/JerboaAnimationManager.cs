@@ -34,7 +34,8 @@ public class JerboaAnimationManager : MonoBehaviour {
 	public GameObject BackFootTarget;
 	public FeetAnchor FeetAnchoredObj;
 	public bool AnchorFeetY = false;
-	private VisibleBool VisAnchorFeetY = new VisibleBool();
+	public bool isJumping = false;
+	private VisibleBool VisIsJumping = new VisibleBool();
 
 	public bool debugging = false;
 
@@ -42,7 +43,7 @@ public class JerboaAnimationManager : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 
 		if (debugging)
-			VisAnchorFeetY.turnOn ();
+			VisIsJumping.turnOn ();
 
 	}
 
@@ -50,15 +51,20 @@ public class JerboaAnimationManager : MonoBehaviour {
 		stateInfo = animator.GetCurrentAnimatorStateInfo (0);
 		UpdateAnimatorVariables ();
 
-		if (AnchorFeetY) {
-			AdjustFeetVertical ();
+		if (isJumping) {
+			//AdjustFeetVertical ();
 		}
-		FeetAnchoredObj.SetPullingToGround (AnchorFeetY);
+
+		//FeetAnchoredObj.SetPullingToGround (AnchorFeetY);
+		FeetAnchoredObj.SetIsJumping (isJumping);
+		FeetAnchoredObj.PassCurrentVelocity (CurrentVelocity);
+
 
 		if (debugging) {
 			Vector2 pos = transform.position;
-			VisAnchorFeetY.drawOrigin = pos + new Vector2 (4, 2);
-			VisAnchorFeetY.updateValue (AnchorFeetY);
+			VisIsJumping.drawOrigin = pos + new Vector2 (4, 2);
+			VisIsJumping.updateValue (isJumping);
+			VisIsJumping.drawBoolLine ();
 		}
 
 		/*
@@ -112,13 +118,15 @@ public class JerboaAnimationManager : MonoBehaviour {
 		animator.SetTrigger(BeginJumpHash);
 	}
 
-	public void TakeOffTransitionAirborne(){		
-
-		FeetAnchoredObj.UpdateJumpVelocity ();
-
+	public void TakeOffTransitionAirborne(){	
 		if (stateInfo.shortNameHash == JumpTakeOffState) {
 			animator.SetTrigger (TakeOffAirborneHash);
 		}	
+	}
+
+	public void JumpCancelEarly(){
+		FeetAnchoredObj.BeginRetractingUp ();
+		TakeOffTransitionAirborne ();
 	}
 
 	public void FoundLandingPos(Vector2 land){

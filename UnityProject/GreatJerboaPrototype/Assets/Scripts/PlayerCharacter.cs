@@ -70,7 +70,8 @@ public class PlayerCharacter : MonoBehaviour {
 
 		if (PlayerInput.Instance.Jump.Up && canCancelJump) {
 			PCUnitController2D.multiplyVelocityY (0.5f);
-			JAnimManager.TakeOffTransitionAirborne ();
+			//JAnimManager.TakeOffTransitionAirborne ();
+			JAnimManager.JumpCancelEarly ();
 			canCancelJump = false;
 		}
 

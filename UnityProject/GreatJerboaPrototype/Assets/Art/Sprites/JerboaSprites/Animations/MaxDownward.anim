@@ -72,7 +72,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: AnchorFeetY
+    attribute: isJumping
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 851e94db1ae41654091e7bce70b4751c, type: 3}
@@ -86,7 +86,7 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 573055768
+      attribute: 3937489530
       script: {fileID: 11500000, guid: 851e94db1ae41654091e7bce70b4751c, type: 3}
       typeID: 114
       customType: 0
@@ -277,7 +277,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: AnchorFeetY
+    attribute: isJumping
     path: 
     classID: 114
     script: {fileID: 11500000, guid: 851e94db1ae41654091e7bce70b4751c, type: 3}

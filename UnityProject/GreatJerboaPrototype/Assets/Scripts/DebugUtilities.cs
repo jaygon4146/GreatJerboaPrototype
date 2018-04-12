@@ -21,9 +21,6 @@ namespace DebugUtilities{
 
 		public void updateValue(float v){
 			currentValue = v;
-			if (debugging) {
-				drawFloatTimeLine ();
-			}
 		}
 
 		public void turnOn(){
@@ -34,30 +31,36 @@ namespace DebugUtilities{
 			debugging = false;
 		}
 
-		private void drawFloatTimeLine(){
-			for (int i = valueArray.Length - 1; i > 0; i--) {
-				valueArray [i] = valueArray [i - 1];
-			}
-			valueArray [0] = currentValue;
+		public void drawFloatTimeLine(){
+			if (debugging) {
+				for (int i = valueArray.Length - 1; i > 0; i--) {
+					valueArray [i] = valueArray [i - 1];
+				}
+				valueArray [0] = currentValue;
 
-			Vector2 prevPos = drawOrigin;
-			Vector2 thisPos = prevPos;
+				Vector2 prevPos = drawOrigin;
+				Vector2 thisPos = prevPos;
 
-			for (int i = 0; i < valueArray.Length; i++) {
-				float y = valueArray [i];
-				thisPos.y = y + drawOrigin.y;
-				thisPos.x = (-i / drawSize) + drawOrigin.x;
-				Debug.DrawLine (prevPos, thisPos, drawColor);
-				prevPos = thisPos;
+				for (int i = 0; i < valueArray.Length; i++) {
+					float y = valueArray [i];
+					thisPos.y = y + drawOrigin.y;
+					thisPos.x = (-i / drawSize) + drawOrigin.x;
+					Debug.DrawLine (prevPos, thisPos, drawColor);
+					prevPos = thisPos;
+				}
 			}
+		}
+
+		public float getValue(){
+			return currentValue;
 		}
 	}
 
 
 	[Serializable]
 	public class VisibleVector2{
-		public Vector2 start;
-		public Vector2 end;
+		private Vector2 start;
+		private Vector2 end;
 
 		public Color drawColor = Color.red;
 
@@ -78,13 +81,21 @@ namespace DebugUtilities{
 		public void updateVectors(Vector2 s, Vector2 e){
 			start = s;
 			end = e;
-			if (debugging)
-				drawDebugLine ();
+			drawDebugLine ();
 		}
 
-		private void drawDebugLine(){
+		public void drawDebugLine(){
+			if (debugging)
 			Debug.DrawLine (start, end, drawColor);
 		}
+
+		public Vector2 getStart(){
+			return start;
+		}
+		public Vector2 getEnd(){
+			return end;
+		}
+
 
 	}
 
@@ -92,7 +103,7 @@ namespace DebugUtilities{
 
 	[Serializable]
 	public class VisibleBool{
-		public bool isTrue;
+		private bool isTrue;
 
 		public Vector2 drawOrigin = Vector2.zero;
 
@@ -114,20 +125,20 @@ namespace DebugUtilities{
 
 		public void updateValue(bool b){
 			isTrue = b;
-
-			if (debugging) {
-				drawBoolLine ();
-			}
-
 		}
 
-		private void drawBoolLine(){
+		public void drawBoolLine(){
 			Color drawColor = falseColor;
 
 			if (isTrue)
 				drawColor = trueColor;
 			
 			Debug.DrawLine (drawOrigin, drawOrigin + Vector2.down * 5, drawColor);
+		}
+
+
+		public bool getValue(){
+			return isTrue;
 		}
 	}
 
