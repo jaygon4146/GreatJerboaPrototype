@@ -28,12 +28,16 @@ public class FeetAnchor : AnchoredObject {
 	private Vector2 upwardStartOffset;
 
 	private Vector2 downwardStartPos;
+	private Vector2 landingWorldPos;
+
 	//private float fallingImpactHeight;
 
 	[SerializeField]
 	private bool retractingUp = false;
 	[SerializeField]
 	private bool extendingDown = false;
+
+	private bool touchingGround = false;
 
 	#region DebugUtilities
 
@@ -94,6 +98,7 @@ public class FeetAnchor : AnchoredObject {
 		if (isJumping) {
 			if (currentVelocity.y >= 0) {
 				GoingUp ();
+				touchingGround = false;
 				extendingDown = false;
 			} else {
 				GoingDown ();
@@ -176,6 +181,7 @@ public class FeetAnchor : AnchoredObject {
 	}
 
 	private void GoingUp(){
+		
 		Vector2 destination = myPos;
 		Vector2 fromPos = myPos;
 
@@ -220,6 +226,7 @@ public class FeetAnchor : AnchoredObject {
 		Vector2 groundPoint = getRayCastPoint ();
 
 		if (extendingDown) {
+			landingWorldPos = groundPoint;
 			float startingDistToGround = downwardStartPos.y - groundPoint.y;
 			float impactDistToGround = startingDistToGround * 0.5f;
 			float currentDistToGround = anchorPos.y - groundPoint.y;
@@ -233,6 +240,9 @@ public class FeetAnchor : AnchoredObject {
 			if (dY < groundPoint.y) {
 				//if our destination is below the ground, put it on the ground
 				dY = groundPoint.y;
+				touchingGround = true;
+			} else {
+				touchingGround = false;
 			}
 
 			destination = new Vector2 (anchorPos.x, dY);
@@ -251,7 +261,9 @@ public class FeetAnchor : AnchoredObject {
 			}
 			else{
 				destination = anchorPos;
+				touchingGround = false;
 			}
+
 			#endregion
 		}
 		downwardADebug.updateVectors (anchorPos + Vector2.right * 1.5f, fromPos);
@@ -286,5 +298,13 @@ public class FeetAnchor : AnchoredObject {
 
 	public void PassCurrentVelocity(Vector2 v){
 		currentVelocity = v;
+	}
+
+	public bool isExtendingDown(){
+		return extendingDown;
+	}
+
+	public bool isTouchingGround(){
+		return touchingGround;
 	}
 }

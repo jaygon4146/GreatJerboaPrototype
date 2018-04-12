@@ -74,9 +74,7 @@ public class PlayerCharacter : MonoBehaviour {
 			JAnimManager.JumpCancelEarly ();
 			canCancelJump = false;
 		}
-
 	}
-
 
 	void MoveAction(){
 		float inputDead = 0.01f;
@@ -134,7 +132,7 @@ public class PlayerCharacter : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D c){
 		if (c.collider.tag == "SolidPlatform") {
 			touchingPlatform = true;
-			JAnimManager.FoundLandingPos (Vector2.zero); //TESTING ONLY
+			//JAnimManager.FoundLandingPos (Vector2.zero); //TESTING ONLY
 		}
 	}
 

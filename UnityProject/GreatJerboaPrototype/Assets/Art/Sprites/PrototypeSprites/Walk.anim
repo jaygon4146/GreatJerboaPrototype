@@ -56,169 +56,89 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 0.08495848, y: -0.375, z: 0}
+        value: {x: 0.29348487, y: 0, z: 0}
         inSlope: {x: -0.35643578, y: -0, z: 0}
         outSlope: {x: -1.1201496, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.35
-        value: {x: -0.30709386, y: -0.375, z: 0}
+        value: {x: -0.098567486, y: 0, z: 0}
         inSlope: {x: -1.1201496, y: 0, z: 0}
         outSlope: {x: -1.3908318, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.38333333
-        value: {x: -0.35345492, y: -0.35406148, z: 0}
-        inSlope: {x: 0, y: 1.1470666, z: 0}
-        outSlope: {x: 0, y: 1.1470666, z: 0}
+        value: {x: -0.14492854, y: 0.021559978, z: 0}
+        inSlope: {x: 0, y: 1.1811118, z: 0}
+        outSlope: {x: 0, y: 1.1811118, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.5
-        value: {x: -0.12652597, y: -0.20908497, z: 0}
-        inSlope: {x: 2.9176576, y: 0, z: 0}
-        outSlope: {x: 2.9176576, y: 0, z: 0}
+        value: {x: 0.08200039, y: 0.17083941, z: 0}
+        inSlope: {x: 2.9176574, y: 0, z: 0}
+        outSlope: {x: 2.9176574, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.6166667
-        value: {x: 0.100402966, y: -0.31477284, z: 0}
-        inSlope: {x: 0, y: -1.3240017, z: 0}
-        outSlope: {x: 0, y: -1.3240017, z: 0}
+        value: {x: 0.30892932, y: 0.06201472, z: 0}
+        inSlope: {x: 0, y: -1.3632983, z: 0}
+        outSlope: {x: 0, y: -1.3632983, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.6666667
-        value: {x: 0.08495848, y: -0.375, z: 0}
-        inSlope: {x: -0.35643578, y: -0.9954901, z: 0}
+        value: {x: 0.29348487, y: 0, z: 0}
+        inSlope: {x: -0.35643578, y: -1.0250363, z: 0}
         outSlope: {x: -0.7841047, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: IKTargets/FFootTarget
+    path: IKTargets/FFootTargetHolder/FFootTarget
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: -0.30709386, y: -0.375, z: 0}
+        value: {x: -0.098567486, y: 0, z: 0}
         inSlope: {x: -0.09418774, y: 0, z: 0}
         outSlope: {x: -0.9272212, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.05
-        value: {x: -0.35345492, y: -0.331985, z: 0}
-        inSlope: {x: 0, y: 1.4748001, z: 0}
-        outSlope: {x: 0, y: 1.4748001, z: 0}
+        value: {x: -0.14492854, y: 0.044291694, z: 0}
+        inSlope: {x: 0, y: 1.5185724, z: 0}
+        outSlope: {x: 0, y: 1.5185724, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.15
-        value: {x: -0.17482279, y: -0.20908497, z: 0}
-        inSlope: {x: 2.858114, y: 0, z: 0}
-        outSlope: {x: 2.858114, y: 0, z: 0}
+        value: {x: 0.03370358, y: 0.17083941, z: 0}
+        inSlope: {x: 2.8581135, y: 0, z: 0}
+        outSlope: {x: 2.8581135, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.28333333
-        value: {x: 0.100402966, y: -0.30740502, z: 0}
-        inSlope: {x: 0, y: -1.1061002, z: 0}
-        outSlope: {x: 0, y: -1.1061002, z: 0}
+        value: {x: 0.30892932, y: 0.06960122, z: 0}
+        inSlope: {x: 0, y: -1.1389292, z: 0}
+        outSlope: {x: 0, y: -1.1389292, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.35
-        value: {x: 0.08495848, y: -0.375, z: 0}
-        inSlope: {x: -0.35643578, y: -0.8295752, z: 0}
+        value: {x: 0.29348487, y: 0, z: 0}
+        inSlope: {x: -0.35643578, y: -0.85419714, z: 0}
         outSlope: {x: -1.23806, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.6666667
-        value: {x: -0.30709386, y: -0.375, z: 0}
+        value: {x: -0.098567486, y: 0, z: 0}
         inSlope: {x: -1.23806, y: 0, z: 0}
         outSlope: {x: 0.09418774, y: 0, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: IKTargets/BFootTarget
+    path: IKTargets/BFootTargetHolder/BFootTarget
   m_ScaleCurves: []
-  m_FloatCurves:
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.16666667
-        value: 0.9717997
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.35
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.9717997
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.6666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_Weight
-    path: IKTargets/BalloonTarget
-    classID: 114
-    script: {fileID: 11500000, guid: 315ee65f910e84c6c8c8b891a9513484, type: 3}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0.5
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.16666667
-        value: 0.60202205
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.35
-        value: 0.5
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.5
-        value: 0.60202205
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.6666667
-        value: 0.5
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: damping
-    path: IKTargets/BalloonTarget
-    classID: 114
-    script: {fileID: 11500000, guid: 315ee65f910e84c6c8c8b891a9513484, type: 3}
+  m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -228,14 +148,14 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3812819526
+      path: 606306628
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1402630596
+      path: 3281293335
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -247,20 +167,6 @@ AnimationClip:
       script: {fileID: 0}
       typeID: 4
       customType: 4
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 364008925
-      attribute: 1257374345
-      script: {fileID: 11500000, guid: 315ee65f910e84c6c8c8b891a9513484, type: 3}
-      typeID: 114
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 364008925
-      attribute: 1141783146
-      script: {fileID: 11500000, guid: 315ee65f910e84c6c8c8b891a9513484, type: 3}
-      typeID: 114
-      customType: 0
       isPPtrCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
@@ -284,192 +190,6 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0.08495848
-        inSlope: -0.35643578
-        outSlope: -1.1201496
-        tangentMode: 65
-      - serializedVersion: 2
-        time: 0.35
-        value: -0.30709386
-        inSlope: -1.1201496
-        outSlope: -1.3908318
-        tangentMode: 69
-      - serializedVersion: 2
-        time: 0.38333333
-        value: -0.35345492
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.6166667
-        value: 0.100402966
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.6666667
-        value: 0.08495848
-        inSlope: -0.35643578
-        outSlope: -0.7841047
-        tangentMode: 65
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.x
-    path: IKTargets/FFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: -0.375
-        inSlope: -0
-        outSlope: 0
-        tangentMode: 69
-      - serializedVersion: 2
-        time: 0.35
-        value: -0.375
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.5
-        value: -0.20908497
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.6666667
-        value: -0.375
-        inSlope: -0.9954901
-        outSlope: 0
-        tangentMode: 69
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.y
-    path: IKTargets/FFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0.35
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.z
-    path: IKTargets/FFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: -0.30709386
-        inSlope: -0.09418774
-        outSlope: -0.9272212
-        tangentMode: 69
-      - serializedVersion: 2
-        time: 0.05
-        value: -0.35345492
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.28333333
-        value: 0.100402966
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.35
-        value: 0.08495848
-        inSlope: -0.35643578
-        outSlope: -1.23806
-        tangentMode: 65
-      - serializedVersion: 2
-        time: 0.6666667
-        value: -0.30709386
-        inSlope: -1.23806
-        outSlope: 0.09418774
-        tangentMode: 69
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.x
-    path: IKTargets/BFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: -0.375
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.15
-        value: -0.20908497
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.35
-        value: -0.375
-        inSlope: -0.8295752
-        outSlope: 0
-        tangentMode: 69
-      - serializedVersion: 2
-        time: 0.6666667
-        value: -0.375
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.y
-    path: IKTargets/BFootTarget
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.6666667
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.z
-    path: IKTargets/BFootTarget
-    classID: 4
-    script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -595,81 +315,205 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.16666667
-        value: 0.9717997
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        value: 0.29348487
+        inSlope: -0.35643578
+        outSlope: -1.1201496
+        tangentMode: 65
       - serializedVersion: 2
         time: 0.35
-        value: 1
+        value: -0.098567486
+        inSlope: -1.1201496
+        outSlope: -1.3908318
+        tangentMode: 69
+      - serializedVersion: 2
+        time: 0.38333333
+        value: -0.14492854
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.5
-        value: 0.9717997
+        time: 0.6166667
+        value: 0.30892932
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.6666667
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        value: 0.29348487
+        inSlope: -0.35643578
+        outSlope: -0.7841047
+        tangentMode: 65
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_Weight
-    path: IKTargets/BalloonTarget
-    classID: 114
-    script: {fileID: 11500000, guid: 315ee65f910e84c6c8c8b891a9513484, type: 3}
+    attribute: m_LocalPosition.x
+    path: IKTargets/FFootTargetHolder/FFootTarget
+    classID: 4
+    script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.5
-        inSlope: 0
+        value: 0
+        inSlope: -0
         outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.16666667
-        value: 0.60202205
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        tangentMode: 69
       - serializedVersion: 2
         time: 0.35
-        value: 0.5
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.5
-        value: 0.60202205
+        value: 0.17083941
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.6666667
-        value: 0.5
+        value: 0
+        inSlope: -1.0250363
+        outSlope: 0
+        tangentMode: 69
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: IKTargets/FFootTargetHolder/FFootTarget
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.35
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.6666667
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: damping
-    path: IKTargets/BalloonTarget
-    classID: 114
-    script: {fileID: 11500000, guid: 315ee65f910e84c6c8c8b891a9513484, type: 3}
+    attribute: m_LocalPosition.z
+    path: IKTargets/FFootTargetHolder/FFootTarget
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -0.098567486
+        inSlope: -0.09418774
+        outSlope: -0.9272212
+        tangentMode: 69
+      - serializedVersion: 2
+        time: 0.05
+        value: -0.14492854
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.28333333
+        value: 0.30892932
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.35
+        value: 0.29348487
+        inSlope: -0.35643578
+        outSlope: -1.23806
+        tangentMode: 65
+      - serializedVersion: 2
+        time: 0.6666667
+        value: -0.098567486
+        inSlope: -1.23806
+        outSlope: 0.09418774
+        tangentMode: 69
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: IKTargets/BFootTargetHolder/BFootTarget
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.15
+        value: 0.17083941
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.35
+        value: 0
+        inSlope: -0.85419714
+        outSlope: 0
+        tangentMode: 69
+      - serializedVersion: 2
+        time: 0.6666667
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: IKTargets/BFootTargetHolder/BFootTarget
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.35
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.6666667
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: IKTargets/BFootTargetHolder/BFootTarget
+    classID: 4
+    script: {fileID: 0}
   m_EulerEditorCurves:
   - curve:
       serializedVersion: 2

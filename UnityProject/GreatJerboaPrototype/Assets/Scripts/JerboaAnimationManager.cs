@@ -29,35 +29,53 @@ public class JerboaAnimationManager : MonoBehaviour {
 	private static int LandedHash = Animator.StringToHash("Landed");
 
 	private static int JumpTakeOffState = Animator.StringToHash ("JumpTakeOff");
+	private static int AirborneTreeState = Animator.StringToHash ("AirborneTree");
 
-	public GameObject FrontFootTarget;
-	public GameObject BackFootTarget;
+	//public GameObject FrontFootTarget;
+	//public GameObject BackFootTarget;
+	public FootIKTarget FFIKTarget;
+	public FootIKTarget BFIKTarget;
+
 	public FeetAnchor FeetAnchoredObj;
 	public bool AnchorFeetY = false;
 	public bool isJumping = false;
-	private VisibleBool VisIsJumping = new VisibleBool();
 
 	public bool debugging = false;
+
+	private VisibleBool VisIsJumping = new VisibleBool();
+	private VisibleVector2 FrontFootDebug = new VisibleVector2 ();
+	private VisibleVector2 BackFootDebug = new VisibleVector2 ();
 
 	void Awake(){
 		animator = GetComponent<Animator> ();
 
-		if (debugging)
-			VisIsJumping.turnOn ();
 
+		if (debugging) {
+			VisIsJumping.turnOn ();
+			FrontFootDebug.drawColor = Color.red;
+			FrontFootDebug.turnOn ();
+			BackFootDebug.drawColor = Color.cyan;
+			BackFootDebug.turnOn();
+		}
 	}
 
 	void FixedUpdate(){
 		stateInfo = animator.GetCurrentAnimatorStateInfo (0);
 		UpdateAnimatorVariables ();
 
-		if (isJumping) {
-			//AdjustFeetVertical ();
-		}
-
-		//FeetAnchoredObj.SetPullingToGround (AnchorFeetY);
 		FeetAnchoredObj.SetIsJumping (isJumping);
 		FeetAnchoredObj.PassCurrentVelocity (CurrentVelocity);
+
+		if (isJumping) {
+			AdjustFeetVertical ();
+			if (FeetAnchoredObj.isExtendingDown () && FeetAnchoredObj.isTouchingGround()) {
+				TouchDown ();
+			}
+		}
+
+		if (!isJumping) {
+			AdjustFeetVertical ();
+		}
 
 
 		if (debugging) {
@@ -65,14 +83,10 @@ public class JerboaAnimationManager : MonoBehaviour {
 			VisIsJumping.drawOrigin = pos + new Vector2 (4, 2);
 			VisIsJumping.updateValue (isJumping);
 			VisIsJumping.drawBoolLine ();
-		}
 
-		/*
-		if (stateInfo.shortNameHash == JumpTakeOffState) {
-			print ("ShortNameHash; JumpTakeOffState");
+			FrontFootDebug.drawDebugLine ();
+			BackFootDebug.drawDebugLine ();
 		}
-		*/
-
 	}
 
 	void UpdateAnimatorVariables(){
@@ -98,11 +112,15 @@ public class JerboaAnimationManager : MonoBehaviour {
 	}
 
 	void AdjustFeetVertical(){
-		Vector2 f = new Vector2 (FrontFootTarget.transform.position.x, FeetAnchoredObj.transform.position.y);
-		Vector2 b = new Vector2 (BackFootTarget.transform.position.x, FeetAnchoredObj.transform.position.y);
+		Vector2 f = new Vector2 (FFIKTarget.transform.position.x, FeetAnchoredObj.transform.position.y);
+		Vector2 b = new Vector2 (BFIKTarget.transform.position.x, FeetAnchoredObj.transform.position.y);
 
-		FrontFootTarget.transform.position = f;
-		BackFootTarget.transform.position = b;
+		FFIKTarget.SetWorldPos(f);
+		BFIKTarget.SetWorldPos (b);
+
+		Vector2 pos = transform.position;
+		FrontFootDebug.updateVectors (pos + Vector2.left, f);
+		BackFootDebug.updateVectors (pos + Vector2.right, b);
 	}
 
 	public void PassCurrentVelocity(Vector2 current){
@@ -129,9 +147,10 @@ public class JerboaAnimationManager : MonoBehaviour {
 		TakeOffTransitionAirborne ();
 	}
 
-	public void FoundLandingPos(Vector2 land){
-		//Fix Landed Trigger
-		animator.SetTrigger (LandedHash);
+	public void TouchDown(){
+		if (stateInfo.shortNameHash == AirborneTreeState) {
+			print ("shortNameHash = AirborneTreeState");
+			animator.SetTrigger (LandedHash);
+		}
 	}
-
 }
