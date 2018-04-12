@@ -57,6 +57,8 @@ public class JerboaAnimationManager : MonoBehaviour {
 
 		//FeetAnchoredObj.SetPullingToGround (AnchorFeetY);
 		FeetAnchoredObj.SetIsJumping (isJumping);
+		FeetAnchoredObj.PassCurrentVelocity (CurrentVelocity);
+
 
 		if (debugging) {
 			Vector2 pos = transform.position;
@@ -123,7 +125,7 @@ public class JerboaAnimationManager : MonoBehaviour {
 	}
 
 	public void JumpCancelEarly(){
-		FeetAnchoredObj.SetUpwardStartVelocity ();
+		FeetAnchoredObj.BeginRetractingUp ();
 		TakeOffTransitionAirborne ();
 	}
 

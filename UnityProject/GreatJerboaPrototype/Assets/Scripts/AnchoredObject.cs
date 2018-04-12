@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class AnchoredObject : MonoBehaviour {
 
 	public GameObject anchor;
+	public Vector2 anchorPos;
+	public Vector2 myPos;
 	public float chainLength;
 	public Rigidbody2D rb;
 
@@ -52,6 +54,9 @@ public abstract class AnchoredObject : MonoBehaviour {
 	}
 
 	public void CalculateDistances(){
+		anchorPos = anchor.transform.position;
+		myPos = transform.position;
+
 		relaxedLength = chainLength * chainStretch;
 		LocalToAnchor = anchor.transform.position - transform.position;
 		LocalFromAnchor = -LocalToAnchor;
@@ -59,13 +64,11 @@ public abstract class AnchoredObject : MonoBehaviour {
 		directionToAnchor = LocalToAnchor.normalized;
 		directionFromAnchor = LocalFromAnchor.normalized;
 
-
-		Vector2 a = anchor.transform.position;
 		relaxedLocalPos = directionFromAnchor * relaxedLength;
-		relaxedWorldPos = relaxedLocalPos + a;
+		relaxedWorldPos = relaxedLocalPos + anchorPos;
 
 		extendedLocalPos = directionFromAnchor * chainLength;
-		extendedWorldPos = extendedLocalPos + a;
+		extendedWorldPos = extendedLocalPos + anchorPos;
 
 		clampMaxValue = clampMaxLerp * chainLength;
 		clampMinValue = clampMinLerp * chainLength;

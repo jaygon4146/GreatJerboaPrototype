@@ -5,11 +5,11 @@ using DebugUtilities;
 
 public class FeetAnchor : AnchoredObject {
 	
-	private Vector2 prevPos;
-	private Vector2 currentPos;
+	//private Vector2 prevPos;
+	//private Vector2 currentPos;
 	private Vector2 prevVelocity;
 	[SerializeField]
-	private Vector2 calcVelocity;
+	private Vector2 currentVelocity;
 	private Vector2 heading;
 
 	private float groundSearchDistance;
@@ -25,11 +25,10 @@ public class FeetAnchor : AnchoredObject {
 	public LayerMask PlatformLayer;
 
 	private Vector2 upwardStartVelocity;
-	private float upwardStartSpeed;
-	private Vector2 upwardStartPos;
+	private Vector2 upwardStartOffset;
 
 	private Vector2 downwardStartPos;
-	private float halfFallingHeight;
+	//private float fallingImpactHeight;
 
 	[SerializeField]
 	private bool retractingUp = false;
@@ -58,22 +57,22 @@ public class FeetAnchor : AnchoredObject {
 		if (debugging) {
 
 			upwardADebug.drawColor = Color.white;
-			upwardADebug.turnOn ();
+			//upwardADebug.turnOn ();
 
 			downwardADebug.drawColor = Color.white;
-			downwardADebug.turnOn ();
+			//downwardADebug.turnOn ();
 
 			feetDestinationDebug.drawColor = Color.yellow;
-			feetDestinationDebug.turnOn ();
+			//feetDestinationDebug.turnOn ();
 
 			legReachDebug.drawColor = Color.cyan;
-			legReachDebug.turnOn ();
+			//legReachDebug.turnOn ();
 
 			groundSearchDebug.drawColor = Color.green;
-			groundSearchDebug.turnOn ();
+			//groundSearchDebug.turnOn ();
 
 			jumpPeakDebug.drawColor = Color.red;
-			jumpPeakDebug.turnOn ();
+			//jumpPeakDebug.turnOn ();
 
 			retractUpLerp.drawColor = Color.yellow;
 			retractUpLerp.turnOn ();
@@ -92,38 +91,35 @@ public class FeetAnchor : AnchoredObject {
 		CalculateVelocity ();
 		CalculateDistances();
 
-		if (!isJumping) {
-			//AdvancedClampPosition ();
-		}
+		if (isJumping) {
+			if (currentVelocity.y >= 0) {
+				GoingUp ();
+				extendingDown = false;
+			} else {
+				GoingDown ();
+				retractingUp = false;
+			}
 
-		if (!extendingDown && !retractingUp) {
-			//AdvancedClampPosition();
-		}
-
-		if (calcVelocity.y > 0 && isJumping) {
-			GoingUp ();
-			extendingDown = false;
-		}
-		if (calcVelocity.y > 0 && isJumping) {
-			GoingDown ();
-			retractingUp = false;
+		} else {
+			AdvancedClampPosition();
 		}
 
 		DrawDebuggingValues ();
-		prevPos = currentPos;
-		prevVelocity = calcVelocity;
+		//prevPos = anchorPos;
+		prevVelocity = currentVelocity;
 		wasJumping = isJumping;
 	}
 
 	void CalculateVelocity(){
-		currentPos = anchor.transform.position;
-		calcVelocity = currentPos - prevPos;
+		//currentPos = anchorPos;
+		//currentVelocity = anchorPos - prevPos;
 
-		float velocityY = calcVelocity.y;
+		float velocityY = currentVelocity.y;
 		float prevY = prevVelocity.y * 0.6f;
 
 		if (velocityY < prevY && velocityY > 0) {
-			SetUpwardStartVelocity ();
+			//If there is a dramatic drop in velocity, our upward jump must have been cancelled
+			BeginRetractingUp ();
 		}
 
 		heading = Vector2.down;
@@ -144,13 +140,19 @@ public class FeetAnchor : AnchoredObject {
 
 		legReachDebug.drawDebugLine ();
 		groundSearchDebug.drawDebugLine ();
-		jumpPeakDebug.drawDebugLine ();
+		//jumpPeakDebug.drawDebugLine ();
 
 
 		retractUpLerp.drawOrigin = pos + new Vector2 (6f, 3f);
+		if (!retractingUp) {
+			retractUpLerp.updateValue (1f);
+		}
 		retractUpLerp.drawFloatTimeLine ();
 
 		extendDownLerp.drawOrigin = pos + new Vector2 (6f, 3f);
+		if (!extendingDown) {
+			extendDownLerp.updateValue (0f);
+		}
 		extendDownLerp.drawFloatTimeLine ();
 	}
 
@@ -163,7 +165,7 @@ public class FeetAnchor : AnchoredObject {
 			groundSearchDebug.updateVectors (pos, pos + heading * groundSearchDistance);
 		}
 
-		RaycastHit2D rayHit = Physics2D.Raycast (currentPos, heading, groundSearchDistance, PlatformLayer);
+		RaycastHit2D rayHit = Physics2D.Raycast (anchorPos, heading, groundSearchDistance, PlatformLayer);
 
 		if (rayHit.collider != null) {
 			rayCastHitCollider = true;
@@ -174,124 +176,115 @@ public class FeetAnchor : AnchoredObject {
 	}
 
 	private void GoingUp(){
-		Vector2 anchorPos = anchor.transform.position;
-		Vector2 point = getRayCastPoint ();
-		Vector2 localToPoint = anchorPos - point;
-
-		Vector2 destination = Vector2.zero;
-		Vector2 fromPos = Vector2.zero;
-
-		if (rayCastHitCollider) {
-			if (localToPoint.magnitude > chainLength && !retractingUp) {
-				//if our feet are out of reach, and not retracting up
-				SetUpwardStartVelocity ();
-				//begin retracting
-			}
-			if (localToPoint.magnitude < chainLength && !retractingUp) {
-				//if our feet our within reach, and not retracting up
-				fromPos = point;
-				destination = point;
-				//stay on the ground
-			}
-		}
-
-		if (!rayCastHitCollider) {
-			SetUpwardStartVelocity ();
-		}
+		Vector2 destination = myPos;
+		Vector2 fromPos = myPos;
 
 		if (retractingUp) {
-			float t = Mathf.InverseLerp (0f, upwardStartSpeed, calcVelocity.y);
-			retractUpLerp.updateValue (t);
+			float iLerpY = Mathf.InverseLerp (0f, upwardStartVelocity.y, currentVelocity.y);
+			retractUpLerp.updateValue (iLerpY);
 
-			float deltaY = anchorPos.y - upwardStartPos.y;
-			deltaY = Mathf.Clamp (deltaY, 0, chainLength);
+			float retractingOffset = upwardStartOffset.y * iLerpY;
+			float dY = anchorPos.y + retractingOffset;
 
-			fromPos = new Vector2 (anchorPos.x, anchorPos.y - deltaY);
-			float tY = t * deltaY;
-			destination = new Vector2 (anchorPos.x, anchorPos.y - tY);
+			destination = new Vector2 (anchorPos.x, dY);
+			fromPos = new Vector2 (anchorPos.x, anchorPos.y + upwardStartOffset.y);
+		} 
+		else {
+			#region NOT retractingUp
+			bool groundInReach = false;
+			Vector2 groundPoint = getRayCastPoint ();
+			if (rayCastHitCollider) {
+				//The ground is in sight
+				Vector2 vectorToPoint = anchorPos - groundPoint;
+				if (vectorToPoint.y < chainLength) {
+					groundInReach = true;
+				}
+			}
+			if (groundInReach) {
+				destination = groundPoint;
+			} else {
+				//The ground is out of reach &&/OR out of sight
+				BeginRetractingUp ();
+			}
+			#endregion
 		}
 		upwardADebug.updateVectors (anchorPos + Vector2.left * 1.5f, fromPos);
-		feetDestinationDebug.updateVectors (anchorPos + (Vector2.left), destination);
+		feetDestinationDebug.updateVectors (anchorPos + Vector2.left, destination);
 		transform.position = destination;
 	}
 
 	private void GoingDown(){
-		Vector2 anchorPos = anchor.transform.position;
-		Vector2 point = getRayCastPoint ();
-		Vector2 localToPoint = anchorPos - point;
+		Vector2 destination = myPos;
+		Vector2 fromPos = myPos;
 
-		Vector2 destination = Vector2.zero;
-		Vector2 fromPos = Vector2.zero;
+		Vector2 groundPoint = getRayCastPoint ();
 
-		if (rayCastHitCollider) {
-			if (localToPoint.magnitude <= groundSearchDistance && !extendingDown) {
-				SetDownwardStartVelocity ();
-			} else {
+		if (extendingDown) {
+			float startingDistToGround = downwardStartPos.y - groundPoint.y;
+			float impactDistToGround = startingDistToGround * 0.5f;
+			float currentDistToGround = anchorPos.y - groundPoint.y;
+
+			float iLerpY = Mathf.InverseLerp (startingDistToGround, impactDistToGround, currentDistToGround);
+			extendDownLerp.updateValue (iLerpY);
+
+			float extendingOffset = chainLength * iLerpY;
+			float dY = anchorPos.y - extendingOffset;
+
+			if (dY < groundPoint.y) {
+				//if our destination is below the ground, put it on the ground
+				dY = groundPoint.y;
 			}
-		}
 
-		if (!rayCastHitCollider) {
-			fromPos = anchorPos;
-			destination = anchorPos;
-			AdvancedClampPosition ();
-		}
-
-		if (!extendingDown) {
-			fromPos = anchorPos;
-			destination = anchorPos;
-			AdvancedClampPosition ();
-		}
-
-		if (extendingDown && rayCastHitCollider) {
-
-			float fallingHeight = downwardStartPos.y - point.y;
-			halfFallingHeight = fallingHeight / 2;
-
-			float deltaY = downwardStartPos.y - anchorPos.y;
-
-			float t = Mathf.InverseLerp (0, halfFallingHeight, deltaY);
-			extendDownLerp.updateValue (t);
-
+			destination = new Vector2 (anchorPos.x, dY);
 			fromPos = new Vector2 (anchorPos.x, downwardStartPos.y);
-			float tY = t * chainLength;
 
-			if (t >= 1) {
-				//extendingDown = false;
+		} 
+		else {
+			#region NOT extendingDown
+			bool groundInSight = false;
+			if (rayCastHitCollider){
+				//The ground is in sight
+				groundInSight = true;
 			}
-
-			destination = new Vector2 (anchorPos.x, anchorPos.y - tY);
-			if (destination.y < point.y) {
-				destination = new Vector2 (destination.x, point.y);
+			if (groundInSight){
+				BeginExtendingDown();
 			}
-
+			else{
+				destination = anchorPos;
+			}
+			#endregion
 		}
 		downwardADebug.updateVectors (anchorPos + Vector2.right * 1.5f, fromPos);
-		feetDestinationDebug.updateVectors (anchorPos + (Vector2.right), destination);
+		feetDestinationDebug.updateVectors (anchorPos + Vector2.right, destination);
 		transform.position = destination;
 	}
 
-	public void SetUpwardStartVelocity(){
-		//if (!retractingUp) {
+	public void BeginRetractingUp(){
 		retractingUp = true;
-		upwardStartVelocity = calcVelocity;
-		upwardStartSpeed = upwardStartVelocity.y;
-		upwardStartPos = transform.position;
-		//}
+		upwardStartVelocity = currentVelocity;
+		upwardStartOffset = myPos - anchorPos;
+		feetDestinationDebug.drawColor = Color.yellow;
+		if (debugging) {
+			//upwardADebug.turnOn ();
+			//downwardADebug.turnOff ();
+		}
 	}
 
-	public void SetDownwardStartVelocity(){
+	public void BeginExtendingDown(){
 		extendingDown = true;
-
-		downwardStartPos = transform.position;
-	}
-
-
-
-	public void SetPullingToGround(bool b){
-		//pullingToGround = b;
+		downwardStartPos = myPos;
+		feetDestinationDebug.drawColor = Color.magenta;
+		if (debugging) {
+			//upwardADebug.turnOff();
+			//downwardADebug.turnOn();
+		}
 	}
 
 	public void SetIsJumping(bool b){
 		isJumping = b;
+	}
+
+	public void PassCurrentVelocity(Vector2 v){
+		currentVelocity = v;
 	}
 }
