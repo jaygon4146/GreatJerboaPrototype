@@ -130,6 +130,7 @@ public class JerboaAnimationManager : MonoBehaviour {
 	}
 
 	public void FoundLandingPos(Vector2 land){
+		//Fix Landed Trigger
 		animator.SetTrigger (LandedHash);
 	}
 
