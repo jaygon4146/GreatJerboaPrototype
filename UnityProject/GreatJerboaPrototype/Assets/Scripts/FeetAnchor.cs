@@ -61,22 +61,22 @@ public class FeetAnchor : AnchoredObject {
 		if (debugging) {
 
 			upwardADebug.drawColor = Color.white;
-			//upwardADebug.turnOn ();
+			upwardADebug.turnOn ();
 
 			downwardADebug.drawColor = Color.white;
-			//downwardADebug.turnOn ();
+			downwardADebug.turnOn ();
 
 			feetDestinationDebug.drawColor = Color.yellow;
-			//feetDestinationDebug.turnOn ();
+			feetDestinationDebug.turnOn ();
 
 			legReachDebug.drawColor = Color.cyan;
-			//legReachDebug.turnOn ();
+			legReachDebug.turnOn ();
 
 			groundSearchDebug.drawColor = Color.green;
-			//groundSearchDebug.turnOn ();
+			groundSearchDebug.turnOn ();
 
 			jumpPeakDebug.drawColor = Color.red;
-			//jumpPeakDebug.turnOn ();
+			jumpPeakDebug.turnOn ();
 
 			retractUpLerp.drawColor = Color.yellow;
 			retractUpLerp.turnOn ();
@@ -165,9 +165,8 @@ public class FeetAnchor : AnchoredObject {
 		groundSearchDistance = chainLength * 2;
 
 		if (debugging) {
-			Vector2 pos = anchor.transform.position;
-			legReachDebug.updateVectors (pos +  new Vector2 (-0.1f, 0f), pos + heading*chainLength) ;
-			groundSearchDebug.updateVectors (pos, pos + heading * groundSearchDistance);
+			legReachDebug.updateVectors (anchorPos+  new Vector2 (-0.25f, 0f), anchorPos + heading*chainLength) ;
+			groundSearchDebug.updateVectors (anchorPos, anchorPos + heading * groundSearchDistance);
 		}
 
 		RaycastHit2D rayHit = Physics2D.Raycast (anchorPos, heading, groundSearchDistance, PlatformLayer);
@@ -185,6 +184,8 @@ public class FeetAnchor : AnchoredObject {
 		Vector2 destination = myPos;
 		Vector2 fromPos = myPos;
 
+		Vector2 groundPoint = getRayCastPoint ();
+
 		if (retractingUp) {
 			float iLerpY = Mathf.InverseLerp (0f, upwardStartVelocity.y, currentVelocity.y);
 			retractUpLerp.updateValue (iLerpY);
@@ -198,7 +199,6 @@ public class FeetAnchor : AnchoredObject {
 		else {
 			#region NOT retractingUp
 			bool groundInReach = false;
-			Vector2 groundPoint = getRayCastPoint ();
 			if (rayCastHitCollider) {
 				//The ground is in sight
 				Vector2 vectorToPoint = anchorPos - groundPoint;
@@ -306,5 +306,9 @@ public class FeetAnchor : AnchoredObject {
 
 	public bool isTouchingGround(){
 		return touchingGround;
+	}
+
+	public float getChainLength(){
+		return chainLength;
 	}
 }

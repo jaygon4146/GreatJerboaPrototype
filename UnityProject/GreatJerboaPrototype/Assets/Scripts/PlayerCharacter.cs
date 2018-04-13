@@ -13,7 +13,9 @@ public class PlayerCharacter : MonoBehaviour {
 	protected UnitController2D 	PCUnitController2D;
 	protected PhysicsForces 	PCPhysicsForces;
 	protected JerboaAnimationManager JAnimManager;
-	private Collider2D Collider;
+	private Collider2D FeetCollider;
+	public LayerMask PlatformLayer;
+	public BodyCollider bodyCollider;
 	#endregion
 
 	#region PlayerStatus
@@ -30,7 +32,7 @@ public class PlayerCharacter : MonoBehaviour {
 		PCUnitController2D = GetComponent<UnitController2D> ();
 		PCPhysicsForces = GetComponent<PhysicsForces> ();
 		JAnimManager = GetComponent<JerboaAnimationManager> ();
-		Collider = GetComponent<Collider2D> ();
+		FeetCollider = GetComponent<Collider2D> ();
 	}
 
 	void FixedUpdate(){
@@ -41,7 +43,6 @@ public class PlayerCharacter : MonoBehaviour {
 		HorizontalAction ();
 		VerticalAction ();
 
-
 		Vector2 clampV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity());
 		PCUnitController2D.setClampVelocity (clampV);
 
@@ -49,6 +50,7 @@ public class PlayerCharacter : MonoBehaviour {
 		Vector2 minV = new Vector2 (-PCPhysicsForces.topSpeed, -PCPhysicsForces.getJumpMaxVelocity());
 		JAnimManager.SetMinMaxVelocity (minV, maxV);
 		JAnimManager.PassCurrentVelocity (PCUnitController2D.getVelocity());
+		CalcDistanceToGround ();
 
 		if (!PCPhysicsForces.applyGravity) {
 			PCUnitController2D.setGravityScale (0);
@@ -95,6 +97,12 @@ public class PlayerCharacter : MonoBehaviour {
 		if (direction < 0)
 			facingRight = false;
 
+
+		if (touchingPlatform && bodyCollider.isTouchingPlatform ()) {
+			print ("Feet Touching && Body Touching");
+		}
+
+
 	}
 
 	void CheckFacing(){
@@ -126,6 +134,10 @@ public class PlayerCharacter : MonoBehaviour {
 			PCUnitController2D.setGravityScale (PCPhysicsForces.getFallingGravity());
 			canCancelJump = false;
 		}
+
+		if (touchingPlatform) {
+			JAnimManager.TouchDown ();
+		}
 	}
 
 	#region ColliderEvents
@@ -146,6 +158,22 @@ public class PlayerCharacter : MonoBehaviour {
 		if (c.collider.tag == "SolidPlatform") {
 			touchingPlatform = false;
 		}
+	}
+
+	void CalcDistanceToGround(){
+		float distance = 1f;
+
+		RaycastHit2D[] results = new RaycastHit2D[8];
+		ContactFilter2D filter = new ContactFilter2D();
+		filter.SetLayerMask(PlatformLayer);
+		int numberResults = FeetCollider.Cast (Vector2.down, filter, results, 2f, true);
+
+		if (numberResults > 0) {
+			Collider2D other = results [0].collider;
+			ColliderDistance2D dist2D = FeetCollider.Distance (other);
+			distance = dist2D.distance;
+		}
+		JAnimManager.SetDistanceToGround (distance);
 	}
 	#endregion
 
