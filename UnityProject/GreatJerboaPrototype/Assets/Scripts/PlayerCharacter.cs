@@ -19,13 +19,13 @@ public class PlayerCharacter : MonoBehaviour {
 	#endregion
 
 	#region PlayerStatus
-	[SerializeField]
-	private bool touchingPlatform;
-	[SerializeField]
-	private bool canJump;
+
+	[SerializeField] private bool touchingPlatform;
+	[SerializeField] private bool onGround;
+	[SerializeField] private bool canJump;
 	private bool canCancelJump;
-	[SerializeField]
-	private bool facingRight = true;
+
+	[SerializeField] private bool facingRight = true;
 	#endregion
 
 	void Awake(){
@@ -50,7 +50,8 @@ public class PlayerCharacter : MonoBehaviour {
 		Vector2 minV = new Vector2 (-PCPhysicsForces.topSpeed, -PCPhysicsForces.getJumpMaxVelocity());
 		JAnimManager.SetMinMaxVelocity (minV, maxV);
 		JAnimManager.PassCurrentVelocity (PCUnitController2D.getVelocity());
-		CalcDistanceToGround ();
+		//CalcDistanceToGround ();
+		CheckGround();
 
 		if (!PCPhysicsForces.applyGravity) {
 			PCUnitController2D.setGravityScale (0);
@@ -58,7 +59,7 @@ public class PlayerCharacter : MonoBehaviour {
 	}
 
 	void JumpAction(){
-		canJump = touchingPlatform;
+		canJump = onGround;
 
 		if (PlayerInput.Instance.Jump.Down && canJump && PCPhysicsForces.applyGravity) {
 			//print ("PlayerCharacter.JumpAction()");
@@ -158,10 +159,39 @@ public class PlayerCharacter : MonoBehaviour {
 		}
 	}
 
-	private bool IsOnGround(){
+	void CheckGround(){
 
+		bool b = false;
+
+		float gDistance = 1f;
+
+		Vector2 down = Vector2.down;
+		RaycastHit2D[] closeResults = new RaycastHit2D[8];
+		RaycastHit2D[] farResults = new RaycastHit2D[8];
+		float closeDistance = 0.1f;
+		float farDistance = 2f;
+		ContactFilter2D filter = new ContactFilter2D ();
+		filter.SetLayerMask (PlatformLayer);
+
+		int numberOfCloseResults = FeetCollider.Cast (down, filter, closeResults, closeDistance, true);
+		int numberOfFarResults = FeetCollider.Cast (down, filter, farResults, farDistance, true);
+
+		if (numberOfFarResults > 0) {
+			Collider2D other = farResults[0].collider;
+			ColliderDistance2D dist2D = FeetCollider.Distance (other);
+			gDistance = dist2D.distance;
+		}
+
+		if (numberOfCloseResults > 0 && touchingPlatform) {
+			b = true;
+		}
+
+		onGround = b;
+		JAnimManager.SetDistanceToGround (gDistance);
 	}
 
+
+	/*
 	void CalcDistanceToGround(){
 		float distance = 1f;
 
@@ -177,6 +207,9 @@ public class PlayerCharacter : MonoBehaviour {
 		}
 		JAnimManager.SetDistanceToGround (distance);
 	}
+
+
+	*/
 	#endregion
 
 
