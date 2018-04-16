@@ -11,6 +11,7 @@ public class PhysicsForces : MonoBehaviour {
 	public float jumpHeight = 10f;
 	public float jumpTime = 10f;
 	public float jumpFallingMultiplier = 2f;
+	public float springJumpMultiplier = 3f;
 
 	[SerializeField]
 	private float jumpInitialVelocity;
@@ -46,6 +47,10 @@ public class PhysicsForces : MonoBehaviour {
 		return jumpVector;
 	}
 
+	public Vector2 getSpringJumpVector(){
+		return jumpVector * springJumpMultiplier;
+	}
+
 	public float getJumpInitialGravity(){
 		return jumpInitialGravity;
 	}
@@ -60,6 +65,7 @@ public class PhysicsForces : MonoBehaviour {
 	public float getFallingGravity(){
 		return jumpInitialGravity * jumpFallingMultiplier;
 	}
+		
 	#endregion
 	//==============================================
 	#region Movement Functions

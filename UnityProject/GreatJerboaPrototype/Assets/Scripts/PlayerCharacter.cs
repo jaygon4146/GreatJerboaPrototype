@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DebugUtilities;
 
 [RequireComponent(typeof(UnitController2D))]
 [RequireComponent(typeof(PhysicsForces))]
@@ -16,16 +17,32 @@ public class PlayerCharacter : MonoBehaviour {
 	private Collider2D FeetCollider;
 	public LayerMask PlatformLayer;
 	public BodyCollider bodyCollider;
+	public BalloonAnchor Balloon;
+	public BalloonTriggerCollider BalloonEnterTrigger;
 	#endregion
 
 	#region PlayerStatus
+	[SerializeField] 	private bool touchingPlatform;
+	[SerializeField] 	private bool onGround;
+						private bool wasOnGround;
+	[SerializeField] 	private bool canJump;
+						private bool canCancelJump;
 
-	[SerializeField] private bool touchingPlatform;
-	[SerializeField] private bool onGround;
-	[SerializeField] private bool canJump;
-	private bool canCancelJump;
+	[SerializeField]	private bool preparingSpringJump;
+	[SerializeField]	private bool warmUpJump;
+	public float springJumpTimeBuffer = 10.0f;
+	[SerializeField]	private float springJumpTimeCountdown = 0.0f;
 
-	[SerializeField] private bool facingRight = true;
+	[SerializeField] 	private bool facingRight = true;
+	#endregion
+
+	#region debugging
+	public bool debugging = false;
+
+	FloatTimeLine lTimeLine = new FloatTimeLine ();
+	FloatTimeLine rTimeLine = new FloatTimeLine ();
+
+	FloatTimeLine springCountDown = new FloatTimeLine();
 	#endregion
 
 	void Awake(){
@@ -33,11 +50,24 @@ public class PlayerCharacter : MonoBehaviour {
 		PCPhysicsForces = GetComponent<PhysicsForces> ();
 		JAnimManager = GetComponent<JerboaAnimationManager> ();
 		FeetCollider = GetComponent<Collider2D> ();
+
+		if (debugging) {
+			lTimeLine.drawColor = Color.red;
+			rTimeLine.drawColor = Color.green;
+			//lTimeLine.turnOn ();
+			//rTimeLine.turnOn ();
+
+			springCountDown.drawColor = Color.yellow;
+			springCountDown.turnOn ();
+		}
 	}
 
 	void FixedUpdate(){
 
+		CheckGround();
+
 		JumpAction ();
+		TriggerAction ();
 		MoveAction ();
 		CheckFacing ();
 		HorizontalAction ();
@@ -51,7 +81,7 @@ public class PlayerCharacter : MonoBehaviour {
 		JAnimManager.SetMinMaxVelocity (minV, maxV);
 		JAnimManager.PassCurrentVelocity (PCUnitController2D.getVelocity());
 		//CalcDistanceToGround ();
-		CheckGround();
+		wasOnGround = onGround;
 
 		if (!PCPhysicsForces.applyGravity) {
 			PCUnitController2D.setGravityScale (0);
@@ -60,22 +90,84 @@ public class PlayerCharacter : MonoBehaviour {
 
 	void JumpAction(){
 		canJump = onGround;
+		//warmUpJump = false;
+		bool needToCancelJump = false;
+		bool canSpringJump = false;
+
+		if (springJumpTimeCountdown > 0) {
+			springJumpTimeCountdown -= Time.deltaTime;
+			canSpringJump = true;
+		} 
+		if (springJumpTimeCountdown < 0) {
+			springJumpTimeCountdown = 0;
+		} 
+
+		Balloon.setWarmUpJump (warmUpJump);
 
 		if (PlayerInput.Instance.Jump.Down && canJump && PCPhysicsForces.applyGravity) {
-			//print ("PlayerCharacter.JumpAction()");
+
 			PCPhysicsForces.CalculateJumpForces ();
 			PCUnitController2D.setGravityScale (PCPhysicsForces.getJumpInitialGravity());
 			Vector2 jumpVector = PCPhysicsForces.getJumpVector ();
+
+			//==========SPRINGJUMP==========
+			if (preparingSpringJump && BalloonEnterTrigger.isTouchingBalloon()) {
+				warmUpJump = true;
+				needToCancelJump = true;
+			}
+			if (preparingSpringJump && canSpringJump) {
+				warmUpJump = false;
+				jumpVector = PCPhysicsForces.getSpringJumpVector ();
+				springJumpTimeCountdown = 0;
+			}
+			//=============================
 			PCUnitController2D.addImpulse (jumpVector);
 			JAnimManager.JumpTakeOff ();
 			canCancelJump = true;
 		}
 
 		if (PlayerInput.Instance.Jump.Up && canCancelJump) {
+			needToCancelJump = true;
+		}
+
+		if (needToCancelJump) {
 			PCUnitController2D.multiplyVelocityY (0.5f);
-			//JAnimManager.TakeOffTransitionAirborne ();
 			JAnimManager.JumpCancelEarly ();
 			canCancelJump = false;
+		}
+
+		if (debugging) {
+			Vector2 myPos = transform.position;
+			springCountDown.drawOrigin = myPos + new Vector2 (6f, 3f);
+			springCountDown.updateValue (springJumpTimeCountdown);
+			springCountDown.drawFloatTimeLine ();
+		}
+
+	}
+
+	void TriggerAction(){
+
+		float lTrigger = PlayerInput.Instance.LTrigger.Value;
+		float rTrigger = PlayerInput.Instance.RTrigger.Value;
+
+		if (lTrigger > 0 || rTrigger > 0) {
+			preparingSpringJump = true;
+		} else {
+			preparingSpringJump = false;
+		}
+
+		Balloon.setTriggersHeld (preparingSpringJump);
+
+		if (debugging) {
+			Vector2 myPos = transform.position;
+
+			lTimeLine.drawOrigin = myPos + new Vector2 (6f, 3f);
+			rTimeLine.drawOrigin = myPos + new Vector2 (6f, 3f);
+
+			lTimeLine.updateValue (lTrigger);
+			rTimeLine.updateValue (rTrigger);
+			lTimeLine.drawFloatTimeLine ();
+			rTimeLine.drawFloatTimeLine ();
 		}
 	}
 
@@ -130,10 +222,20 @@ public class PlayerCharacter : MonoBehaviour {
 			canCancelJump = false;
 		}
 
+		if (onGround && !wasOnGround) {
+			if (warmUpJump) {
+				warmUpJump = false;
+				springJumpTimeCountdown = springJumpTimeBuffer;
+			}
+		}
+
 		if (touchingPlatform) {
 			JAnimManager.TouchDown ();
 		}
 	}
+
+
+
 
 	#region ColliderEvents
 	void OnCollisionEnter2D(Collision2D c){
@@ -141,6 +243,8 @@ public class PlayerCharacter : MonoBehaviour {
 			touchingPlatform = true;
 			//JAnimManager.FoundLandingPos (Vector2.zero); //TESTING ONLY
 		}
+
+
 	}
 
 	void OnCollisionStay2D(Collision2D c){
@@ -188,7 +292,6 @@ public class PlayerCharacter : MonoBehaviour {
 		JAnimManager.SetDistanceToGround (gDistance);
 		JAnimManager.SetColliderCastHit(numberOfFarResults, passResult);
 	}
-
 
 	#endregion
 
