@@ -8,14 +8,12 @@ public class FeetAnchor : AnchoredObject {
 	//private Vector2 prevPos;
 	//private Vector2 currentPos;
 	private Vector2 prevVelocity;
-	[SerializeField]
-	private Vector2 currentVelocity;
+	[SerializeField]	private Vector2 currentVelocity;
 	private Vector2 heading;
 
 	private float groundSearchDistance;
 
-	[SerializeField]
-	private bool isJumping = false;
+	[SerializeField] 	private bool isJumping = false;
 	private bool wasJumping = false;
 
 	private bool rayCastHitCollider = false;
@@ -29,6 +27,10 @@ public class FeetAnchor : AnchoredObject {
 
 	private Vector2 downwardStartPos;
 	private Vector2 landingWorldPos;
+
+
+	[SerializeField]	private int colliderCastCount;
+	private RaycastHit2D colliderCastResult;
 
 	//private float fallingImpactHeight;
 
@@ -168,13 +170,21 @@ public class FeetAnchor : AnchoredObject {
 			legReachDebug.updateVectors (anchorPos+  new Vector2 (-0.25f, 0f), anchorPos + heading*chainLength) ;
 			groundSearchDebug.updateVectors (anchorPos, anchorPos + heading * groundSearchDistance);
 		}
-
+		/*
 		RaycastHit2D rayHit = Physics2D.Raycast (anchorPos, heading, groundSearchDistance, PlatformLayer);
 
 		if (rayHit.collider != null) {
 			rayCastHitCollider = true;
 			return rayHit.point;
 		}
+		*/
+
+		if (colliderCastCount > 0) {
+			rayCastHitCollider = true;
+			Vector2 point = colliderCastResult.point;
+			return point;
+		}
+
 		rayCastHitCollider = false;
 		return Vector2.zero;
 	}
@@ -298,6 +308,11 @@ public class FeetAnchor : AnchoredObject {
 
 	public void PassCurrentVelocity(Vector2 v){
 		currentVelocity = v;
+	}
+
+	public void PassColliderCastHit(int count, RaycastHit2D result){
+		colliderCastCount = count;
+		colliderCastResult = result;
 	}
 
 	public bool isExtendingDown(){

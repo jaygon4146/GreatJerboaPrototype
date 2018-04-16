@@ -98,10 +98,6 @@ public class PlayerCharacter : MonoBehaviour {
 		if (direction < 0)
 			facingRight = false;
 
-
-		if (touchingPlatform && bodyCollider.isTouchingPlatform ()) {
-			print ("Feet Touching && Body Touching");
-		}
 	}
 
 	void CheckFacing(){
@@ -164,52 +160,36 @@ public class PlayerCharacter : MonoBehaviour {
 		bool b = false;
 
 		float gDistance = 1f;
+		Vector2 gPoint = Vector2.zero;
 
 		Vector2 down = Vector2.down;
-		RaycastHit2D[] closeResults = new RaycastHit2D[8];
 		RaycastHit2D[] farResults = new RaycastHit2D[8];
-		float closeDistance = 0.1f;
+		RaycastHit2D passResult = new RaycastHit2D();
+		float closeDistance = 0.25f;
 		float farDistance = 2f;
 		ContactFilter2D filter = new ContactFilter2D ();
 		filter.SetLayerMask (PlatformLayer);
 
-		int numberOfCloseResults = FeetCollider.Cast (down, filter, closeResults, closeDistance, true);
 		int numberOfFarResults = FeetCollider.Cast (down, filter, farResults, farDistance, true);
 
 		if (numberOfFarResults > 0) {
+			passResult = farResults[0];
 			Collider2D other = farResults[0].collider;
 			ColliderDistance2D dist2D = FeetCollider.Distance (other);
 			gDistance = dist2D.distance;
-		}
+			gPoint = farResults [0].point;
 
-		if (numberOfCloseResults > 0 && touchingPlatform) {
-			b = true;
+			if (gDistance < closeDistance) {
+				b = true;
+			}
 		}
 
 		onGround = b;
 		JAnimManager.SetDistanceToGround (gDistance);
+		JAnimManager.SetColliderCastHit(numberOfFarResults, passResult);
 	}
 
 
-	/*
-	void CalcDistanceToGround(){
-		float distance = 1f;
-
-		RaycastHit2D[] results = new RaycastHit2D[8];
-		ContactFilter2D filter = new ContactFilter2D();
-		filter.SetLayerMask(PlatformLayer);
-		int numberResults = FeetCollider.Cast (Vector2.down, filter, results, 2f, true);
-
-		if (numberResults > 0) {
-			Collider2D other = results [0].collider;
-			ColliderDistance2D dist2D = FeetCollider.Distance (other);
-			distance = dist2D.distance;
-		}
-		JAnimManager.SetDistanceToGround (distance);
-	}
-
-
-	*/
 	#endregion
 
 

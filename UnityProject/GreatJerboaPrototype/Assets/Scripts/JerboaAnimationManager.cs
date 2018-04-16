@@ -23,7 +23,6 @@ public class JerboaAnimationManager : MonoBehaviour {
 	private float DistanceToGround;
 	private float iLerpDistanceToGround;
 
-
 	private static int HorizontalHash = Animator.StringToHash ("HorizontalVelocity");
 	private static int HMagnitudeHash = Animator.StringToHash ("HorizontalMagnitude");
 	private static int VerticalHash = Animator.StringToHash("VerticalVelocity");
@@ -36,8 +35,6 @@ public class JerboaAnimationManager : MonoBehaviour {
 	private static int AirborneTreeState = Animator.StringToHash ("AirborneTree");
 	private static int LandingTreeState = Animator.StringToHash ("LandingTree");
 
-	//public GameObject FrontFootTarget;
-	//public GameObject BackFootTarget;
 	public FootIKTarget FFIKTarget;
 	public FootIKTarget BFIKTarget;
 
@@ -178,5 +175,10 @@ public class JerboaAnimationManager : MonoBehaviour {
 
 	public void SetDistanceToGround(float d){
 		DistanceToGround = d;
+	}
+
+	public void SetColliderCastHit(int count, RaycastHit2D hit){
+		FeetAnchoredObj.PassColliderCastHit (count, hit);
+
 	}
 }
