@@ -20,6 +20,8 @@ public class JerboaAnimationManager : MonoBehaviour {
 	private bool BeginJump;
 	private bool TakeOffToAirborne;
 	private bool Landed;
+	private float DistanceToGround;
+	private float iLerpDistanceToGround;
 
 	private static int HorizontalHash = Animator.StringToHash ("HorizontalVelocity");
 	private static int HMagnitudeHash = Animator.StringToHash ("HorizontalMagnitude");
@@ -27,12 +29,12 @@ public class JerboaAnimationManager : MonoBehaviour {
 	private static int BeginJumpHash = Animator.StringToHash("BeginJump");
 	private static int TakeOffAirborneHash = Animator.StringToHash("TakeOffToAirborne");
 	private static int LandedHash = Animator.StringToHash("Landed");
+	private static int LandingBlendHash = Animator.StringToHash("LandingBlend");
 
 	private static int JumpTakeOffState = Animator.StringToHash ("JumpTakeOff");
 	private static int AirborneTreeState = Animator.StringToHash ("AirborneTree");
+	private static int LandingTreeState = Animator.StringToHash ("LandingTree");
 
-	//public GameObject FrontFootTarget;
-	//public GameObject BackFootTarget;
 	public FootIKTarget FFIKTarget;
 	public FootIKTarget BFIKTarget;
 
@@ -77,6 +79,11 @@ public class JerboaAnimationManager : MonoBehaviour {
 			AdjustFeetVertical ();
 		}
 
+		float cLength = FeetAnchoredObj.getChainLength ();
+		iLerpDistanceToGround = DistanceToGround / cLength;
+		if (stateInfo.shortNameHash == LandingTreeState) {
+			//print ("shortNameHash = LandingTreeState");
+		}
 
 		if (debugging) {
 			Vector2 pos = transform.position;
@@ -98,7 +105,7 @@ public class JerboaAnimationManager : MonoBehaviour {
 		}
 		animator.SetFloat (HMagnitudeHash, HorizontalMagnitude);
 		animator.SetFloat (HorizontalHash, HorizontalVelocity);
-
+		animator.SetFloat (LandingBlendHash, iLerpDistanceToGround);
 
 		float y = 0;
 		if (CurrentVelocity.y > 0) { //If moving upward
@@ -149,8 +156,29 @@ public class JerboaAnimationManager : MonoBehaviour {
 
 	public void TouchDown(){
 		if (stateInfo.shortNameHash == AirborneTreeState) {
-			print ("shortNameHash = AirborneTreeState");
+			//print ("shortNameHash = AirborneTreeState");
 			animator.SetTrigger (LandedHash);
 		}
+	}
+
+	public bool NeedsDistanceToGround(){
+
+		bool r = false;
+
+		if (stateInfo.shortNameHash == LandingTreeState) {
+			//print ("shortNameHash = LandingTreeState");
+			r = true;
+		}
+
+		return r;
+	}
+
+	public void SetDistanceToGround(float d){
+		DistanceToGround = d;
+	}
+
+	public void SetColliderCastHit(int count, RaycastHit2D hit){
+		FeetAnchoredObj.PassColliderCastHit (count, hit);
+
 	}
 }

@@ -17,7 +17,8 @@ public class PlayerInput : InputComponent {
 	public InputAxis Horizontal = new InputAxis (KeyCode.D, KeyCode.A, XBoxControllerAxes.LeftStickHorizontal);
 	public InputAxis Vertical = new InputAxis (KeyCode.W, KeyCode.S, XBoxControllerAxes.LeftStickVertical);
 
-
+	public InputAxis LTrigger = new InputAxis (KeyCode.Less, KeyCode.Greater, XBoxControllerAxes.LeftTrigger);
+	public InputAxis RTrigger = new InputAxis (KeyCode.Less, KeyCode.Greater, XBoxControllerAxes.RightTrigger);
 
 	protected bool m_HaveControl = true;
 	protected bool m_DebugMenuOpen = false;
@@ -50,6 +51,8 @@ public class PlayerInput : InputComponent {
 		Jump.Get (fixedUpdateHappened, inputType);
 		Horizontal.Get (inputType);
 		Vertical.Get (inputType);
+		RTrigger.Get (inputType);
+		LTrigger.Get (inputType);
 
 		if (Input.GetKeyDown (KeyCode.F12)) {
 			m_DebugMenuOpen = !m_DebugMenuOpen;
