@@ -101,8 +101,6 @@ public class PlayerCharacter : MonoBehaviour {
 		if (touchingPlatform && bodyCollider.isTouchingPlatform ()) {
 			print ("Feet Touching && Body Touching");
 		}
-
-
 	}
 
 	void CheckFacing(){
@@ -158,6 +156,10 @@ public class PlayerCharacter : MonoBehaviour {
 		if (c.collider.tag == "SolidPlatform") {
 			touchingPlatform = false;
 		}
+	}
+
+	private bool IsOnGround(){
+
 	}
 
 	void CalcDistanceToGround(){

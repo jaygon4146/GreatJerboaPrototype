@@ -17,7 +17,4 @@ public class CameraAnchor : AnchoredObject {
 		SimpleClampPosition();
 		SimpleElasticity ();
 	}
-
-
-
 }
