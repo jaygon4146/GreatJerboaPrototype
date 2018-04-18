@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MapCellSpace {
-	/*
-	public enum CellTypes{
+	
+	public enum CellIDs{
 		MISSING,
 		Nothing,
 		Box,
@@ -12,20 +12,29 @@ namespace MapCellSpace {
 		PCGoal,
 		Collectable,
 	}
-	*/
 
 	public class CellTemplate{
 		private Vector3 ColorVector;
 		private GameObject Prefab;
 		private string Name;
-		private static int NumberOfTemplates;
 		private int MyID;
 
-		public CellTemplate(string name, Vector3 color){
+		public CellTemplate(string name, Vector3 color, int templateId){
 			Name = name;
 			ColorVector = color;
-			NumberOfTemplates++;
-			MyID = NumberOfTemplates;
+			MyID = templateId;
+		}
+
+		public Vector3 getColorVector(){
+			return ColorVector;
+		}
+
+		public int getID(){
+			return MyID;
+		}
+
+		public string getName(){
+			return Name;
 		}
 	}
 
@@ -45,8 +54,6 @@ namespace MapCellSpace {
 			if (palette.ContainsColorVector (colorVector)) {
 				myType = palette.lookUpType(colorVector);
 			} else {
-				//myType = (int)CellTypes.MISSING;
-
 				myType = -1;
 			}
 		}

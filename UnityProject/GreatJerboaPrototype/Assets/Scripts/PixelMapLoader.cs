@@ -10,7 +10,8 @@ public class PixelMapLoader : MonoBehaviour {
 	private Color[] mapPixels;
 	private MapCell[] mapCells;
 
-	private List<GameObject> spawnedObjects = new List<GameObject>();
+	//private List<GameObject> spawnedObjects = new List<GameObject>();
+	private static List<GameObject> collectedList = new List<GameObject>();
 
 	private string mapLocation = "Art/LevelMaps/";
 
@@ -45,8 +46,8 @@ public class PixelMapLoader : MonoBehaviour {
 
 		palette = GetComponent<CellPalette> ();
 
-		string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel];
-		//string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel2];
+		//string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel];
+		string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel2];
 		//print ("path = "+ path );
 
 		//imageTexture = Resources.Load (path) as Texture2D;
@@ -85,32 +86,34 @@ public class PixelMapLoader : MonoBehaviour {
 	}
 
 	void SpawnCell(MapCell cell){
+
 		switch (cell.getType()) {
-		case ((int)CellTypes.MISSING):
-			Debug.Log ("SpawnCell() : MISSING");
+
+		case ((int)CellIDs.MISSING):
+			//Debug.Log ("SpawnCell() : MISSING");
 			break;
 
-		case ((int)CellTypes.Nothing):
+		case ((int)CellIDs.Nothing):
 			//Debug.Log ("SpawnCell() : Nothing");
 			break;
 
-		case ((int)CellTypes.Box):
+		case ((int)CellIDs.Box):
 			//Debug.Log ("SpawnCell() : Box");
 			SpawnCellPrefab(cell);
 			break;
 
-		case ((int)CellTypes.Collectable):
-			Debug.Log ("SpawnCell() : Collectable : @ :" + cell.getPosition ());
+		case ((int)CellIDs.Collectable ):
+			//Debug.Log ("SpawnCell() : Collectable : @ :" + cell.getPosition ());
 			SpawnCellPrefab (cell);
 			break;
 
-		case ((int)CellTypes.PCSpawn):
-			Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
+		case ((int)CellIDs.PCSpawn):
+			//Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
 			PCSpawnPoint = cell.getPosition ();
 			break;
 
-		case ((int)CellTypes.PCGoal):
-			Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
+		case ((int)CellIDs.PCGoal ):
+			//Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
 			PCGoalPoint = cell.getPosition ();
 			break;	
 
@@ -129,7 +132,16 @@ public class PixelMapLoader : MonoBehaviour {
 			Quaternion.identity, 					//rotation
 			transform								//parent				
 		);
-		obj.name = "Box@: " + cell.getPosition ();
+		string n = palette.lookUpName (cell.getType());
+		obj.name = n + " @ " + cell.getPosition ();
+
+		if (cell.getType () == (int)CellIDs.Collectable) {
+			collectedList.Add (obj);
+		}
+	}
+
+	public List<GameObject> getCollectableList(){
+		return collectedList;
 	}
 
 	public Vector2 getPCSpawnPoint(){
