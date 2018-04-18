@@ -4,13 +4,32 @@ using UnityEngine;
 
 public class GoalTrigger : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	[SerializeField] private bool touchingPlayerCharacter = false;
+	[SerializeField] private bool GoalHasBeenTriggered = false;
+
+	public bool HasBeenReached(){
+		return GoalHasBeenTriggered;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
+
+	//=============================================================
+	//This Collider only interacts with the Player Character layer
+	//=============================================================
+
+	void OnTriggerEnter2D(Collider2D c){
+		touchingPlayerCharacter = true;
+		GoalHasBeenTriggered = true;
+		//print ("GoalEnter");
 	}
+
+	void OnTriggerStay2D(Collider2D c){
+		touchingPlayerCharacter = true;
+		//print ("GoalStay");
+	}
+
+	void OnTriggerExit2D(Collider2D c){
+		touchingPlayerCharacter = false;
+		//print ("GoalExit");
+	}		
 }

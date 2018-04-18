@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BalloonTriggerCollider : MonoBehaviour {
 
-	Collider2D myTrigger;
+	//Collider2D myTrigger;
 	[SerializeField]	private bool touchingBalloon;
 
 	void Awake(){
-		myTrigger = GetComponent<Collider2D> ();
+		//myTrigger = GetComponent<Collider2D> ();
 	}
 
 	void OnTriggerEnter2D(Collider2D c){

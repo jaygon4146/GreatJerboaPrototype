@@ -14,7 +14,7 @@ public class FeetAnchor : AnchoredObject {
 	private float groundSearchDistance;
 
 	[SerializeField] 	private bool isJumping = false;
-	private bool wasJumping = false;
+	//private bool wasJumping = false;
 
 	private bool rayCastHitCollider = false;
 
@@ -26,7 +26,7 @@ public class FeetAnchor : AnchoredObject {
 	private Vector2 upwardStartOffset;
 
 	private Vector2 downwardStartPos;
-	private Vector2 landingWorldPos;
+	//private Vector2 landingWorldPos;
 
 
 	[SerializeField]	private int colliderCastCount;
@@ -114,7 +114,7 @@ public class FeetAnchor : AnchoredObject {
 		DrawDebuggingValues ();
 		//prevPos = anchorPos;
 		prevVelocity = currentVelocity;
-		wasJumping = isJumping;
+		//wasJumping = isJumping;
 	}
 
 	void CalculateVelocity(){
@@ -236,7 +236,7 @@ public class FeetAnchor : AnchoredObject {
 		Vector2 groundPoint = getRayCastPoint ();
 
 		if (extendingDown) {
-			landingWorldPos = groundPoint;
+			//landingWorldPos = groundPoint;
 			float startingDistToGround = downwardStartPos.y - groundPoint.y;
 			float impactDistToGround = startingDistToGround * 0.5f;
 			float currentDistToGround = anchorPos.y - groundPoint.y;

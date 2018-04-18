@@ -91,21 +91,17 @@ public class PixelMapLoader : MonoBehaviour {
 			break;
 
 		case ((int)CellTypes.Nothing):
-			Debug.Log ("SpawnCell() : Nothing");
+			//Debug.Log ("SpawnCell() : Nothing");
 			break;
 
 		case ((int)CellTypes.Box):
-			Debug.Log ("SpawnCell() : Box");
+			//Debug.Log ("SpawnCell() : Box");
+			SpawnCellPrefab(cell);
+			break;
 
-			GameObject original = palette.lookUpPrefab (cell.getType ());
-			GameObject obj = Instantiate (
-				                 original, 								//original
-				                 cell.getPosition (), 					//position
-				                 Quaternion.identity, 					//rotation
-				                 transform								//parent				
-			                 );
-			obj.name = "Box@: " + cell.getPosition ();
-
+		case ((int)CellTypes.Collectable):
+			Debug.Log ("SpawnCell() : Collectable : @ :" + cell.getPosition ());
+			SpawnCellPrefab (cell);
 			break;
 
 		case ((int)CellTypes.PCSpawn):
@@ -119,13 +115,28 @@ public class PixelMapLoader : MonoBehaviour {
 			break;	
 
 		default:
-			Debug.Log ("SpawnCell()");
+			Debug.Log ("SpawnCell() default case");
 			break;
 		}
+	}
 
+	private void SpawnCellPrefab(MapCell cell){
+
+		GameObject original = palette.lookUpPrefab (cell.getType ());
+		GameObject obj = Instantiate (
+			original, 								//original
+			cell.getPosition (), 					//position
+			Quaternion.identity, 					//rotation
+			transform								//parent				
+		);
+		obj.name = "Box@: " + cell.getPosition ();
 	}
 
 	public Vector2 getPCSpawnPoint(){
 		return PCSpawnPoint;
+	}
+
+	public Vector2 getPCGoalPoint(){
+		return PCGoalPoint;
 	}
 }

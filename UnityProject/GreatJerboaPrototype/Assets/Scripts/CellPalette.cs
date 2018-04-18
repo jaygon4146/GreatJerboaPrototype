@@ -5,25 +5,27 @@ using MapCellSpace;
 
 public class CellPalette : MonoBehaviour {
 
-	private static Vector3 v_Nothing = new Vector3 (255f, 255f, 255f);
-	private static Vector3 v_Box = new Vector3 (0f, 0f, 0f);
-	private static Vector3 v_PCSpawn = new Vector3 (0f, 255f, 0f); 
-	private static Vector3 v_PCGoal = new Vector3 (255f, 0f, 0f);
+	private static Vector3 v_Nothing 			= new Vector3 (255f, 255f, 255f);
+	private static Vector3 v_Box 				= new Vector3 (0f, 0f, 0f);
+	private static Vector3 v_PCSpawn 			= new Vector3 (0f, 255f, 0f); 
+	private static Vector3 v_PCGoal 			= new Vector3 (255f, 0f, 0f);
+	private static Vector3 v_Collectable 		= new Vector3 (255f, 0f, 255f);
+
+	private static CellTemplate t_Nothing 		= new CellTemplate ("Nothing", v_Nothing);
+	private static CellTemplate t_Box 			= new CellTemplate ("Box", v_Box);
+	private static CellTemplate t_PCSpawn 		= new CellTemplate ("PCSPawn", v_PCSpawn);
+	private static CellTemplate t_PCGoal 		= new CellTemplate ("PCGoal", v_PCGoal);
+	private static CellTemplate t_Collectable 	= new CellTemplate ("Collectable", v_Collectable);
 
 	public GameObject BoxPrefab;
-
-	//private static GameObject BoxStatic;
+	public GameObject CollectablePrefab;
 
 	public static readonly Dictionary <Vector3, int> colorToType = new Dictionary<Vector3, int> {
-		{v_Nothing, (int)CellTypes.Nothing},
-		{v_Box, (int)CellTypes.Box},
+		{v_Nothing, (int) CellTypes.Nothing},
+		{v_Box, (int) CellTypes.Box},
 		{v_PCSpawn, (int) CellTypes.PCSpawn},
 		{v_PCGoal, (int) CellTypes.PCGoal},
-	};
-
-	public static readonly Dictionary <int, GameObject> typeToGameObject = new Dictionary<int, GameObject>{
-		//{(int)CellTypes.Box, BoxStatic},
-		//{2, BoxStatic},
+		{v_Collectable, (int) CellTypes.Collectable},
 	};
 
 	void Awake(){
@@ -40,14 +42,13 @@ public class CellPalette : MonoBehaviour {
 
 	public GameObject lookUpPrefab(int i){
 
-		//int t = (int)CellTypes.Box;
-
-		//GameObject r = typeToGameObject[i];
-		//GameObject r = new GameObject();
-
 		switch (i) {
 		case (int)CellTypes.Box:
 			return BoxPrefab;
+			break;
+
+		case (int)CellTypes.Collectable:
+			return CollectablePrefab;
 			break;
 
 		default:
@@ -56,6 +57,10 @@ public class CellPalette : MonoBehaviour {
 
 
 		return new GameObject ();
+	}
+
+	public string lookUpName(CellTypes type){
+
 	}
 
 	public CellPalette(){
