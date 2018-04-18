@@ -24,15 +24,15 @@ public abstract class AnchoredObject : MonoBehaviour {
 	private float distanceToAnchor; //
 	[SerializeField]
 	private Vector2 directionToAnchor; //
-	private Vector2 directionFromAnchor;
+	//private Vector2 directionFromAnchor;
 
 
 	private float elasticity;
 	private Vector2 elasticForce;
-	private Vector2 extendedLocalPos;
-	private Vector2 relaxedLocalPos;
-	private Vector2 extendedWorldPos;
-	private Vector2 relaxedWorldPos;
+	//private Vector2 extendedLocalPos;
+	//private Vector2 relaxedLocalPos;
+	//private Vector2 extendedWorldPos;
+	//private Vector2 relaxedWorldPos;
 
 	public Vector2 clampMaxLerp = new Vector2 (1,1);
 	public Vector2 clampMinLerp = new Vector2 (-1, -1);
@@ -62,13 +62,13 @@ public abstract class AnchoredObject : MonoBehaviour {
 		LocalFromAnchor = -LocalToAnchor;
 		distanceToAnchor = LocalToAnchor.magnitude;
 		directionToAnchor = LocalToAnchor.normalized;
-		directionFromAnchor = LocalFromAnchor.normalized;
+		//directionFromAnchor = LocalFromAnchor.normalized;
 
-		relaxedLocalPos = directionFromAnchor * relaxedLength;
-		relaxedWorldPos = relaxedLocalPos + anchorPos;
+		//relaxedLocalPos = directionFromAnchor * relaxedLength;
+		//relaxedWorldPos = relaxedLocalPos + anchorPos;
 
-		extendedLocalPos = directionFromAnchor * chainLength;
-		extendedWorldPos = extendedLocalPos + anchorPos;
+		//extendedLocalPos = directionFromAnchor * chainLength;
+		//extendedWorldPos = extendedLocalPos + anchorPos;
 
 		clampMaxValue = clampMaxLerp * chainLength;
 		clampMinValue = clampMinLerp * chainLength;

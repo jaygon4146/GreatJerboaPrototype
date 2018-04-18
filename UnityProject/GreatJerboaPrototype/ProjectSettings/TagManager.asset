@@ -22,8 +22,8 @@ TagManager:
   - SolidPlatform
   - PCBalloonTrigger
   - 
-  - 
-  - 
+  - LevelInteractable
+  - Collectable
   - 
   - 
   - 

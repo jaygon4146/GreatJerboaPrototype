@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BodyCollider : MonoBehaviour {
 
-	private Collider2D bodyCollider;
+	//private Collider2D bodyCollider;
 
 	[SerializeField] private bool touchingPlatform;
 
 	void Awake () {
-		bodyCollider = GetComponent<Collider2D> ();
+		//bodyCollider = GetComponent<Collider2D> ();
 	}
 
 	public bool isTouchingPlatform(){
