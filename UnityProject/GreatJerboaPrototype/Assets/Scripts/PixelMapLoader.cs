@@ -10,7 +10,7 @@ public class PixelMapLoader : MonoBehaviour {
 	private Color[] mapPixels;
 	private MapCell[] mapCells;
 
-	//private List<GameObject> spawnedObjects = new List<GameObject>();
+	private List<GameObject> spawnedObjects = new List<GameObject>();
 
 	private string mapLocation = "Art/LevelMaps/";
 
@@ -18,35 +18,22 @@ public class PixelMapLoader : MonoBehaviour {
 
 	[SerializeField]	private float loadingProgress;
 
-	[SerializeField]	private Vector2 PCSpawnPoint;
-	[SerializeField]	private Vector2 PCGoalPoint;
-
 	#region Definitions
 	public enum LevelList
 	{
 		TestLevel,
-		TestLevel2,
 	}
 
 	protected static readonly Dictionary <int, string> k_LevelPaths= new Dictionary<int, string>{
 		{(int)LevelList.TestLevel, "TestLevel"},
-		{(int)LevelList.TestLevel2, "TestLevel2"},
 	};
 	#endregion
 
 	void Awake () {
 
-
-		//LoadMap ();
-
-		//print ("imageTexture.GetPixels();");
-	}
-
-	public void Activate(){
 		palette = GetComponent<CellPalette> ();
 
-		//string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel];
-		string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel2];
+		string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel];
 		//print ("path = "+ path );
 
 		//imageTexture = Resources.Load (path) as Texture2D;
@@ -56,9 +43,12 @@ public class PixelMapLoader : MonoBehaviour {
 		mapPixels = new Color[(int)mapSize.x * (int)mapSize.y];
 		mapPixels = imageTexture.GetPixels ();
 
+		LoadMap ();
+
+		//print ("imageTexture.GetPixels();");
 	}
 
-	public void LoadMap(){
+	void LoadMap(){
 		int mapLength = mapPixels.Length;
 		mapCells = new MapCell[mapLength];
 
@@ -93,17 +83,27 @@ public class PixelMapLoader : MonoBehaviour {
 			break;
 
 		case ((int)CellTypes.Box):
-			SpawnBoxCell (cell);
+			Debug.Log ("SpawnCell() : Box");
+
+			GameObject original = palette.lookUpPrefab (cell.getType());
+			GameObject obj = Instantiate (
+				original, 								//original
+				cell.getPosition(), 					//position
+				Quaternion.identity, 					//rotation
+				transform								//parent
+				
+			);
+
+
 			break;
 
 		case ((int)CellTypes.PCSpawn):
 			Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
-			PCSpawnPoint = cell.getPosition ();
+
 			break;
 
 		case ((int)CellTypes.PCGoal):
 			Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition());
-			PCGoalPoint = cell.getPosition ();
 			break;	
 
 		default:
@@ -112,25 +112,4 @@ public class PixelMapLoader : MonoBehaviour {
 		}
 
 	}
-
-	void SpawnBoxCell(MapCell cell){
-		Debug.Log ("SpawnCell() : Box");
-		GameObject obj = Instantiate (
-			palette.lookUpPrefab (cell.getType ()), //original
-			cell.getPosition (), 					//position
-			Quaternion.identity 					//rotation				
-		);			                 
-		obj.transform.SetParent (transform);
-		obj.name = "Box: " + cell.getPosition ();
-	}
-
-	public Vector2 getPCSpawn(){
-		return PCSpawnPoint;
-	}
-
-	public Vector2 getPCGoalPoint(){
-		return PCGoalPoint;
-	}
-
-
 }
