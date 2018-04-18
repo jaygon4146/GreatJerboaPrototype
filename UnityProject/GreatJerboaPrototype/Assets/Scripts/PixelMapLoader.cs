@@ -18,22 +18,35 @@ public class PixelMapLoader : MonoBehaviour {
 
 	[SerializeField]	private float loadingProgress;
 
+	[SerializeField]	private Vector2 PCSpawnPoint;
+	[SerializeField]	private Vector2 PCGoalPoint;
+
 	#region Definitions
 	public enum LevelList
 	{
 		TestLevel,
+		TestLevel2,
 	}
 
 	protected static readonly Dictionary <int, string> k_LevelPaths= new Dictionary<int, string>{
 		{(int)LevelList.TestLevel, "TestLevel"},
+		{(int)LevelList.TestLevel2, "TestLevel2"},
 	};
 	#endregion
 
 	void Awake () {
 
+		//LoadMap ();
+
+		//print ("imageTexture.GetPixels();");
+	}
+
+	public void Activate(){
+
 		palette = GetComponent<CellPalette> ();
 
 		string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel];
+		//string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel2];
 		//print ("path = "+ path );
 
 		//imageTexture = Resources.Load (path) as Texture2D;
@@ -45,7 +58,6 @@ public class PixelMapLoader : MonoBehaviour {
 
 		LoadMap ();
 
-		//print ("imageTexture.GetPixels();");
 	}
 
 	void LoadMap(){
@@ -85,25 +97,25 @@ public class PixelMapLoader : MonoBehaviour {
 		case ((int)CellTypes.Box):
 			Debug.Log ("SpawnCell() : Box");
 
-			GameObject original = palette.lookUpPrefab (cell.getType());
+			GameObject original = palette.lookUpPrefab (cell.getType ());
 			GameObject obj = Instantiate (
-				original, 								//original
-				cell.getPosition(), 					//position
-				Quaternion.identity, 					//rotation
-				transform								//parent
-				
-			);
-
+				                 original, 								//original
+				                 cell.getPosition (), 					//position
+				                 Quaternion.identity, 					//rotation
+				                 transform								//parent				
+			                 );
+			obj.name = "Box@: " + cell.getPosition ();
 
 			break;
 
 		case ((int)CellTypes.PCSpawn):
 			Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
-
+			PCSpawnPoint = cell.getPosition ();
 			break;
 
 		case ((int)CellTypes.PCGoal):
-			Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition());
+			Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
+			PCGoalPoint = cell.getPosition ();
 			break;	
 
 		default:
@@ -111,5 +123,9 @@ public class PixelMapLoader : MonoBehaviour {
 			break;
 		}
 
+	}
+
+	public Vector2 getPCSpawnPoint(){
+		return PCSpawnPoint;
 	}
 }

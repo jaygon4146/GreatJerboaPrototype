@@ -12,7 +12,7 @@ public class CellPalette : MonoBehaviour {
 
 	public GameObject BoxPrefab;
 
-	private static GameObject BoxStatic;
+	//private static GameObject BoxStatic;
 
 	public static readonly Dictionary <Vector3, int> colorToType = new Dictionary<Vector3, int> {
 		{v_Nothing, (int)CellTypes.Nothing},
@@ -23,7 +23,7 @@ public class CellPalette : MonoBehaviour {
 
 	public static readonly Dictionary <int, GameObject> typeToGameObject = new Dictionary<int, GameObject>{
 		//{(int)CellTypes.Box, BoxStatic},
-		{2, BoxStatic},
+		//{2, BoxStatic},
 	};
 
 	void Awake(){
@@ -43,11 +43,11 @@ public class CellPalette : MonoBehaviour {
 		//int t = (int)CellTypes.Box;
 
 		//GameObject r = typeToGameObject[i];
-		GameObject r = new GameObject();
+		//GameObject r = new GameObject();
 
 		switch (i) {
 		case (int)CellTypes.Box:
-			r = BoxPrefab;
+			return BoxPrefab;
 			break;
 
 		default:
@@ -55,7 +55,7 @@ public class CellPalette : MonoBehaviour {
 		}
 
 
-		return r;
+		return new GameObject ();
 	}
 
 	public CellPalette(){
