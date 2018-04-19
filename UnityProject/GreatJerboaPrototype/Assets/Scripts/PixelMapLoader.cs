@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using MapCellSpace;
 
@@ -14,6 +15,9 @@ public class PixelMapLoader : MonoBehaviour {
 	private static List<GameObject> collectedList = new List<GameObject>();
 
 	private string mapLocation = "Art/LevelMaps/";
+	private string mapDirectory = "Assets/Resources/Art/LevelMaps";
+
+	private static List<string> mapFiles = new List<string>();
 
 	private static CellPalette palette;
 
@@ -23,31 +27,28 @@ public class PixelMapLoader : MonoBehaviour {
 	[SerializeField]	private Vector2 PCGoalPoint;
 
 	#region Definitions
-	public enum LevelList
+	public enum LevelEnum
 	{
 		TestLevel,
 		TestLevel2,
 	}
 
 	protected static readonly Dictionary <int, string> k_LevelPaths= new Dictionary<int, string>{
-		{(int)LevelList.TestLevel, "TestLevel"},
-		{(int)LevelList.TestLevel2, "TestLevel2"},
+		{(int)LevelEnum.TestLevel, "TestLevel"},
+		{(int)LevelEnum.TestLevel2, "TestLevel2"},
 	};
 	#endregion
 
 	void Awake () {
-
-		//LoadMap ();
-
-		//print ("imageTexture.GetPixels();");
 	}
+
 
 	public void Activate(){
 
 		palette = GetComponent<CellPalette> ();
 
 		//string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel];
-		string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel2];
+		string path = mapLocation + k_LevelPaths[(int)LevelEnum.TestLevel2];
 		//print ("path = "+ path );
 
 		//imageTexture = Resources.Load (path) as Texture2D;
