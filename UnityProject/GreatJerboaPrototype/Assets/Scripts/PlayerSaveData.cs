@@ -10,15 +10,23 @@ public class PlayerSaveData {
 
 	public string previousLevel;
 	public string currentLevel;
+	public int currentLevelPos;
 
-	private List<LevelSaveData> levelData = new List <LevelSaveData>();
+	public List<LevelSaveData> levelData = new List <LevelSaveData>();
 
 	public PlayerSaveData(int id){
 		playerID = id;
 	}
 
-	public void BeginLevel(string l){
-		currentLevel = l;
+	public void BeginLevel(string lvl){
+		currentLevel = lvl;
+
+		for (int i = 0; i < levelData.Count; i++) {
+			if (levelData [i].getName () == lvl) {
+				currentLevelPos = i;
+				return;
+			}
+		}
 	}
 
 	public string GetCurrentLevel(){
@@ -40,7 +48,7 @@ public class PlayerSaveData {
 			if (lvl.Equals( levelData [i].getName ())) {
 				//Level Data Exists
 				found = true;
-				Debug.Log ("Level Data Found : " + lvl);
+				//Debug.Log ("Level Data Found : " + lvl);
 				return;
 			}
 		}
@@ -48,6 +56,18 @@ public class PlayerSaveData {
 			levelData.Add (new LevelSaveData (lvl));
 			Debug.Log ("Level Data Not Found, Added New Level Data : " + lvl);
 		}
+	}
+
+	public void PrepareLevel(int numberOfCollectables){
+		levelData [currentLevelPos].PrepareLevelData (numberOfCollectables);
+	}
+
+	public void RecordLevel(int numberCollected){
+		levelData [currentLevelPos].RecordLevelData (numberCollected);
+	}
+
+	public string GetCompletionMessage(){
+		return levelData [currentLevelPos].getCompletionMessage ();
 	}
 
 }

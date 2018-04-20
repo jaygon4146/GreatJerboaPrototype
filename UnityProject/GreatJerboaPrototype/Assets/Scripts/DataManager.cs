@@ -23,7 +23,7 @@ public static class DataManager {
 		bf.Serialize (file, DataManager.SaveData);
 		file.Close ();
 
-		Debug.Log ("Finish Save()");
+		//Debug.Log ("Finish Save()");
 	}
 
 	public static void Load(){
@@ -40,7 +40,14 @@ public static class DataManager {
 			Save ();
 			Load ();
 		}
-		Debug.Log ("Finish Load()");
+		//Debug.Log ("Finish Load()");
+	}
+
+	public static void clearAllData(){		
+		SaveData = new List<PlayerSaveData> ();
+		Debug.Log ("!!!ALL SAVE DATA DELETED!!!");
+		Save ();
+		Load ();
 	}
 
 	public static void SelectSaveDataSlot(int i){
@@ -60,13 +67,28 @@ public static class DataManager {
 		}
 	}
 
-
 	public static void BeginLevel(string level){
 		SaveData [ActiveDataPos].BeginLevel (level);
 	}
 
+	public static void PrepareLevel(int numberOfCollectables){
+		SaveData [ActiveDataPos].PrepareLevel (numberOfCollectables);
+	}
+
+	public static void FinishLevel(int numberCollected){
+		SaveData [ActiveDataPos].RecordLevel (numberCollected);
+		Save ();
+	}
+
+	public static string GetCompletionMessage(){
+		return SaveData [ActiveDataPos].GetCompletionMessage ();
+	}
+		
 	public static string GetCurrentLevel(){
 		return SaveData [ActiveDataPos].GetCurrentLevel ();
 	}
+
+
+
 
 }

@@ -13,6 +13,10 @@ public class CollectableObject : MonoBehaviour {
 		renderer = GetComponent<SpriteRenderer> ();
 	}
 
+	public bool wasCollected(){
+		return HasBeenTriggered;
+	}
+
 	void OnTriggerEnter2D(Collider2D c){
 		touchingPlayerCharacter = true;
 		HasBeenTriggered = true;

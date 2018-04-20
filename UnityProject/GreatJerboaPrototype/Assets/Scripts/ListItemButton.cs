@@ -24,7 +24,7 @@ public class ListItemButton : MonoBehaviour {
 	}
 
 	public void ClickButton(){
-		print (Label.text + " was clicked");
+		//print (Label.text + " was clicked");
 	}
 
 	public int GetID(){

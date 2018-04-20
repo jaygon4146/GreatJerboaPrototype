@@ -32,6 +32,7 @@ public class MenuNavigator : MonoBehaviour {
 	#endregion
 
 	void Awake(){
+		//DataManager.clearAllData ();
 		DataManager.Load ();
 		DataManager.SelectSaveDataSlot (0);
 		DataManager.LoadAllLevels (m_LevelList.getMapFilesList());
@@ -66,7 +67,7 @@ public class MenuNavigator : MonoBehaviour {
 
 			if (stateInfo.shortNameHash == ConfirmState) {
 				DataManager.BeginLevel (m_LevelList.GetSelectedItemName ());
-				print ("Beginning Level");
+				//print ("Beginning " + m_LevelList.GetSelectedItemName());
 				SceneManager.LoadScene ("PlayableLevel", LoadSceneMode.Single);
 			}
 		}

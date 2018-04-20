@@ -21,6 +21,8 @@ public class PixelMapLoader : MonoBehaviour {
 
 	private static CellPalette palette;
 
+	private static string CurrentLevelPath;
+
 	[SerializeField]	private float loadingProgress;
 
 	[SerializeField]	private Vector2 PCSpawnPoint;
@@ -42,13 +44,17 @@ public class PixelMapLoader : MonoBehaviour {
 	void Awake () {
 	}
 
-
 	public void Activate(){
 
 		palette = GetComponent<CellPalette> ();
 
-		//string path = mapLocation + k_LevelPaths[(int)LevelList.TestLevel];
-		string path = mapLocation + k_LevelPaths[(int)LevelEnum.TestLevel2];
+		CurrentLevelPath = k_LevelPaths [(int)LevelEnum.TestLevel2];
+		//TESTING BLOCKOUT ONLY
+		CurrentLevelPath = DataManager.GetCurrentLevel ();
+		CurrentLevelPath = CurrentLevelPath.Substring (0, CurrentLevelPath.Length - 4); //cut off end of the string
+
+
+		string path = mapLocation + CurrentLevelPath;
 		//print ("path = "+ path );
 
 		//imageTexture = Resources.Load (path) as Texture2D;
@@ -83,7 +89,7 @@ public class PixelMapLoader : MonoBehaviour {
 			}
 		}
 
-		print ("LoadMap(): Complete");
+		//print ("LoadMap(): Complete");
 	}
 
 	void SpawnCell(MapCell cell){
