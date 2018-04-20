@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerInput))]
 
 public class MenuNavigator : MonoBehaviour {
+
+	private int playerID = 0;
 
 	public LevelList m_LevelList;
 	public Animator stateAnimator;
@@ -27,6 +30,14 @@ public class MenuNavigator : MonoBehaviour {
 	private static int LvlState = Animator.StringToHash ("LevelSelectScreen");
 	private static int ConfirmState = Animator.StringToHash ("LevelConfirmationScreen");
 	#endregion
+
+	void Awake(){
+		DataManager.Load ();
+		DataManager.SelectSaveDataSlot (0);
+		DataManager.LoadAllLevels (m_LevelList.getMapFilesList());
+		DataManager.Save ();
+	}
+
 
 	void FixedUpdate () {
 		stateInfo = stateAnimator.GetCurrentAnimatorStateInfo (0);
@@ -51,6 +62,12 @@ public class MenuNavigator : MonoBehaviour {
 				confirmationMsg.text = "Play " + m_LevelList.GetSelectedItemName() + " ? ";
 
 				stateAnimator.SetTrigger (LvlToConfirmHash);
+			}
+
+			if (stateInfo.shortNameHash == ConfirmState) {
+				DataManager.BeginLevel (m_LevelList.GetSelectedItemName ());
+				print ("Beginning Level");
+				SceneManager.LoadScene ("PlayableLevel", LoadSceneMode.Single);
 			}
 		}
 

@@ -91,4 +91,8 @@ public class LevelList : MonoBehaviour {
 	}
 
 
+	public List<string> getMapFilesList(){
+		return mapFiles;
+	}
+
 }

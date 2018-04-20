@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour {
 	public PlayerCharacter Character;
 
 	public GoalTrigger Goal;
-
 	public GameObject CollectableHolder;
 
 	private static List<GameObject> collectedList = new List<GameObject>();
