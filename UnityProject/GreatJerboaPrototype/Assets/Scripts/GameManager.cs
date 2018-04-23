@@ -36,7 +36,13 @@ public class GameManager : MonoBehaviour {
 		Character.transform.position = MapLoader.getPCSpawnPoint () + Vector2.up *0.05f;
 		Goal.transform.position = MapLoader.getPCGoalPoint ();
 
+		collectedList = new List<GameObject>();
 		collectedList = MapLoader.getCollectableList ();
+
+		if (CollectableHolder == null) {
+			CollectableHolder = GameObject.Find ("CollectableHolder");
+		}
+
 		for (int i = 0; i < collectedList.Count; i++) {
 			collectedList [i].transform.SetParent (CollectableHolder.transform);
 		}

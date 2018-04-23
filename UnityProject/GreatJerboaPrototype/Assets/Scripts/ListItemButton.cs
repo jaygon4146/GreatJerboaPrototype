@@ -15,6 +15,7 @@ public class ListItemButton : MonoBehaviour {
 	}
 
 	public void InstantiateVariables(string name, int key){
+
 		button = GetComponent<Button> ();
 		Name = name;
 		ID = key;
@@ -37,7 +38,11 @@ public class ListItemButton : MonoBehaviour {
 
 	public void SelectThis(){
 		Selected = true;
-		button.Select ();
+		if (button != null) {
+			button.Select ();
+		} else {
+			//print ("SelectThis() - button = null");
+		}
 	}
 
 	public void UnselectThis(){

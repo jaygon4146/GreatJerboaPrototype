@@ -72,6 +72,8 @@ public class PixelMapLoader : MonoBehaviour {
 		int mapLength = mapPixels.Length;
 		mapCells = new MapCell[mapLength];
 
+		collectedList.Clear ();
+
 		int xPos = 0;
 		int yPos = 0;
 

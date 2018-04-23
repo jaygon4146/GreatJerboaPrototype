@@ -14,23 +14,15 @@ public class LevelList : MonoBehaviour {
 
 	[SerializeField] int SelectedItem = 0;
 
-	private static bool created = false;
 
 	void Awake(){
-
-		if (!created) {
-			DontDestroyOnLoad (this.gameObject);
-			created = true;
-			PopulateList ();
-		}
+		//print ("Awake");
+		PopulateList ();
 	}
 
 	private void PopulateList(){
 		//First, clear the list
-		foreach (Transform child in scrollContent) {
-			GameObject.Destroy (child.gameObject);
-		}
-
+		DestroyList();
 		GetMapList ();
 		//Populate the list
 		for (int i = 0; i < mapFiles.Count ; i++) {
@@ -41,11 +33,14 @@ public class LevelList : MonoBehaviour {
 			);
 			obj.InstantiateVariables (mapFiles [i], i);
 			listItems.Add (obj);
+			//print (mapFiles[i] + " Added");
 		}
+		SelectedItem = 0;
 		UpdateSelectedItem ();
 	}
 
 	public void GetMapList(){
+		mapFiles = new List<string> ();
 
 		DirectoryInfo dir = new DirectoryInfo (mapDirectory);
 		FileInfo[] info = dir.GetFiles ("*.png*");
@@ -60,6 +55,17 @@ public class LevelList : MonoBehaviour {
 			}
 		}
 	}
+
+	public void DestroyList(){
+		listItems = new List<ListItemButton> ();
+
+		foreach (Transform child in scrollContent.transform) {
+			GameObject.Destroy (child.gameObject);
+			//print ("Child GameObject Destroyed");
+		}
+		//print ("List Destroyed");
+	}
+
 
 	public void CursorUp(){
 		if (SelectedItem > 0) {

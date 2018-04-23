@@ -68,6 +68,7 @@ public class MenuNavigator : MonoBehaviour {
 			if (stateInfo.shortNameHash == ConfirmState) {
 				DataManager.BeginLevel (m_LevelList.GetSelectedItemName ());
 				//print ("Beginning " + m_LevelList.GetSelectedItemName());
+				m_LevelList.DestroyList();
 				SceneManager.LoadScene ("PlayableLevel", LoadSceneMode.Single);
 			}
 		}
