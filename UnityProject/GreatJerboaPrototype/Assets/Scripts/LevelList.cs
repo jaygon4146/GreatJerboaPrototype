@@ -14,8 +14,15 @@ public class LevelList : MonoBehaviour {
 
 	[SerializeField] int SelectedItem = 0;
 
+	private static bool created = false;
+
 	void Awake(){
-		PopulateList ();
+
+		if (!created) {
+			DontDestroyOnLoad (this.gameObject);
+			created = true;
+			PopulateList ();
+		}
 	}
 
 	private void PopulateList(){
