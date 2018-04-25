@@ -10,6 +10,7 @@ public class PixelMapLoader : MonoBehaviour {
 	private Vector2 mapSize = new Vector2 (50,36);
 	private Color[] mapPixels;
 	private MapCell[] mapCells;
+	private List<MapCell> groupedCells = new List<MapCell>();
 
 	//private List<GameObject> spawnedObjects = new List<GameObject>();
 	private static List<GameObject> collectedList = new List<GameObject>();
@@ -27,6 +28,13 @@ public class PixelMapLoader : MonoBehaviour {
 
 	[SerializeField]	private Vector2 PCSpawnPoint;
 	[SerializeField]	private Vector2 PCGoalPoint;
+
+	private int[] HorzGroupLengths;
+	private int[] HorzGroupPosSums;
+
+	private int[] VertGroupLengths;
+	private int[] VertGroupPosSums;
+
 
 	#region Definitions
 	public enum LevelEnum
@@ -71,6 +79,13 @@ public class PixelMapLoader : MonoBehaviour {
 	void LoadMap(){
 		int mapLength = mapPixels.Length;
 		mapCells = new MapCell[mapLength];
+		List<Vector2> singleCandidates = new List<Vector2> ();
+
+		HorzGroupLengths = new int[(int)mapSize.y];
+		HorzGroupPosSums = new int[(int)mapSize.y];
+
+		VertGroupLengths = new int[(int)mapSize.x];
+		VertGroupPosSums = new int[(int)mapSize.x];
 
 		collectedList.Clear ();
 
@@ -78,11 +93,70 @@ public class PixelMapLoader : MonoBehaviour {
 		int yPos = 0;
 
 		for (int i = 0; i < mapLength; i++) {
-			loadingProgress = i / mapLength;
-
+			//loadingProgress = i / mapLength;
 			mapCells [i] = new MapCell (mapPixels [i], new Vector2 (xPos, yPos));
-			//mapCells [i].SpawnCell ();
-			SpawnCell(mapCells[i]);
+
+			#region Track Horizontal/Vertical Groups
+			if (xPos == 0){									//If we are at the beginning of a new line
+				if (HorzGroupLengths[yPos] > 0){						//check the group count
+					CreateHorizontalGroupedBox(yPos);				
+				}
+			}
+			if (yPos == mapSize.y){							//If we are at the end of a vertical line
+				if (VertGroupLengths[xPos] > 0){				//check that group count
+					CreateVerticalGroupedBox(xPos);
+				}
+			}
+
+			if (mapCells[i].getType() == (int)CellIDs.Box){	//If this is a box
+				HorzGroupLengths[yPos] ++;							//count the box
+				HorzGroupPosSums[yPos] += xPos;
+						
+				VertGroupLengths[xPos] ++;
+				VertGroupPosSums[xPos] += yPos;
+
+				if (HorzGroupLengths[yPos] == 1 && VertGroupLengths[xPos] == 1){ 
+					// if this is the first, both vertically and horizontally
+					singleCandidates.Add(new Vector2(xPos, yPos));
+				}
+				else{
+					for (int j = 0; j < singleCandidates.Count; j ++){
+						bool disproved = false;
+						Vector2 v = singleCandidates[j];
+						if (v.x == xPos -1 && v.y == yPos)
+							disproved = true;	//if there is a single candidate to my left, it is proven not single
+						if (v.x == xPos && v.y == yPos -1)
+							disproved = true;	//if there is a single candidate below me, it can't be single
+						if (disproved){
+							singleCandidates.RemoveAt(j);
+							j--;
+						}
+						print("disproved: " + disproved);
+					}
+				}
+
+
+			} else {										//If this is NOT a box
+				SpawnCell(mapCells[i]);							//spawn this
+				if (HorzGroupLengths[yPos] > 0){				//check the group count
+					if (HorzGroupLengths[yPos] == 1){
+						HorzGroupLengths[yPos] = 0;
+						HorzGroupPosSums[yPos] = 0;						
+					}else{
+						CreateHorizontalGroupedBox(yPos);				
+					}
+				}
+				if (VertGroupLengths[xPos] >0){					//check the vert group count
+					if (VertGroupLengths[xPos] == 1){
+						VertGroupLengths [xPos] = 0;
+						VertGroupPosSums [xPos] = 0;
+					}else{
+						CreateVerticalGroupedBox(xPos);	
+					}
+				}
+			}
+
+			#endregion
 
 			xPos++;
 			if (xPos >= mapSize.x) {
@@ -90,8 +164,36 @@ public class PixelMapLoader : MonoBehaviour {
 				yPos ++;
 			}
 		}
+		print ("NumberOfSinglesFound: " + singleCandidates.Count);
+		Debug.Log ("Load Map() Complete");
+	}
+	void CreateHorizontalGroupedBox(int y){
+		Vector2 v = new Vector2 (0, y);
+		MapCell cell = new MapCell (palette.getBoxColor (), v);
+		float midX = (float)HorzGroupPosSums[y] / (float)HorzGroupLengths[y];
+		cell.setXPos (midX);
+		cell.setXScale (HorzGroupLengths[y]);
+		groupedCells.Add (cell);
+		//print ("New Horizontal Group Added;\tLength: " + HorzGroupLengths[y] + "\tmidX: " + midX + "\tyPos: " + y);
+		int last = groupedCells.Count - 1;
+		SpawnCell (groupedCells[last]);
+		HorzGroupLengths[y] = 0;
+		HorzGroupPosSums[y] = 0;
+	}
 
-		//print ("LoadMap(): Complete");
+	void CreateVerticalGroupedBox(int x){
+		Vector2 v = new Vector2 (x, 0);
+		MapCell cell = new MapCell (palette.getBoxColor (), v);
+		float midY = (float)VertGroupPosSums [x] / (float)VertGroupLengths [x];
+		cell.setYPos (midY);
+		cell.setYScale (VertGroupLengths [x]);
+		groupedCells.Add (cell);
+
+		//print ("New Vertical Group Added;\tLength: " + VertGroupLengths[x] + "\tmidY: " + midY + "\txPos: " + x);
+		int last = groupedCells.Count - 1;
+		SpawnCell (groupedCells[last]);
+		VertGroupLengths [x] = 0;
+		VertGroupPosSums [x] = 0;
 	}
 
 	void SpawnCell(MapCell cell){
@@ -134,6 +236,8 @@ public class PixelMapLoader : MonoBehaviour {
 
 	private void SpawnCellPrefab(MapCell cell){
 
+		//print ("SpawnCellPrefab()");
+
 		GameObject original = palette.lookUpPrefab (cell.getType ());
 		GameObject obj = Instantiate (
 			original, 								//original
@@ -146,6 +250,10 @@ public class PixelMapLoader : MonoBehaviour {
 
 		if (cell.getType () == (int)CellIDs.Collectable) {
 			collectedList.Add (obj);
+		}
+
+		if (cell.getType () == (int)CellIDs.Box) {
+			obj.transform.localScale = cell.getScale ();
 		}
 	}
 

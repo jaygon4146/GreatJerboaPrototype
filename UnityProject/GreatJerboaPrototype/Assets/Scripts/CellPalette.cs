@@ -76,7 +76,6 @@ public class CellPalette : MonoBehaviour {
 			break;
 		}
 
-
 		return new GameObject ();
 	}
 
@@ -87,6 +86,10 @@ public class CellPalette : MonoBehaviour {
 				return TemplateList [i].getName ();
 		}
 		return "lookUpName(): ID NOT FOUND";
+	}
+
+	public Color getBoxColor(){
+		return Color.black;
 	}
 
 	public CellPalette(){

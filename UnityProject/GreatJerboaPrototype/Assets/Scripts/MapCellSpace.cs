@@ -44,8 +44,11 @@ namespace MapCellSpace {
 		private Vector3 colorVector;
 		private int myType;
 		private Vector2 myPosition;
+		private Vector2 myScale = new Vector2 (1f, 1f);
 
-		private static CellPalette palette = new CellPalette();
+		private bool[] neighbours = new bool[9];
+
+		private static CellPalette palette = new CellPalette();	
 		
 		public MapCell(Color color, Vector2 position){
 			colorVector = colorToVector (color);
@@ -56,37 +59,31 @@ namespace MapCellSpace {
 			} else {
 				myType = -1;
 			}
+			setUpNeighbours ();
 		}
-		/*
-		public void SpawnCell(){
-			switch (myType) {
-			case ((int)CellTypes.MISSING):
-				Debug.Log ("SpawnCell() : MISSING");
-				break;
 
-			case ((int)CellTypes.Nothing):
-				Debug.Log ("SpawnCell() : Nothing");
-				break;
-
-			case ((int)CellTypes.Box):
-				Debug.Log ("SpawnCell() : Box");
-				break;
-
-			case ((int)CellTypes.PCSpawn):
-				Debug.Log ("SpawnCell() : PCSpawn : @ :" + myPosition);
-
-				break;
-
-			case ((int)CellTypes.PCGoal):
-				Debug.Log ("SpawnCell() : PCGoal : @ :" + myPosition);
-				break;	
-
-			default:
-				Debug.Log ("SpawnCell()");
-				break;
-			}
+		private void setUpNeighbours(){
+			neighbours [0] = false;		neighbours [1] = false;		neighbours [2] = false;
+			neighbours [3] = false;		neighbours [4] = true;		neighbours [5] = false;
+			neighbours [6] = false;		neighbours [7] = false;		neighbours [8] = false;
+			//Debug.Log ("setUpNeighbours()");
 		}
-		*/
+
+		public void setXScale(int x){
+			myScale = new Vector2 (x, myScale.y);
+		}
+
+		public void setYScale(int y){
+			myScale = new Vector2 (myScale.x, y);
+		}
+
+		public void setXPos(float x){
+			myPosition = new Vector2 (x, myPosition.y);
+		}
+		public void setYPos(float y){
+			myPosition = new Vector2 (myPosition.x, y);
+		}
+
 
 		public int getType(){
 			return myType;
@@ -99,6 +96,9 @@ namespace MapCellSpace {
 
 		public Vector2 getPosition(){
 			return myPosition;
+		}
+		public Vector2 getScale(){
+			return myScale;
 		}
 
 		private Vector3 colorToVector(Color c){
