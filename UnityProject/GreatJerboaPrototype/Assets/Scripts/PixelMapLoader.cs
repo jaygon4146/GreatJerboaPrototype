@@ -97,16 +97,6 @@ public class PixelMapLoader : MonoBehaviour {
 			mapCells [i] = new MapCell (mapPixels [i], new Vector2 (xPos, yPos));
 
 			#region Track Horizontal/Vertical Groups
-			if (xPos == 0){									//If we are at the beginning of a new line
-				if (HorzGroupLengths[yPos] > 0){						//check the group count
-					CreateHorizontalGroupedBox(yPos);				
-				}
-			}
-			if (yPos == mapSize.y){							//If we are at the end of a vertical line
-				if (VertGroupLengths[xPos] > 0){				//check that group count
-					CreateVerticalGroupedBox(xPos);
-				}
-			}
 
 			if (mapCells[i].getType() == (int)CellIDs.Box){	//If this is a box
 				HorzGroupLengths[yPos] ++;							//count the box
@@ -115,6 +105,7 @@ public class PixelMapLoader : MonoBehaviour {
 				VertGroupLengths[xPos] ++;
 				VertGroupPosSums[xPos] += yPos;
 
+				#region Track Singles
 				if (HorzGroupLengths[yPos] == 1 && VertGroupLengths[xPos] == 1){ 
 					// if this is the first, both vertically and horizontally
 					singleCandidates.Add(new Vector2(xPos, yPos));
@@ -131,9 +122,10 @@ public class PixelMapLoader : MonoBehaviour {
 							singleCandidates.RemoveAt(j);
 							j--;
 						}
-						print("disproved: " + disproved);
+						//print("disproved: " + disproved);
 					}
 				}
+				#endregion
 
 
 			} else {										//If this is NOT a box
@@ -163,9 +155,28 @@ public class PixelMapLoader : MonoBehaviour {
 				xPos = 0;
 				yPos ++;
 			}
+
+			if (yPos == mapSize.y-1){							//If we are at the end of a vertical line
+				if (VertGroupLengths[xPos] > 0){				//check that group count of the previous 
+					CreateVerticalGroupedBox(xPos);
+				}
+			}
+
+			if (xPos == 0 && yPos > 0){							//If we are at the beginning of a new line
+				if (HorzGroupLengths[yPos-1] > 0){				//check the group count of the previous line
+					CreateHorizontalGroupedBox(yPos-1);				
+				}
+			}
 		}
-		print ("NumberOfSinglesFound: " + singleCandidates.Count);
-		Debug.Log ("Load Map() Complete");
+		//print ("NumberOfSinglesFound: " + singleCandidates.Count);
+
+		for (int i = 0; i < singleCandidates.Count; i++) {
+			MapCell cell = new MapCell (palette.getBoxColor(), singleCandidates[i]);
+			SpawnCell (cell);
+			//print ("Spawned Single Cell: " + singleCandidates[i]);
+		}
+
+		//print ("Load Map() Complete");
 	}
 	void CreateHorizontalGroupedBox(int y){
 		Vector2 v = new Vector2 (0, y);
