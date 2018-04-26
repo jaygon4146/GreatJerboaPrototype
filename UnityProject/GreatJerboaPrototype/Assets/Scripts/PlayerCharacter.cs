@@ -111,7 +111,7 @@ public class PlayerCharacter : MonoBehaviour {
 			Vector2 jumpVector = PCPhysicsForces.getJumpVector ();
 
 			//==========SPRINGJUMP==========
-			if (preparingSpringJump && BalloonEnterTrigger.isTouchingBalloon()) {
+			if (preparingSpringJump) {
 				warmUpJump = true;
 				needToCancelJump = true;
 			}
@@ -142,7 +142,6 @@ public class PlayerCharacter : MonoBehaviour {
 			springCountDown.updateValue (springJumpTimeCountdown);
 			springCountDown.drawFloatTimeLine ();
 		}
-
 	}
 
 	void TriggerAction(){

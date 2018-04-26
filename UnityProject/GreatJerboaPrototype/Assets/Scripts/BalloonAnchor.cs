@@ -41,11 +41,18 @@ public class BalloonAnchor : AnchoredObject {
 
 		if (TriggersHeld && PerformingWarmUpJump) {
 			RaycastHit2D rayHit = Physics2D.Raycast (transform.position, Vector2.down, 3f);
-
 			if (rayHit.collider != null) {
 				//if We are performina a warmup jump, pull the ballon to the ground
-				Vector2 newPos = new Vector2 (transform.position.x, rayHit.point.y);
+				float x = transform.position.x;
+				float y = rayHit.point.y;
+				if (y < frontFootObj.transform.position.y) {
+					y = frontFootObj.transform.position.y;
+				}
+				Vector2 newPos = new Vector2 (x, y);
+
 				transform.position = newPos;
+			} else {
+				moveBelowFeet ();
 			}
 		}
 
