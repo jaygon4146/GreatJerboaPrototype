@@ -264,7 +264,9 @@ public class PixelMapLoader : MonoBehaviour {
 		}
 
 		if (cell.getType () == (int)CellIDs.Box) {
-			obj.transform.localScale = cell.getScale ();
+			//obj.transform.localScale = cell.getScale ();
+			CellObject cellObj = obj.GetComponent<CellObject> ();
+			cellObj.PassScale (cell.getScale());
 		}
 	}
 
