@@ -8,11 +8,14 @@ public class GoalTrigger : MonoBehaviour {
 	[SerializeField] private bool GoalHasBeenTriggered = false;
 
 	private SpriteRenderer renderer;
+	private AudioSource source;
+	public AudioClip clip;
 
 	int flashCount = 0;
 
 	void Awake(){
 		renderer = GetComponent<SpriteRenderer> ();
+		source = GetComponent<AudioSource> ();
 	}
 
 	void Update(){
@@ -40,6 +43,7 @@ public class GoalTrigger : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D c){
 		touchingPlayerCharacter = true;
 		GoalHasBeenTriggered = true;
+		source.PlayOneShot (clip);
 		//print ("GoalEnter");
 	}
 

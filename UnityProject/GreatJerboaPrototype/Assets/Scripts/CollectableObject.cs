@@ -8,9 +8,12 @@ public class CollectableObject : MonoBehaviour {
 	[SerializeField] private bool HasBeenTriggered = false;
 
 	private SpriteRenderer renderer;
+	private AudioSource source;
+	public AudioClip clip;
 
 	void Awake(){
 		renderer = GetComponent<SpriteRenderer> ();
+		source = GetComponent<AudioSource> ();
 	}
 
 	public bool wasCollected(){
@@ -18,6 +21,9 @@ public class CollectableObject : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D c){
+		if (!HasBeenTriggered)
+			source.PlayOneShot (clip);
+		
 		touchingPlayerCharacter = true;
 		HasBeenTriggered = true;
 		renderer.color = Color.blue;

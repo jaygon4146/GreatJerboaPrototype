@@ -14,6 +14,7 @@ public class PlayerCharacter : MonoBehaviour {
 	protected UnitController2D 	PCUnitController2D;
 	protected PhysicsForces 	PCPhysicsForces;
 	protected JerboaAnimationManager JAnimManager;
+	protected CharacterSounds	JerboaSounds;
 	private Collider2D FeetCollider;
 	public LayerMask PlatformLayer;
 	public BodyCollider bodyCollider;
@@ -50,6 +51,7 @@ public class PlayerCharacter : MonoBehaviour {
 		PCPhysicsForces = GetComponent<PhysicsForces> ();
 		JAnimManager = GetComponent<JerboaAnimationManager> ();
 		FeetCollider = GetComponent<Collider2D> ();
+		JerboaSounds = GetComponent<CharacterSounds> ();
 
 		if (debugging) {
 			lTimeLine.drawColor = Color.red;
@@ -124,6 +126,8 @@ public class PlayerCharacter : MonoBehaviour {
 			PCUnitController2D.addImpulse (jumpVector);
 			JAnimManager.JumpTakeOff ();
 			canCancelJump = true;
+
+			JerboaSounds.PlayJump ();
 		}
 
 		if (PlayerInput.Instance.Jump.Up && canCancelJump) {
