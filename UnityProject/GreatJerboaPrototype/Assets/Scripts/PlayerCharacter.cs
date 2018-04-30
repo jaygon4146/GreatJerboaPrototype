@@ -96,6 +96,10 @@ public class PlayerCharacter : MonoBehaviour {
 		bool needToCancelJump = false;
 		bool canSpringJump = false;
 
+		bool standardJumpSound = true;
+		bool warmUpJumpSound = false;
+		bool springJumpSound = false;
+
 		if (springJumpTimeCountdown > 0) {
 			springJumpTimeCountdown -= Time.deltaTime;
 			canSpringJump = true;
@@ -114,20 +118,33 @@ public class PlayerCharacter : MonoBehaviour {
 
 			//==========SPRINGJUMP==========
 			if (preparingSpringJump) {
+				standardJumpSound = false;
 				warmUpJump = true;
 				needToCancelJump = true;
+				//JerboaSounds.PlayWarmUp ();
+				warmUpJumpSound = true;
 			}
 			if (preparingSpringJump && canSpringJump) {
+				standardJumpSound = false;
 				warmUpJump = false;
 				jumpVector = PCPhysicsForces.getSpringJumpVector ();
 				springJumpTimeCountdown = 0;
+				//JerboaSounds.PlaySpringJump ();
+				warmUpJumpSound = false;
+				springJumpSound = true;
 			}
 			//=============================
 			PCUnitController2D.addImpulse (jumpVector);
 			JAnimManager.JumpTakeOff ();
 			canCancelJump = true;
 
-			JerboaSounds.PlayJump ();
+			if (standardJumpSound) {
+				JerboaSounds.PlayJump ();
+			}
+			if (warmUpJumpSound)
+				JerboaSounds.PlayWarmUp ();
+			if (springJumpSound)
+				JerboaSounds.PlaySpringJump ();
 		}
 
 		if (PlayerInput.Instance.Jump.Up && canCancelJump) {
@@ -158,6 +175,8 @@ public class PlayerCharacter : MonoBehaviour {
 		} else {
 			preparingSpringJump = false;
 		}
+
+		JerboaSounds.setCharging (preparingSpringJump);
 
 		Balloon.setTriggersHeld (preparingSpringJump);
 
@@ -223,6 +242,10 @@ public class PlayerCharacter : MonoBehaviour {
 		if (yVelocity < 0) {
 			PCUnitController2D.setGravityScale (PCPhysicsForces.getFallingGravity());
 			canCancelJump = false;
+
+			if (warmUpJump && BalloonEnterTrigger.isTouchingBalloon()) {
+				JerboaSounds.PlaySqueeze ();
+			}
 		}
 
 		if (onGround && !wasOnGround) {
