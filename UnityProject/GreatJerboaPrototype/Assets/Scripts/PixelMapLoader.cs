@@ -235,12 +235,12 @@ public class PixelMapLoader : MonoBehaviour {
 			break;
 
 		case ((int)CellIDs.PCSpawn):
-			Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
+			//Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
 			PCSpawnPoint = cell.getPosition ();
 			break;
 
 		case ((int)CellIDs.PCGoal ):
-			Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
+			//Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
 			PCGoalPoint = cell.getPosition ();
 			break;	
 
