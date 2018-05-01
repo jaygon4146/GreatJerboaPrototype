@@ -65,9 +65,14 @@ public class PixelMapLoader : MonoBehaviour {
 		string path = mapLocation + CurrentLevelPath;
 		//print ("path = "+ path );
 
-		//imageTexture = Resources.Load (path) as Texture2D;
+
+
 		imageTexture = new Texture2D((int) mapSize.x, (int) mapSize.y);
 		imageTexture = (Texture2D) Resources.Load(path, typeof(Texture2D));
+		int height = imageTexture.height;
+		int width = imageTexture.width;
+
+		mapSize = new Vector2 (width, height);
 
 		mapPixels = new Color[(int)mapSize.x * (int)mapSize.y];
 		mapPixels = imageTexture.GetPixels ();
@@ -230,12 +235,12 @@ public class PixelMapLoader : MonoBehaviour {
 			break;
 
 		case ((int)CellIDs.PCSpawn):
-			//Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
+			Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
 			PCSpawnPoint = cell.getPosition ();
 			break;
 
 		case ((int)CellIDs.PCGoal ):
-			//Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
+			Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
 			PCGoalPoint = cell.getPosition ();
 			break;	
 
