@@ -32,7 +32,7 @@ public class MenuNavigator : MonoBehaviour {
 	#endregion
 
 	void Awake(){
-		//DataManager.clearAllData ();
+		DataManager.clearAllData ();
 		DataManager.Load ();
 		DataManager.SelectSaveDataSlot (0);
 		DataManager.LoadAllLevels (m_LevelList.getMapFilesList());
