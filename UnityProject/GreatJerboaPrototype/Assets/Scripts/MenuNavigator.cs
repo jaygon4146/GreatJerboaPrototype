@@ -25,9 +25,11 @@ public class MenuNavigator : MonoBehaviour {
 	#region Animator States
 	private static int StartToLvlHash = Animator.StringToHash ("StartXLvlSelect");
 	private static int LvlToConfirmHash = Animator.StringToHash ("LvlSelectXConfirm");
+	private static int ControlsHash = Animator.StringToHash ("ControlsX");
 
 	private static int StartState = Animator.StringToHash ("StartingScreen");
 	private static int LvlState = Animator.StringToHash ("LevelSelectScreen");
+	private static int ControlsState = Animator.StringToHash ("MenuControls");
 	private static int ConfirmState = Animator.StringToHash ("LevelConfirmationScreen");
 	#endregion
 
@@ -47,7 +49,6 @@ public class MenuNavigator : MonoBehaviour {
 		if (stateInfo.shortNameHash == LvlState) {
 			CursorUpdate ();
 		}
-
 	}
 
 	void InputUpdate(){
@@ -81,6 +82,17 @@ public class MenuNavigator : MonoBehaviour {
 
 			if (stateInfo.shortNameHash == ConfirmState) {
 				stateAnimator.SetTrigger (LvlToConfirmHash);
+			}
+
+			if (stateInfo.shortNameHash == ControlsState) {
+				stateAnimator.SetTrigger (ControlsHash);
+			}
+		}
+
+
+		if (PlayerInput.Instance.MenuButton.Down) {
+			if (stateInfo.shortNameHash != StartState){
+				stateAnimator.SetTrigger (ControlsHash);
 			}
 		}
 	}
