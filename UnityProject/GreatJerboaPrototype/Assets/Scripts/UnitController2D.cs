@@ -16,6 +16,9 @@ public class UnitController2D : MonoBehaviour {
 	private Vector2 maxVelocity;
 	//private Vector2 minVelocity;
 
+	private Vector2 FrozenVelocity;
+	private float FrozenGravity;
+
 
 	void Awake(){
 		unitRigidBody2D = GetComponent<Rigidbody2D> ();
@@ -59,6 +62,19 @@ public class UnitController2D : MonoBehaviour {
 		float y = unitRigidBody2D.velocity.y * multiplier;
 		Vector2 v = new Vector2(unitRigidBody2D.velocity.x, y);
 		unitRigidBody2D.velocity = v;
+	}
+
+
+	public void FreezeRigidbody(){
+		FrozenVelocity = unitRigidBody2D.velocity;
+		FrozenGravity = unitRigidBody2D.gravityScale;
+		unitRigidBody2D.velocity = Vector2.zero;
+		unitRigidBody2D.gravityScale = 0f;
+	}
+
+	public void UnFreezeRigidbody(){
+		unitRigidBody2D.velocity = FrozenVelocity;
+		unitRigidBody2D.gravityScale = FrozenGravity;
 	}
 
 	public void setClampVelocity(Vector2 clampMax){

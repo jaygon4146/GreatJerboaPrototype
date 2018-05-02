@@ -35,6 +35,8 @@ public class PlayerCharacter : MonoBehaviour {
 	[SerializeField]	private float springJumpTimeCountdown = 0.0f;
 
 	[SerializeField] 	private bool facingRight = true;
+
+	private bool isPlaying = true;
 	#endregion
 
 	#region debugging
@@ -66,28 +68,29 @@ public class PlayerCharacter : MonoBehaviour {
 
 	void FixedUpdate(){
 
-		CheckGround();
+		if (isPlaying) {
 
-		JumpAction ();
-		TriggerAction ();
-		MoveAction ();
-		MenuAction ();
-		CheckFacing ();
-		HorizontalAction ();
-		VerticalAction ();
+			CheckGround ();
+			JumpAction ();
+			TriggerAction ();
+			MoveAction ();
+			CheckFacing ();
+			HorizontalAction ();
+			VerticalAction ();
 
-		Vector2 clampV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity());
-		PCUnitController2D.setClampVelocity (clampV);
+			Vector2 clampV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity ());
+			PCUnitController2D.setClampVelocity (clampV);
 
-		Vector2 maxV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpInitialVelocity ());
-		Vector2 minV = new Vector2 (-PCPhysicsForces.topSpeed, -PCPhysicsForces.getJumpMaxVelocity());
-		JAnimManager.SetMinMaxVelocity (minV, maxV);
-		JAnimManager.PassCurrentVelocity (PCUnitController2D.getVelocity());
-		//CalcDistanceToGround ();
-		wasOnGround = onGround;
+			Vector2 maxV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpInitialVelocity ());
+			Vector2 minV = new Vector2 (-PCPhysicsForces.topSpeed, -PCPhysicsForces.getJumpMaxVelocity ());
+			JAnimManager.SetMinMaxVelocity (minV, maxV);
+			JAnimManager.PassCurrentVelocity (PCUnitController2D.getVelocity ());
+			//CalcDistanceToGround ();
+			wasOnGround = onGround;
 
-		if (!PCPhysicsForces.applyGravity) {
-			PCUnitController2D.setGravityScale (0);
+			if (!PCPhysicsForces.applyGravity) {
+				PCUnitController2D.setGravityScale (0);
+			}
 		}
 	}
 
@@ -194,14 +197,6 @@ public class PlayerCharacter : MonoBehaviour {
 		}
 	}
 
-	void MenuAction(){
-
-		if (PlayerInput.Instance.MenuButton.Down) {
-			print ("Menu Button Pressed");
-		}
-
-	}
-
 	void MoveAction(){
 		float inputDead = 0.01f;
 		bool activeInput = false;
@@ -269,7 +264,15 @@ public class PlayerCharacter : MonoBehaviour {
 		}
 	}
 
+	public void PauseCharacter(){
+		isPlaying = false;
+		PCUnitController2D.FreezeRigidbody ();
+	}
 
+	public void UnPauseCharacter(){
+		isPlaying = true;
+		PCUnitController2D.UnFreezeRigidbody ();
+	}
 
 
 	#region ColliderEvents

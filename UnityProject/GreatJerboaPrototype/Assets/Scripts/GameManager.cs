@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour {
 	private Animator stateAnimator;
 	private AnimatorStateInfo stateInfo;
 
+	public Animator environmentAnimator;
+	private AnimatorStateInfo environmentInfo;
+
+
 	#region Animator States
 	private static int PlayingState = Animator.StringToHash ("PlayingLevelScreen");
 	private static int PauseState = Animator.StringToHash ("PauseScreen");
@@ -68,7 +72,27 @@ public class GameManager : MonoBehaviour {
 				SceneManager.LoadScene ("TitleScreen", LoadSceneMode.Single);
 			}
 		}
+
+		if (stateInfo.shortNameHash == PlayingState) {
+			if (PlayerInput.Instance.MenuButton.Down) {
+				stateAnimator.SetTrigger (PlayXPause);
+				environmentAnimator.speed = 0;
+				Character.PauseCharacter ();
+			}
+		}
+
+		if (stateInfo.shortNameHash == PauseState) {
+			if (PlayerInput.Instance.MenuButton.Down) {
+				stateAnimator.SetTrigger (PlayXPause);
+				environmentAnimator.speed = 1;
+				Character.UnPauseCharacter ();
+			}
+		}
+
+
+
 	}
+
 
 	void CountCollectedObjects(){
 		for (int i = 0; i < collectedList.Count; i++) {
