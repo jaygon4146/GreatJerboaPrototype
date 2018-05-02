@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Length: 0.3295678
+  m_Length: 0.32956785
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 1870714026}
   m_AttachedIK: {fileID: 859092641}
@@ -5361,6 +5361,10 @@ MonoBehaviour:
   BButton:
     key: 98
     controllerButton: 2
+    m_Enabled: 1
+  MenuButton:
+    key: 112
+    controllerButton: 8
     m_Enabled: 1
   Horizontal:
     positive: 100

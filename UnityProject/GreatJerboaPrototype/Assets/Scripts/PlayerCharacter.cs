@@ -71,6 +71,7 @@ public class PlayerCharacter : MonoBehaviour {
 		JumpAction ();
 		TriggerAction ();
 		MoveAction ();
+		MenuAction ();
 		CheckFacing ();
 		HorizontalAction ();
 		VerticalAction ();
@@ -191,6 +192,14 @@ public class PlayerCharacter : MonoBehaviour {
 			lTimeLine.drawFloatTimeLine ();
 			rTimeLine.drawFloatTimeLine ();
 		}
+	}
+
+	void MenuAction(){
+
+		if (PlayerInput.Instance.MenuButton.Down) {
+			print ("Menu Button Pressed");
+		}
+
 	}
 
 	void MoveAction(){
