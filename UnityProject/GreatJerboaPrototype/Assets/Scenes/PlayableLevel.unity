@@ -3400,7 +3400,7 @@ MonoBehaviour:
   CollectableHolder: {fileID: 1699195306}
   LevelComplete: 0
   LevelCompleteText: {fileID: 725122445}
-  environmentAnimator: {fileID: 0}
+  environmentAnimator: {fileID: 1667498992}
 --- !u!95 &1169547456
 Animator:
   serializedVersion: 3
@@ -4477,6 +4477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1667498990}
   - component: {fileID: 1667498991}
+  - component: {fileID: 1667498992}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -4519,6 +4520,23 @@ MonoBehaviour:
   horizonLayer: {fileID: 591021583}
   mediumLerp: 0.66
   farLerp: 0.33
+--- !u!95 &1667498992
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1667498989}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 593aaace954041b4485354d8f6d32379, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1685632847
 GameObject:
   m_ObjectHideFlags: 0
