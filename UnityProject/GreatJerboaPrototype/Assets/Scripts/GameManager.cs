@@ -82,14 +82,20 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (stateInfo.shortNameHash == PauseState) {
+
+			PauseMenuUpdate ();
+
 			if (PlayerInput.Instance.MenuButton.Down) {
 				stateAnimator.SetTrigger (PlayXPause);
 				environmentAnimator.speed = 1;
 				Character.UnPauseCharacter ();
+
+
 			}
 		}
+	}
 
-
+	void PauseMenuUpdate(){
 
 	}
 
