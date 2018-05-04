@@ -11,9 +11,15 @@ public class GameManager : MonoBehaviour {
 
 	public GoalTrigger Goal;
 	public GameObject CollectableHolder;
+	public GameObject CollectableIconGroup;
+	public GameObject CollectableIconPrefab;
 
 	private static List<GameObject> collectedList = new List<GameObject>();
 	private int numberOfCollectedObjects = 0;
+	private int filledIcons = 0;
+
+	private static List<CollectableIcon> collectableIcons = new List<CollectableIcon> ();
+
 
 	[SerializeField] private bool LevelComplete = false;
 
@@ -24,6 +30,22 @@ public class GameManager : MonoBehaviour {
 
 	public Animator environmentAnimator;
 	private AnimatorStateInfo environmentInfo;
+
+	public Button ResumeButtonObj;
+	public Button RestartButtonObj;
+	public Button QuitButtonObj;
+	private float prevVertInput;
+
+	private int SelectedButton;
+
+	private float TimePassed = 0f;
+	public Text TimeText;
+
+	enum ButtonInts {
+		Resume, 
+		Restart, 
+		Quit,
+	};
 
 
 	#region Animator States
@@ -42,6 +64,7 @@ public class GameManager : MonoBehaviour {
 
 		collectedList = new List<GameObject>();
 		collectedList = MapLoader.getCollectableList ();
+		collectableIcons = new List<CollectableIcon> ();
 
 		if (CollectableHolder == null) {
 			CollectableHolder = GameObject.Find ("CollectableHolder");
@@ -49,6 +72,9 @@ public class GameManager : MonoBehaviour {
 
 		for (int i = 0; i < collectedList.Count; i++) {
 			collectedList [i].transform.SetParent (CollectableHolder.transform);
+
+			GameObject obj = Instantiate (CollectableIconPrefab, CollectableIconGroup.transform);
+			collectableIcons.Add (obj.GetComponent<CollectableIcon>());
 		}
 
 		stateAnimator = GetComponent<Animator> ();
@@ -59,13 +85,9 @@ public class GameManager : MonoBehaviour {
 		stateInfo = stateAnimator.GetCurrentAnimatorStateInfo (0);
 
 		if (Goal.HasBeenReached () && !LevelComplete) {
-			LevelComplete = true;
-			CountCollectedObjects ();
-			DataManager.FinishLevel (numberOfCollectedObjects);
-			LevelCompleteText.text = DataManager.GetCompletionMessage ();
-			if (stateInfo.shortNameHash == PlayingState) {
-				stateAnimator.SetTrigger (PlayXCompleted);
-			}
+
+			FinishAction ();
+
 		}
 		if (stateInfo.shortNameHash == CompletedState) {
 			if (PlayerInput.Instance.Jump.Down) {
@@ -74,11 +96,24 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (stateInfo.shortNameHash == PlayingState) {
-			if (PlayerInput.Instance.MenuButton.Down) {
-				stateAnimator.SetTrigger (PlayXPause);
-				environmentAnimator.speed = 0;
-				Character.PauseCharacter ();
+
+			TimePassed += Time.deltaTime;
+			TimeText.text = "Time: " + System.Math.Round ((double)TimePassed, 2);
+
+			CountCollectedObjects ();
+
+			if (numberOfCollectedObjects > filledIcons) {
+
+				collectableIcons [filledIcons].fill ();
+				filledIcons++;
 			}
+
+			if (PlayerInput.Instance.MenuButton.Down) {
+				SelectedButton = (int)ButtonInts.Resume;
+				UpdateSelectedItem ();
+				PauseAction ();
+			}
+
 		}
 
 		if (stateInfo.shortNameHash == PauseState) {
@@ -86,21 +121,131 @@ public class GameManager : MonoBehaviour {
 			PauseMenuUpdate ();
 
 			if (PlayerInput.Instance.MenuButton.Down) {
-				stateAnimator.SetTrigger (PlayXPause);
-				environmentAnimator.speed = 1;
-				Character.UnPauseCharacter ();
-
-
+				UnPauseAction ();
 			}
 		}
+
+
 	}
 
 	void PauseMenuUpdate(){
+		float vertInput = PlayerInput.Instance.Vertical.Value;
 
+		if (vertInput != prevVertInput) {
+			if (vertInput > 0)
+				CursorUp ();
+			if (vertInput < 0)
+				CursorDown ();
+		}
+
+		if (PlayerInput.Instance.Jump.Down) {
+			ClickSelectedItem ();
+			//print ("ClickSelectedItem()");
+		}
+
+		prevVertInput = vertInput;
 	}
 
+	public void CursorUp(){
+		if (SelectedButton > (int)ButtonInts.Resume) {
+			SelectedButton --;
+			UpdateSelectedItem();
+		}
+	}
+
+	public void CursorDown(){
+		if (SelectedButton < (int)ButtonInts.Quit) {
+			SelectedButton ++;
+			UpdateSelectedItem();
+		}
+	}
+
+	private void UpdateSelectedItem (){
+		switch (SelectedButton){
+
+		case (int)ButtonInts.Resume:
+			ResumeButtonObj.Select ();
+			break;
+
+		case (int)ButtonInts.Restart:
+			RestartButtonObj.Select ();
+			break;
+
+		case (int)ButtonInts.Quit:
+			QuitButtonObj.Select ();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void ClickSelectedItem(){
+		switch (SelectedButton){
+
+		case (int)ButtonInts.Resume:
+			ResumeButtonObj.onClick.Invoke();
+			break;
+
+		case (int)ButtonInts.Restart:
+			RestartButtonObj.onClick.Invoke();
+			break;
+
+		case (int)ButtonInts.Quit:
+			QuitButtonObj.onClick.Invoke();
+
+			break;
+
+		default:
+			break;
+		}
+
+	}
+		
+	private void PauseAction(){
+		stateAnimator.SetTrigger (PlayXPause);
+		environmentAnimator.speed = 0;
+		Character.PauseCharacter ();
+	}
+
+	private void UnPauseAction(){
+		stateAnimator.SetTrigger (PlayXPause);
+		environmentAnimator.speed = 1;
+		Character.UnPauseCharacter ();
+	}
+
+	private void FinishAction(){
+		LevelComplete = true;
+		CountCollectedObjects ();
+		DataManager.FinishLevel (numberOfCollectedObjects);
+		LevelCompleteText.text = DataManager.GetCompletionMessage ();
+		if (stateInfo.shortNameHash == PlayingState) {
+			stateAnimator.SetTrigger (PlayXCompleted);
+		}
+	}
+
+	public void ResumeButton(){
+		//print ("Resume Button");
+		UnPauseAction ();
+	}
+
+	public void RestartButton(){
+		//print ("Restart Button");
+		SceneManager.LoadScene ("PlayableLevel", LoadSceneMode.Single);
+
+		//TimePassed = 0f;
+		//Awake ();
+		//UnPauseAction ();
+	}
+
+	public void QuitButton(){
+		//print ("Quit Button");
+		SceneManager.LoadScene ("TitleScreen", LoadSceneMode.Single);
+	}
 
 	void CountCollectedObjects(){
+		numberOfCollectedObjects = 0;
+
 		for (int i = 0; i < collectedList.Count; i++) {
 			CollectableObject obj = collectedList [i].GetComponent<CollectableObject>();
 			if (obj != null) {
