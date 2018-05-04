@@ -45,10 +45,7 @@ public class LevelList : MonoBehaviour {
 		DirectoryInfo dir = new DirectoryInfo (mapDirectory);
 		FileInfo[] info = dir.GetFiles ("*.png*");
 		foreach (FileInfo f in info) {
-			//print ("File Detail");
-			//print (f.Name);
 			string sub = f.Name.Substring (f.Name.Length - 4);
-			//print (sub);
 
 			if (sub.Equals (".png")) {
 				mapFiles.Add (f.Name);
@@ -61,9 +58,7 @@ public class LevelList : MonoBehaviour {
 
 		foreach (Transform child in scrollContent.transform) {
 			GameObject.Destroy (child.gameObject);
-			//print ("Child GameObject Destroyed");
 		}
-		//print ("List Destroyed");
 	}
 
 

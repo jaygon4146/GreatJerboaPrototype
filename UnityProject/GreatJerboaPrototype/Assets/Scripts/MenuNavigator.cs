@@ -16,6 +16,8 @@ public class MenuNavigator : MonoBehaviour {
 
 	public Text confirmationMsg;
 
+	public Image PreviewImage;
+
 	#region Cursor States
 
 	float prevVertInput = 0;
@@ -107,5 +109,13 @@ public class MenuNavigator : MonoBehaviour {
 				m_LevelList.CursorDown ();
 		}
 		prevVertInput = vertInput;
+
+
+		Sprite s = new Sprite();
+		string path =  "Art/LevelMaps/" + m_LevelList.GetSelectedItemName ();
+		path = path.Substring (0, path.Length - 4);
+		s = (Sprite) Resources.Load(path, typeof(Sprite));
+		PreviewImage.sprite = s;
+
 	}
 }
