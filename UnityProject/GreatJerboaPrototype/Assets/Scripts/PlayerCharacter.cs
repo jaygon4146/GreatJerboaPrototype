@@ -29,6 +29,8 @@ public class PlayerCharacter : MonoBehaviour {
 	[SerializeField] 	private bool canJump;
 						private bool canCancelJump;
 
+                        private Vector2 jumpVector;
+
 	[SerializeField]	private bool preparingSpringJump;
 	[SerializeField]	private bool warmUpJump;
 	public float springJumpTimeBuffer = 10.0f;
@@ -55,7 +57,11 @@ public class PlayerCharacter : MonoBehaviour {
 		FeetCollider = GetComponent<Collider2D> ();
 		JerboaSounds = GetComponent<CharacterSounds> ();
 
-		if (debugging) {
+
+        PCPhysicsForces.CalculateJumpForces ();
+        PCUnitController2D.setGravityScale (PCPhysicsForces.getJumpInitialGravity());
+
+        if (debugging) {
 			lTimeLine.drawColor = Color.red;
 			rTimeLine.drawColor = Color.green;
 			//lTimeLine.turnOn ();
@@ -116,9 +122,9 @@ public class PlayerCharacter : MonoBehaviour {
 
 		if (PlayerInput.Instance.Jump.Down && canJump && PCPhysicsForces.applyGravity) {
 
-			PCPhysicsForces.CalculateJumpForces ();
+			//PCPhysicsForces.CalculateJumpForces ();   //Update correctly when tweaking jump forces during play
 			PCUnitController2D.setGravityScale (PCPhysicsForces.getJumpInitialGravity());
-			Vector2 jumpVector = PCPhysicsForces.getJumpVector ();
+			jumpVector = PCPhysicsForces.getJumpVector ();
 
 			//==========SPRINGJUMP==========
 			if (preparingSpringJump) {
@@ -279,21 +285,22 @@ public class PlayerCharacter : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D c){
 		if (c.collider.tag == "SolidPlatform") {
 			touchingPlatform = true;
-			//JAnimManager.FoundLandingPos (Vector2.zero); //TESTING ONLY
-		}
-
-
+            //print("CollisionEnter2D: SolidPlatform");
+            //JAnimManager.FoundLandingPos (Vector2.zero); //TESTING ONLY
+        }
 	}
 
 	void OnCollisionStay2D(Collision2D c){
 		if (c.collider.tag == "SolidPlatform") {
 			touchingPlatform = true;
-		}
+            //print("CollisionStay2D: SolidPlatform");
+        }
 	}
 
 	void OnCollisionExit2D(Collision2D c){
 		if (c.collider.tag == "SolidPlatform") {
 			touchingPlatform = false;
+            //print("CollisionExit2D: SolidPlatform");
 		}
 	}
 
@@ -327,7 +334,8 @@ public class PlayerCharacter : MonoBehaviour {
 		}
 
 		onGround = b;
-		JAnimManager.SetDistanceToGround (gDistance);
+        //touchingPlatform = b;
+        JAnimManager.SetDistanceToGround (gDistance);
 		JAnimManager.SetColliderCastHit(numberOfFarResults, passResult);
 	}
 

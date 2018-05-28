@@ -25,18 +25,23 @@ public class MenuNavigator : MonoBehaviour {
 	#endregion
 
 	#region Animator States
-	private static int StartToLvlHash = Animator.StringToHash ("StartXLvlSelect");
-	private static int LvlToConfirmHash = Animator.StringToHash ("LvlSelectXConfirm");
-	private static int ControlsHash = Animator.StringToHash ("ControlsX");
+	private static int Start_Select     = Animator.StringToHash ("Start-Select");
+	private static int Select_Start     = Animator.StringToHash ("Select-Start");
+	private static int Select_Confirm   = Animator.StringToHash ("Select-Confirm");
+    private static int Confirm_Select   = Animator.StringToHash("Confirm-Select");
+    private static int Select_Controls  = Animator.StringToHash("Select-Controls");
+    private static int Confirm_Controls = Animator.StringToHash("Confirm-Controls");
+    private static int Controls_Select  = Animator.StringToHash("Controls-Select");
 
-	private static int StartState = Animator.StringToHash ("StartingScreen");
-	private static int LvlState = Animator.StringToHash ("LevelSelectScreen");
-	private static int ControlsState = Animator.StringToHash ("MenuControls");
-	private static int ConfirmState = Animator.StringToHash ("LevelConfirmationScreen");
+
+    private static int StartState       = Animator.StringToHash ("StartingScreen");
+	private static int LvlState         = Animator.StringToHash ("LevelSelectScreen");
+	private static int ControlsState    = Animator.StringToHash ("MenuControls");
+	private static int ConfirmState     = Animator.StringToHash ("LevelConfirmationScreen");
 	#endregion
 
 	void Awake(){
-		DataManager.clearAllData ();
+		//DataManager.clearAllData ();
 		DataManager.Load ();
 		DataManager.SelectSaveDataSlot (0);
 		DataManager.LoadAllLevels (m_LevelList.getMapFilesList());
@@ -53,19 +58,29 @@ public class MenuNavigator : MonoBehaviour {
 		}
 	}
 
-	void InputUpdate(){
+    void InputUpdate() {
+
+        bool inTransition = false;
+
+        if (stateAnimator.IsInTransition(0))
+        { 
+        inTransition = true;
+            return;
+        }
+
+
 		if (PlayerInput.Instance.Jump.Down) {
 			//print ("A Button Pressed");
 			if (stateInfo.shortNameHash == StartState) {
 				m_LevelList.UpdateSelectedItem ();
-				stateAnimator.SetTrigger (StartToLvlHash);
+				stateAnimator.SetTrigger (Start_Select);
 			}
 
 			if (stateInfo.shortNameHash == LvlState) {
 				m_LevelList.ClickSelectedItem ();
 				confirmationMsg.text = "Play " + m_LevelList.GetSelectedItemName() + " ? ";
 
-				stateAnimator.SetTrigger (LvlToConfirmHash);
+				stateAnimator.SetTrigger (Select_Confirm);
 			}
 
 			if (stateInfo.shortNameHash == ConfirmState) {
@@ -79,24 +94,28 @@ public class MenuNavigator : MonoBehaviour {
 		if (PlayerInput.Instance.BButton.Down) {
 			//print ("B Button Pressed");
 			if (stateInfo.shortNameHash == LvlState) {
-				stateAnimator.SetTrigger (StartToLvlHash);
+				stateAnimator.SetTrigger (Select_Start);
 			}
 
 			if (stateInfo.shortNameHash == ConfirmState) {
-				stateAnimator.SetTrigger (LvlToConfirmHash);
+				stateAnimator.SetTrigger (Confirm_Select);
 			}
 
 			if (stateInfo.shortNameHash == ControlsState) {
-				stateAnimator.SetTrigger (ControlsHash);
+				stateAnimator.SetTrigger (Controls_Select);
 			}
 		}
-
 
 		if (PlayerInput.Instance.MenuButton.Down) {
-			if (stateInfo.shortNameHash != StartState){
-				stateAnimator.SetTrigger (ControlsHash);
-			}
-		}
+			if (stateInfo.shortNameHash == LvlState)
+            {
+				stateAnimator.SetTrigger (Select_Controls);
+            }
+            if (stateInfo.shortNameHash == ConfirmState)
+            {
+                stateAnimator.SetTrigger(Confirm_Controls);
+            }
+        }
 	}
 
 	void CursorUpdate(){
@@ -110,12 +129,18 @@ public class MenuNavigator : MonoBehaviour {
 		}
 		prevVertInput = vertInput;
 
-
+        /*
 		Sprite s = new Sprite();
 		string path =  "Art/LevelMaps/" + m_LevelList.GetSelectedItemName ();
 		path = path.Substring (0, path.Length - 4);
 		s = (Sprite) Resources.Load(path, typeof(Sprite));
 		PreviewImage.sprite = s;
+        */
+
+        string path = "Art/LevelMaps/" + m_LevelList.GetSelectedItemName();
+        path = path.Substring(0, path.Length - 4);
+        Sprite s = (Sprite)Resources.Load(path, typeof(Sprite));
+        PreviewImage.sprite = s;
 
 	}
 }
