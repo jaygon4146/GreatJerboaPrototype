@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject CollectableIconGroup;
 	public GameObject CollectableIconPrefab;
 
+    public MenuSounds MenuAudioSource;
+
 	private static List<GameObject> collectedList = new List<GameObject>();
 	private int numberOfCollectedObjects = 0;
 	private int filledIcons = 0;
@@ -92,7 +94,8 @@ public class GameManager : MonoBehaviour {
 		if (stateInfo.shortNameHash == CompletedState) {
 			if (PlayerInput.Instance.Jump.Down) {
 				SceneManager.LoadScene ("TitleScreen", LoadSceneMode.Single);
-			}
+                MenuAudioSource.PlayConfirm();
+            }
 		}
 
 		if (stateInfo.shortNameHash == PlayingState) {
@@ -112,7 +115,8 @@ public class GameManager : MonoBehaviour {
 				SelectedButton = (int)ButtonInts.Resume;
 				UpdateSelectedItem ();
 				PauseAction ();
-			}
+                MenuAudioSource.PlayConfirm();
+            }
 
 		}
 
@@ -122,7 +126,8 @@ public class GameManager : MonoBehaviour {
 
 			if (PlayerInput.Instance.MenuButton.Down) {
 				UnPauseAction ();
-			}
+                MenuAudioSource.PlayCancel();
+            }
 		}
 
 
@@ -131,17 +136,25 @@ public class GameManager : MonoBehaviour {
 	void PauseMenuUpdate(){
 		float vertInput = PlayerInput.Instance.Vertical.Value;
 
-		if (vertInput != prevVertInput) {
-			if (vertInput > 0)
-				CursorUp ();
-			if (vertInput < 0)
-				CursorDown ();
-		}
+        if (vertInput != prevVertInput)
+        {
+            if (vertInput > 0)
+            { 
+                CursorUp();
+                MenuAudioSource.PlayCursor();
+            }
+            if (vertInput < 0)
+            { 
+                CursorDown();
+                MenuAudioSource.PlayCursor();
+            }
+        }
 
 		if (PlayerInput.Instance.Jump.Down) {
 			ClickSelectedItem ();
-			//print ("ClickSelectedItem()");
-		}
+            MenuAudioSource.PlayConfirm();
+            //print ("ClickSelectedItem()");
+        }
 
 		prevVertInput = vertInput;
 	}

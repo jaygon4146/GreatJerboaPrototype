@@ -18,6 +18,9 @@ public class MenuNavigator : MonoBehaviour {
 
 	public Image PreviewImage;
 
+    public MenuSounds MenuAudioSource;
+
+
 	#region Cursor States
 
 	float prevVertInput = 0;
@@ -74,6 +77,7 @@ public class MenuNavigator : MonoBehaviour {
 			if (stateInfo.shortNameHash == StartState) {
 				m_LevelList.UpdateSelectedItem ();
 				stateAnimator.SetTrigger (Start_Select);
+                MenuAudioSource.PlayConfirm();
 			}
 
 			if (stateInfo.shortNameHash == LvlState) {
@@ -81,39 +85,47 @@ public class MenuNavigator : MonoBehaviour {
 				confirmationMsg.text = "Play " + m_LevelList.GetSelectedItemName() + " ? ";
 
 				stateAnimator.SetTrigger (Select_Confirm);
-			}
+                MenuAudioSource.PlayConfirm();
+            }
 
 			if (stateInfo.shortNameHash == ConfirmState) {
 				DataManager.BeginLevel (m_LevelList.GetSelectedItemName ());
 				//print ("Beginning " + m_LevelList.GetSelectedItemName());
 				m_LevelList.DestroyList();
 				SceneManager.LoadScene ("PlayableLevel", LoadSceneMode.Single);
-			}
+                MenuAudioSource.PlayConfirm();
+                MenuAudioSource.PlayBeginLevel();
+            }
 		}
 
 		if (PlayerInput.Instance.BButton.Down) {
 			//print ("B Button Pressed");
 			if (stateInfo.shortNameHash == LvlState) {
 				stateAnimator.SetTrigger (Select_Start);
+                MenuAudioSource.PlayCancel();
 			}
 
 			if (stateInfo.shortNameHash == ConfirmState) {
 				stateAnimator.SetTrigger (Confirm_Select);
-			}
+                MenuAudioSource.PlayCancel();
+            }
 
 			if (stateInfo.shortNameHash == ControlsState) {
 				stateAnimator.SetTrigger (Controls_Select);
-			}
+                MenuAudioSource.PlayCancel();
+            }
 		}
 
 		if (PlayerInput.Instance.MenuButton.Down) {
 			if (stateInfo.shortNameHash == LvlState)
             {
 				stateAnimator.SetTrigger (Select_Controls);
+                MenuAudioSource.PlayConfirm();
             }
             if (stateInfo.shortNameHash == ConfirmState)
             {
                 stateAnimator.SetTrigger(Confirm_Controls);
+                MenuAudioSource.PlayConfirm();
             }
         }
 	}
@@ -121,11 +133,17 @@ public class MenuNavigator : MonoBehaviour {
 	void CursorUpdate(){
 		float vertInput = PlayerInput.Instance.Vertical.Value;
 
-		if (vertInput != prevVertInput) {
-			if (vertInput > 0)
-				m_LevelList.CursorUp ();
-			if (vertInput < 0)
-				m_LevelList.CursorDown ();
+        if (vertInput != prevVertInput)
+        {
+            if (vertInput > 0)
+            {
+                m_LevelList.CursorUp();
+                MenuAudioSource.PlayCursor();
+            }
+            if (vertInput < 0) { 
+                m_LevelList.CursorDown();
+                MenuAudioSource.PlayCursor();
+            }
 		}
 		prevVertInput = vertInput;
 
