@@ -13,14 +13,14 @@ public class PlayerInput : InputComponent {
 
 	public bool HaveControl { get { return m_HaveControl; } }
 
-	public InputButton Jump = new InputButton (KeyCode.Space, XBoxControllerButtons.A);
-	public InputButton BButton = new InputButton (KeyCode.B, XBoxControllerButtons.B);
-	public InputButton MenuButton = new InputButton (KeyCode.P, XBoxControllerButtons.Menu);
-	public InputAxis Horizontal = new InputAxis (KeyCode.D, KeyCode.A, XBoxControllerAxes.LeftStickHorizontal);
-	public InputAxis Vertical = new InputAxis (KeyCode.W, KeyCode.S, XBoxControllerAxes.LeftStickVertical);
+    public InputButton Jump = new InputButton (KeyCode.Space, XBoxControllerButtons.A);
+    public InputButton BButton = new InputButton (KeyCode.Backspace, XBoxControllerButtons.B);
+    public InputButton MenuButton = new InputButton (KeyCode.Escape, XBoxControllerButtons.Menu);
+    public InputAxis Horizontal = new InputAxis (KeyCode.RightArrow, KeyCode.LeftArrow, XBoxControllerAxes.LeftStickHorizontal);
+    public InputAxis Vertical = new InputAxis (KeyCode.UpArrow, KeyCode.DownArrow, XBoxControllerAxes.LeftStickVertical);
 
-	public InputAxis LTrigger = new InputAxis (KeyCode.Less, KeyCode.Greater, XBoxControllerAxes.LeftTrigger);
-	public InputAxis RTrigger = new InputAxis (KeyCode.Less, KeyCode.Greater, XBoxControllerAxes.RightTrigger);
+    public InputAxis LTrigger = new InputAxis (KeyCode.LeftControl, KeyCode.RightControl, XBoxControllerAxes.LeftTrigger);
+    public InputAxis RTrigger = new InputAxis (KeyCode.LeftControl, KeyCode.RightControl, XBoxControllerAxes.RightTrigger);
 
 	protected bool m_HaveControl = true;
 	protected bool m_DebugMenuOpen = false;
@@ -50,6 +50,8 @@ public class PlayerInput : InputComponent {
 	protected override void GetInputs(bool fixedUpdateHappened)
 	{
 		//print ("PlayerInput.GetInputs ()");
+        
+
 		Jump.Get (fixedUpdateHappened, inputType);
 		BButton.Get (fixedUpdateHappened, inputType);
 		MenuButton.Get (fixedUpdateHappened, inputType);

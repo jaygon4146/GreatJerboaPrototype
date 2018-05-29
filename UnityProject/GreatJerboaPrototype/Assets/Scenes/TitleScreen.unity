@@ -245,7 +245,7 @@ SpriteRenderer:
   m_SortingLayerID: 741102823
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5ca31d9891442d347958746a24d00f75, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 53bd0df96923d6e418095f0d1ff39ed8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -336,7 +336,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -135}
-  m_SizeDelta: {x: 373.68, y: 76.6}
+  m_SizeDelta: {x: 511.4, y: 76.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219913459
 MonoBehaviour:
@@ -358,7 +358,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 5f5a5ed8fbd7b1f43b8ec065e73f04a9, type: 3}
     m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press Start to view the controls
+  m_Text: Press Escape / Menu to view the controls
 --- !u!222 &219913460
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1722,7 +1722,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 5f5a5ed8fbd7b1f43b8ec065e73f04a9, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 1
@@ -1992,7 +1992,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -270}
-  m_SizeDelta: {x: 373.68, y: 76.6}
+  m_SizeDelta: {x: 1074.4, y: 76.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1918121924
 MonoBehaviour:
@@ -2014,7 +2014,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 5f5a5ed8fbd7b1f43b8ec065e73f04a9, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -2026,7 +2026,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press A To Play
+  m_Text: 'Press Spacebar / A Button To Play
+
+'
 --- !u!222 &1918121925
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2089,32 +2091,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcbf254a7334ee347aaced0775bdb8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputType: 1
+  inputType: 0
   Jump:
     key: 32
     controllerButton: 1
     m_Enabled: 1
   BButton:
-    key: 98
+    key: 8
     controllerButton: 2
     m_Enabled: 1
   MenuButton:
-    key: 112
+    key: 27
     controllerButton: 8
     m_Enabled: 1
   Horizontal:
-    positive: 100
-    negative: 97
+    positive: 275
+    negative: 276
     controllerAxis: 1
   Vertical:
-    positive: 119
-    negative: 115
+    positive: 273
+    negative: 274
     controllerAxis: 2
   LTrigger:
-    positive: 60
-    negative: 62
+    positive: 306
+    negative: 305
     controllerAxis: 8
   RTrigger:
-    positive: 60
-    negative: 62
+    positive: 306
+    negative: 305
     controllerAxis: 7

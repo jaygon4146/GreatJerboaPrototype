@@ -95,53 +95,79 @@ public abstract class InputComponent : MonoBehaviour {
 			if (!m_GettingInput)
 				return;
 
-			if (inputType == InputType.Controller) 
+            bool ControllerDown = false;
+            bool ControllerHeld = false;
+            bool ControllerUp = false;
+
+            bool ControllerDownFU = false;
+            bool ControllerHeldFU = false;
+            bool ControllerUpFU = false;
+
+            bool KeyboardDown = false;
+            bool KeyboardHeld = false;
+            bool KeyboardUp = false;
+
+            bool KeyboardDownFU = false;
+            bool KeyboardHeldFU = false;
+            bool KeyboardUpFU = false;
+
+
+            if (inputType == InputType.Controller) 
 			{
 				if (fixedUpdateHappened) 
 				{
-					Down = Input.GetButtonDown (k_ButtonsToName [(int)controllerButton]);
-					Held = Input.GetButton (k_ButtonsToName [(int)controllerButton]);
-					Up = Input.GetButtonUp (k_ButtonsToName [(int)controllerButton]);
+					ControllerDown = Input.GetButtonDown (k_ButtonsToName [(int)controllerButton]);
+					ControllerHeld = Input.GetButton (k_ButtonsToName [(int)controllerButton]);
+					ControllerUp = Input.GetButtonUp (k_ButtonsToName [(int)controllerButton]);
 
-					m_AfterFixedUpdateDown = Down;
-					m_AfterFixedUpdateHeld = Held;
-					m_AfterFixedUpdateUp = Up;
+                    ControllerDownFU = ControllerDown;
+                    ControllerHeldFU = ControllerHeld;
+                    ControllerUpFU = ControllerUp;
 				} 
 				else 
 				{
-					Down = Input.GetButtonDown (k_ButtonsToName [(int)controllerButton])	|| m_AfterFixedUpdateDown;
-					Held = Input.GetButton (k_ButtonsToName [(int)controllerButton])		|| m_AfterFixedUpdateHeld;
-					Up = Input.GetButtonUp (k_ButtonsToName [(int)controllerButton]) 		|| m_AfterFixedUpdateUp;
+                    ControllerDown = Input.GetButtonDown (k_ButtonsToName [(int)controllerButton])	|| m_AfterFixedUpdateDown;
+                    ControllerHeld = Input.GetButton (k_ButtonsToName [(int)controllerButton])		|| m_AfterFixedUpdateHeld;
+                    ControllerUp = Input.GetButtonUp (k_ButtonsToName [(int)controllerButton]) 		|| m_AfterFixedUpdateUp;
 
-					m_AfterFixedUpdateDown = Down;
-					m_AfterFixedUpdateHeld = Held;
-					m_AfterFixedUpdateUp = Up;
+                    ControllerDownFU = ControllerDown;
+                    ControllerHeldFU = ControllerHeld;
+                    ControllerUpFU = ControllerUp;
 				}
 			} 
 			else if (inputType == InputType.Keyboard) 
 			{
 				if (fixedUpdateHappened) 
 				{
-					Down = Input.GetKeyDown (key);
-					Held = Input.GetKey (key);
-					Up = Input.GetKeyUp (key);
+                    KeyboardDown = Input.GetKeyDown (key);
+                    KeyboardHeld = Input.GetKey (key);
+                    KeyboardUp = Input.GetKeyUp (key);
 
-					m_AfterFixedUpdateDown = Down;
-					m_AfterFixedUpdateHeld = Held;
-					m_AfterFixedUpdateUp = Up;
+                    KeyboardDownFU = KeyboardDown;
+                    KeyboardHeldFU = KeyboardHeld;
+                    KeyboardUpFU = KeyboardUp;
 				} 
 				else 
 				{
-					Down = Input.GetKeyDown (key)	|| m_AfterFixedUpdateDown;
-					Held = Input.GetKey (key)		|| m_AfterFixedUpdateHeld;
-					Up = Input.GetKeyUp (key) 		|| m_AfterFixedUpdateUp;
+                    KeyboardDown = Input.GetKeyDown (key)	|| m_AfterFixedUpdateDown;
+                    KeyboardHeld = Input.GetKey (key)		|| m_AfterFixedUpdateHeld;
+                    KeyboardUp = Input.GetKeyUp (key) 		|| m_AfterFixedUpdateUp;
 
-					m_AfterFixedUpdateDown = Down;
-					m_AfterFixedUpdateHeld = Held;
-					m_AfterFixedUpdateUp = Up;
+                    KeyboardDownFU = KeyboardDown;
+                    KeyboardHeldFU = KeyboardHeld;
+                    KeyboardUpFU = KeyboardUp;
 				}
 			}
-		}
+
+            Down    = ControllerDown    || KeyboardDown;
+            Held    = ControllerHeld    || KeyboardHeld;
+            Up      = ControllerUp      || KeyboardUp;
+
+            m_AfterFixedUpdateDown = ControllerDownFU || KeyboardDownFU;
+            m_AfterFixedUpdateHeld = ControllerHeldFU || KeyboardHeldFU;
+            m_AfterFixedUpdateUp = ControllerUpFU || KeyboardUpFU;
+
+        }
 
 		public void Enable()
 		{
