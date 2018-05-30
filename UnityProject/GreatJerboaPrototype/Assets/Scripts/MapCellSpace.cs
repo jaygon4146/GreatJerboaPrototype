@@ -8,6 +8,7 @@ namespace MapCellSpace {
 		MISSING,
 		Nothing,
 		Box,
+        GrassBox,
 		PCSpawn,
 		PCGoal,
 		Collectable,

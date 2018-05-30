@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Length: 0.32956785
+  m_Length: 0.3295678
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 1870714026}
   m_AttachedIK: {fileID: 859092641}
@@ -4647,6 +4647,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoxPrefab: {fileID: 1723942207161676, guid: ad129d64801255b41b49773cf2be3d6b, type: 2}
+  GrassBoxPrefab: {fileID: 1018565460916672, guid: 78f77ad3a883e9947841cc66d780feb9,
+    type: 2}
   CollectablePrefab: {fileID: 1203890675399344, guid: 380011f87d56b9643a0e83e8b41fe12f,
     type: 2}
 --- !u!224 &1634291383 stripped
@@ -4932,7 +4934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1721304565
 Transform:
   m_ObjectHideFlags: 0

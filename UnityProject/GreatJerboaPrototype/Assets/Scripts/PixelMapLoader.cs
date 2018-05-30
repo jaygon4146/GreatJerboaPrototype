@@ -32,12 +32,19 @@ public class PixelMapLoader : MonoBehaviour {
 	private int[] HorzGroupLengths;
 	private int[] HorzGroupPosSums;
 
-	private int[] VertGroupLengths;
+    private int[] GrassHorzGroupLengths;
+    private int[] GrassHorzGroupPosSums;
+
+
+    private int[] VertGroupLengths;
 	private int[] VertGroupPosSums;
 
+    private int[] GrassVertGroupLengths;
+    private int[] GrassVertGroupPosSums;
 
-	#region Definitions
-	public enum LevelEnum
+
+    #region Definitions
+    public enum LevelEnum
 	{
 		TestLevel,
 		TestLevel2,
@@ -85,8 +92,9 @@ public class PixelMapLoader : MonoBehaviour {
 		int mapLength = mapPixels.Length;
 		mapCells = new MapCell[mapLength];
 		List<Vector2> singleCandidates = new List<Vector2> ();
+        List<Vector2> grassSingleCandidates = new List<Vector2>();
 
-		HorzGroupLengths = new int[(int)mapSize.y];
+        HorzGroupLengths = new int[(int)mapSize.y];
 		HorzGroupPosSums = new int[(int)mapSize.y];
 
 		VertGroupLengths = new int[(int)mapSize.x];
@@ -131,9 +139,10 @@ public class PixelMapLoader : MonoBehaviour {
 					}
 				}
 				#endregion
+			}
 
 
-			} else {										//If this is NOT a box
+            else {										//If this is NOT a box
 				SpawnCell(mapCells[i]);							//spawn this
 				if (HorzGroupLengths[yPos] > 0){				//check the group count
 					if (HorzGroupLengths[yPos] == 1){
@@ -216,37 +225,42 @@ public class PixelMapLoader : MonoBehaviour {
 
 		switch (cell.getType()) {
 
-		case ((int)CellIDs.MISSING):
-			//Debug.Log ("SpawnCell() : MISSING");
-			break;
+		    case ((int)CellIDs.MISSING):
+			    //Debug.Log ("SpawnCell() : MISSING");
+			    break;
 
-		case ((int)CellIDs.Nothing):
-			//Debug.Log ("SpawnCell() : Nothing");
-			break;
+		    case ((int)CellIDs.Nothing):
+			    //Debug.Log ("SpawnCell() : Nothing");
+			    break;
 
-		case ((int)CellIDs.Box):
-			//Debug.Log ("SpawnCell() : Box");
-			SpawnCellPrefab(cell);
-			break;
+		    case ((int)CellIDs.Box):
+			    //Debug.Log ("SpawnCell() : Box");
+			    SpawnCellPrefab(cell);
+			    break;
 
-		case ((int)CellIDs.Collectable ):
-			//Debug.Log ("SpawnCell() : Collectable : @ :" + cell.getPosition ());
-			SpawnCellPrefab (cell);
-			break;
+            case ((int)CellIDs.GrassBox):
+                //Debug.Log ("SpawnCell() : Box");
+                SpawnCellPrefab(cell);
+                break;
 
-		case ((int)CellIDs.PCSpawn):
-			//Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
-			PCSpawnPoint = cell.getPosition ();
-			break;
+            case ((int)CellIDs.Collectable ):
+			    //Debug.Log ("SpawnCell() : Collectable : @ :" + cell.getPosition ());
+			    SpawnCellPrefab (cell);
+			    break;
 
-		case ((int)CellIDs.PCGoal ):
-			//Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
-			PCGoalPoint = cell.getPosition ();
-			break;	
+		    case ((int)CellIDs.PCSpawn):
+			    //Debug.Log ("SpawnCell() : PCSpawn : @ :" + cell.getPosition ());
+			    PCSpawnPoint = cell.getPosition ();
+			    break;
 
-		default:
-			Debug.Log ("SpawnCell() default case");
-			break;
+		    case ((int)CellIDs.PCGoal ):
+			    //Debug.Log ("SpawnCell() : PCGoal : @ :" + cell.getPosition ());
+			    PCGoalPoint = cell.getPosition ();
+			    break;	
+
+		    default:
+			    Debug.Log ("SpawnCell() default case");
+			    break;
 		}
 	}
 
@@ -273,7 +287,14 @@ public class PixelMapLoader : MonoBehaviour {
 			CellObject cellObj = obj.GetComponent<CellObject> ();
 			cellObj.PassScale (cell.getScale());
 		}
-	}
+
+        if (cell.getType() == (int)CellIDs.GrassBox)
+        {
+            //obj.transform.localScale = cell.getScale ();
+            CellObject cellObj = obj.GetComponent<CellObject>();
+            cellObj.PassScale(cell.getScale());
+        }
+    }
 
 	public List<GameObject> getCollectableList(){
 		return collectedList;

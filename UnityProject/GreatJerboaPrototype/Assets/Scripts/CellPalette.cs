@@ -8,13 +8,15 @@ public class CellPalette : MonoBehaviour {
 	private static Vector3 v_Missing 			= new Vector3 (-1f, -1f, -1f);
 	private static Vector3 v_Nothing 			= new Vector3 (255f, 255f, 255f);
 	private static Vector3 v_Box 				= new Vector3 (0f, 0f, 0f);
-	private static Vector3 v_PCSpawn 			= new Vector3 (0f, 255f, 0f); 
+    private static Vector3 v_GrassBox           = new Vector3 (0f, 100f, 0f);
+    private static Vector3 v_PCSpawn 			= new Vector3 (0f, 255f, 0f); 
 	private static Vector3 v_PCGoal 			= new Vector3 (255f, 0f, 0f);
 	private static Vector3 v_Collectable 		= new Vector3 (255f, 0f, 255f);
 
 	public CellTemplate t_Missing 		= new CellTemplate ("Missing", v_Missing, 			(int)CellIDs.MISSING );
 	public CellTemplate t_Nothing 		= new CellTemplate ("Nothing", v_Nothing, 			(int)CellIDs.Nothing );
 	public CellTemplate t_Box 			= new CellTemplate ("Box", v_Box, 					(int)CellIDs.Box );
+    public CellTemplate t_GrassBox      = new CellTemplate ("GrassBox", v_GrassBox,         (int)CellIDs.GrassBox);
 	public CellTemplate t_PCSpawn 		= new CellTemplate ("PCSPawn", v_PCSpawn, 			(int)CellIDs.PCSpawn );
 	public CellTemplate t_PCGoal 		= new CellTemplate ("PCGoal", v_PCGoal,				(int)CellIDs.PCGoal );
 	public CellTemplate t_Collectable 	= new CellTemplate ("Collectable", v_Collectable, 	(int)CellIDs.Collectable );
@@ -22,22 +24,15 @@ public class CellPalette : MonoBehaviour {
 	private List<CellTemplate> TemplateList = new List <CellTemplate> ();
 
 	public GameObject BoxPrefab;
-	public GameObject CollectablePrefab;
-	/*
-	public static readonly Dictionary <Vector3, int> colorToType = new Dictionary<Vector3, int> {
-		{v_Nothing, (int) CellTypes.Nothing},
-		{v_Box, (int) CellTypes.Box},
-		{v_PCSpawn, (int) CellTypes.PCSpawn},
-		{v_PCGoal, (int) CellTypes.PCGoal},
-		{v_Collectable, (int) CellTypes.Collectable},
-	};
-	*/
+    public GameObject GrassBoxPrefab;
+    public GameObject CollectablePrefab;
 
 	void PopulateList(){
 		//BoxStatic = BoxPrefab;
 		TemplateList.Add (t_Missing);
 		TemplateList.Add (t_Nothing);
 		TemplateList.Add (t_Box);
+        TemplateList.Add(t_GrassBox);
 		TemplateList.Add (t_PCSpawn);
 		TemplateList.Add (t_PCGoal);
 		TemplateList.Add (t_Collectable);
@@ -64,16 +59,20 @@ public class CellPalette : MonoBehaviour {
 	public GameObject lookUpPrefab(int id){
 
 		switch (id) {
-		case (int)CellIDs.Box:
-			return BoxPrefab;
-			break;
+            case (int)CellIDs.Box:
+                return BoxPrefab;
+                break;
 
-		case (int)CellIDs.Collectable:
-			return CollectablePrefab;
-			break;
+            case (int)CellIDs.GrassBox:
+                return GrassBoxPrefab;
+                break;
 
-		default:
-			break;
+            case (int)CellIDs.Collectable:
+			    return CollectablePrefab;
+			    break;
+
+		    default:
+			    break;
 		}
 
 		return new GameObject ();
