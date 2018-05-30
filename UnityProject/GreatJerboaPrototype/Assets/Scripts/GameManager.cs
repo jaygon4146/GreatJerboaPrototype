@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
 	public PixelMapLoader MapLoader;
 	public PlayerCharacter Character;
 
+    private bool InPlay = true;
+
 	public GoalTrigger Goal;
 	public GameObject CollectableHolder;
 	public GameObject CollectableIconGroup;
@@ -21,7 +23,6 @@ public class GameManager : MonoBehaviour {
 	private int filledIcons = 0;
 
 	private static List<CollectableIcon> collectableIcons = new List<CollectableIcon> ();
-
 
 	[SerializeField] private bool LevelComplete = false;
 
@@ -56,7 +57,8 @@ public class GameManager : MonoBehaviour {
 	private static int CompletedState = Animator.StringToHash ("CompletedLevelScreen");
 
 	private static int PlayXPause = Animator.StringToHash ("PauseButton");
-	private static int PlayXCompleted = Animator.StringToHash ("Completed");
+    private static int UnPauseXPlay = Animator.StringToHash("UnPauseButton");
+    private static int PlayXCompleted = Animator.StringToHash ("Completed");
 	#endregion
 
 	void Awake(){
@@ -126,11 +128,18 @@ public class GameManager : MonoBehaviour {
 
 			if (PlayerInput.Instance.MenuButton.Down) {
 				UnPauseAction ();
-                MenuAudioSource.PlayCancel();
             }
-		}
 
+            if (Input.GetKey(KeyCode.RightShift))
+            {
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    //print("RightShift + P = SWITCH CONTROLLER");
+                    //PlayerInput.Instance.SwitchInputType();
+                }
+            }
 
+        }
 	}
 
 	void PauseMenuUpdate(){
@@ -216,23 +225,39 @@ public class GameManager : MonoBehaviour {
 	}
 		
 	private void PauseAction(){
-		stateAnimator.SetTrigger (PlayXPause);
-		environmentAnimator.speed = 0;
-		Character.PauseCharacter ();
+
+        if (InPlay)
+        {
+            InPlay = false;
+            stateAnimator.SetTrigger(PlayXPause);
+            environmentAnimator.speed = 0;
+            Character.PauseCharacter();
+        }
 	}
 
-	private void UnPauseAction(){
-		stateAnimator.SetTrigger (PlayXPause);
-		environmentAnimator.speed = 1;
-		Character.UnPauseCharacter ();
+	private void UnPauseAction()
+    {
+        if (!InPlay)
+        {
+            InPlay = true;
+            MenuAudioSource.PlayCancel();
+            stateAnimator.SetTrigger(UnPauseXPlay);
+            environmentAnimator.speed = 1;
+            Character.UnPauseCharacter();
+        }
 	}
 
-	private void FinishAction(){
-		LevelComplete = true;
+	private void FinishAction()
+    {
+        environmentAnimator.speed = 0;
+        Character.PauseCharacter();
+
+        LevelComplete = true;
 		CountCollectedObjects ();
 		DataManager.FinishLevel (numberOfCollectedObjects);
 		LevelCompleteText.text = DataManager.GetCompletionMessage ();
-		if (stateInfo.shortNameHash == PlayingState) {
+
+        if (stateInfo.shortNameHash == PlayingState) {
 			stateAnimator.SetTrigger (PlayXCompleted);
 		}
 	}

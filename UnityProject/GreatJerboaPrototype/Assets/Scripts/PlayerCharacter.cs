@@ -215,12 +215,23 @@ public class PlayerCharacter : MonoBehaviour {
 		float accel = activeInput ? PCPhysicsForces.acceleration : PCPhysicsForces.deceleration;
 
 		PCUnitController2D.MoveTowardMaxVelocityX (direction, accel);
-		//PCUnitController2D.addImpulse (force);	
-		if (direction > 0)
+        //PCUnitController2D.addImpulse (force);	
+        /*if (direction > 0)
 			facingRight = true;
 
 		if (direction < 0)
 			facingRight = false;
+
+        */
+
+        Vector2 v = PCUnitController2D.getVelocity();
+        float xVel = v.x;
+
+        if (xVel > 0)
+            facingRight = true;
+
+        if (xVel < 0)
+            facingRight = false;
 
 	}
 

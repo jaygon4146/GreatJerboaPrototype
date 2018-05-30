@@ -51,7 +51,6 @@ public class MenuNavigator : MonoBehaviour {
 		DataManager.Save ();
 	}
 
-
 	void FixedUpdate () {
 		stateInfo = stateAnimator.GetCurrentAnimatorStateInfo (0);
 		InputUpdate ();
@@ -127,8 +126,38 @@ public class MenuNavigator : MonoBehaviour {
                 stateAnimator.SetTrigger(Confirm_Controls);
                 MenuAudioSource.PlayConfirm();
             }
+
+            if (stateInfo.shortNameHash == StartState)
+            {
+                print("Application.Quit()");
+                Application.Quit();
+            }
         }
-	}
+
+        if (stateInfo.shortNameHash == ControlsState)
+        {
+            if (Input.GetKey(KeyCode.Delete))
+            {
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    print("Delete + P = CLEAR ALL DATA");
+                    DataManager.clearAllData ();
+                    DataManager.Load();
+                    DataManager.SelectSaveDataSlot(0);
+                    DataManager.LoadAllLevels(m_LevelList.getMapFilesList());
+                    DataManager.Save();
+                }
+            }
+            if (Input.GetKey(KeyCode.RightShift))
+            {
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    print("RightShift + P = SWITCH CONTROLLER");
+                    PlayerInput.Instance.SwitchInputType();
+                }
+            }
+        }
+    }
 
 	void CursorUpdate(){
 		float vertInput = PlayerInput.Instance.Vertical.Value;

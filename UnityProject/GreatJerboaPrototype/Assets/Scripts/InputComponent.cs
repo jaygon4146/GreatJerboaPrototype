@@ -343,6 +343,46 @@ public abstract class InputComponent : MonoBehaviour {
 	{
 		inputAxis.ReleaseControl(resetValues);
 	}
-		
 
+
+    public void SwitchInputType()
+    {
+        if (inputType == InputType.Keyboard)
+        {
+            inputType = InputType.Controller;
+            print("Switched To Controller");
+            PlayerPrefs.SetInt("InputType", 0);
+            PlayerPrefs.Save();
+            return;
+        }
+        if (inputType == InputType.Controller)
+        {
+            inputType = InputType.Keyboard;
+            print("Switched To Keyboard");
+            PlayerPrefs.SetInt("InputType", 1);
+            PlayerPrefs.Save();
+            return;
+        }
+    }
+
+    public void RestoreInputType()
+    {
+        int type = PlayerPrefs.GetInt("InputType", 1);
+
+        switch (type)
+        {
+            case 0:
+                print("Restore Type 0 = Controller");
+                inputType = InputType.Controller;
+                break;
+            case 1:
+                print("Restore Type 1 = Keyboard");
+                inputType = InputType.Keyboard;
+                break;
+            default:
+                break;
+        }
+
+    }
+    
 }

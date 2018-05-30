@@ -31,6 +31,9 @@ public class PlayerInput : InputComponent {
 			s_Instance = this;
 		else
 			throw new UnityException ("There may only be one PlayerInput script. The instances are " + s_Instance.name + " & " + name + ".");
+
+        PlayerInput.Instance.RestoreInputType();
+
 	}
 
 	void OnEnable()
