@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
 	public PixelMapLoader MapLoader;
 	public PlayerCharacter Character;
 
+    public Transform CameraTransform;
+
     private bool InPlay = true;
 
 	public GoalTrigger Goal;
@@ -31,8 +33,8 @@ public class GameManager : MonoBehaviour {
 	private Animator stateAnimator;
 	private AnimatorStateInfo stateInfo;
 
-	//public Animator environmentAnimator;
-	//private AnimatorStateInfo environmentInfo;
+	public Animator environmentAnimator;
+	private AnimatorStateInfo environmentInfo;
 
 	public Button ResumeButtonObj;
 	public Button RestartButtonObj;
@@ -59,9 +61,12 @@ public class GameManager : MonoBehaviour {
 	private static int PlayXPause = Animator.StringToHash ("PauseButton");
     private static int UnPauseXPlay = Animator.StringToHash("UnPauseButton");
     private static int PlayXCompleted = Animator.StringToHash ("Completed");
-	#endregion
 
-	void Awake(){
+    private static int PHeightHash = Animator.StringToHash("PHeight");
+    private static int PHorzHash = Animator.StringToHash("PHorz");
+    #endregion
+
+    void Awake(){
 		MapLoader.Activate ();
 		Character.transform.position = MapLoader.getPCSpawnPoint () + Vector2.up *0.05f;
 		Goal.transform.position = MapLoader.getPCGoalPoint ();
@@ -140,7 +145,19 @@ public class GameManager : MonoBehaviour {
             }
 
         }
+
+        BackGroundUpdate();
+
 	}
+
+    void BackGroundUpdate()
+    {
+        Vector3 v = CameraTransform.position;
+        //environmentAnimator.transform.position = new Vector3(v.x, v.y-2, environmentAnimator.transform.position.z);
+        environmentAnimator.SetFloat(PHeightHash, v.y);
+        environmentAnimator.SetFloat(PHorzHash, v.x);
+    }
+
 
 	void PauseMenuUpdate(){
 		float vertInput = PlayerInput.Instance.Vertical.Value;
