@@ -34,14 +34,15 @@ public class PhysicsForces : MonoBehaviour {
 		CalculateJumpForces ();
 	}
 
-	//==============================================
-	#region Jumping Functions
-	public void CalculateJumpForces(){
+    //==============================================
+    #region Jumping Functions
+    public void CalculateJumpForces(){
 		jumpInitialVelocity = (2 * jumpHeight) / (jumpTime);
 		jumpInitialGravity = -(-2 * jumpHeight) / (jumpTime * jumpTime);
 		jumpVector = Vector2.up * jumpInitialVelocity;
 		jumpMaxVelocity = jumpInitialVelocity * jumpFallingMultiplier;
 	}
+
 
 	public Vector2 getJumpVector(){
 		return jumpVector;

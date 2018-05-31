@@ -61,6 +61,9 @@ public class PlayerCharacter : MonoBehaviour {
         PCPhysicsForces.CalculateJumpForces ();
         PCUnitController2D.setGravityScale (PCPhysicsForces.getJumpInitialGravity());
 
+        Vector2 clampV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity ());
+        PCUnitController2D.setClampVelocity (clampV);
+
         if (debugging) {
 			lTimeLine.drawColor = Color.red;
 			rTimeLine.drawColor = Color.green;
@@ -84,8 +87,8 @@ public class PlayerCharacter : MonoBehaviour {
 			HorizontalAction ();
 			VerticalAction ();
 
-			Vector2 clampV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity ());
-			PCUnitController2D.setClampVelocity (clampV);
+			//Vector2 clampV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity ());
+			//PCUnitController2D.setClampVelocity (clampV);
 
 			Vector2 maxV = new Vector2 (PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpInitialVelocity ());
 			Vector2 minV = new Vector2 (-PCPhysicsForces.topSpeed, -PCPhysicsForces.getJumpMaxVelocity ());
@@ -262,7 +265,9 @@ public class PlayerCharacter : MonoBehaviour {
 
 		if (yVelocity < 0) {
 			PCUnitController2D.setGravityScale (PCPhysicsForces.getFallingGravity());
-			canCancelJump = false;
+            Vector2 clampV = new Vector2(PCPhysicsForces.topSpeed, PCPhysicsForces.getJumpMaxVelocity());
+            PCUnitController2D.setClampVelocity(clampV);
+            canCancelJump = false;
 
 			if (warmUpJump && BalloonEnterTrigger.isTouchingBalloon()) {
 				JerboaSounds.PlaySqueeze ();

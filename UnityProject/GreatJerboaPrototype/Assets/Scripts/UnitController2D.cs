@@ -14,7 +14,8 @@ public class UnitController2D : MonoBehaviour {
 
 	[SerializeField]
 	private Vector2 maxVelocity;
-	//private Vector2 minVelocity;
+    [SerializeField]
+    private Vector2 minVelocity;
 
 	private Vector2 FrozenVelocity;
 	private float FrozenGravity;
@@ -50,8 +51,10 @@ public class UnitController2D : MonoBehaviour {
 		unitRigidBody2D.velocity = v;
 	}
 
-	public void addImpulse(Vector2 force){
-		unitRigidBody2D.AddForce (force, ForceMode2D.Impulse);
+	public void addImpulse(Vector2 force)
+    {
+        setClampVelocity(new Vector2(maxVelocity.x, force.y));
+        unitRigidBody2D.AddForce (force, ForceMode2D.Impulse);
 	}
 
 	public void addForce(Vector2 force){
@@ -62,7 +65,10 @@ public class UnitController2D : MonoBehaviour {
 		float y = unitRigidBody2D.velocity.y * multiplier;
 		Vector2 v = new Vector2(unitRigidBody2D.velocity.x, y);
 		unitRigidBody2D.velocity = v;
-	}
+
+        Vector2 m = new Vector2(maxVelocity.x, unitRigidBody2D.velocity.y);
+        maxVelocity = m;
+    }
 
 
 	public void FreezeRigidbody(){
@@ -81,7 +87,7 @@ public class UnitController2D : MonoBehaviour {
 		maxVelocity = clampMax;
 	}
 
-	public void setGravityScale(float g){
+    public void setGravityScale(float g){
 		unitRigidBody2D.gravityScale = g;
 	}
 

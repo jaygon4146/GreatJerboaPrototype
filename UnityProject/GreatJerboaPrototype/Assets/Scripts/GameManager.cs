@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour {
 	private Animator stateAnimator;
 	private AnimatorStateInfo stateInfo;
 
-	public Animator environmentAnimator;
-	private AnimatorStateInfo environmentInfo;
+	//public Animator environmentAnimator;
+	//private AnimatorStateInfo environmentInfo;
 
 	public Button ResumeButtonObj;
 	public Button RestartButtonObj;
@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour {
         {
             InPlay = false;
             stateAnimator.SetTrigger(PlayXPause);
-            environmentAnimator.speed = 0;
+            //environmentAnimator.speed = 0;
             Character.PauseCharacter();
         }
 	}
@@ -242,14 +242,14 @@ public class GameManager : MonoBehaviour {
             InPlay = true;
             MenuAudioSource.PlayCancel();
             stateAnimator.SetTrigger(UnPauseXPlay);
-            environmentAnimator.speed = 1;
+            //environmentAnimator.speed = 1;
             Character.UnPauseCharacter();
         }
 	}
 
 	private void FinishAction()
     {
-        environmentAnimator.speed = 0;
+        //environmentAnimator.speed = 0;
         Character.PauseCharacter();
 
         LevelComplete = true;

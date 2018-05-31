@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SolidPlatform
   - Balloon
+  - Environment
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - LevelInteractable
   - Collectable
   - 
-  - 
+  - Environment
   - 
   - 
   - 
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Environment
+    uniqueID: 4017097901
+    locked: 0
   - name: LevelPlatforms
     uniqueID: 585144065
     locked: 0

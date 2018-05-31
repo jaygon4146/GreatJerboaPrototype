@@ -26,6 +26,7 @@ public class CellPalette : MonoBehaviour {
 	public GameObject BoxPrefab;
     public GameObject GrassBoxPrefab;
     public GameObject CollectablePrefab;
+    public GameObject MaskPrefab;
 
 	void PopulateList(){
 		//BoxStatic = BoxPrefab;
@@ -71,12 +72,23 @@ public class CellPalette : MonoBehaviour {
 			    return CollectablePrefab;
 			    break;
 
-		    default:
+            case (int)CellIDs.Nothing:
+                return MaskPrefab;
+                break;
+
+            default:
 			    break;
 		}
 
 		return new GameObject ();
 	}
+
+    public GameObject lookUpMask()
+    {
+        return MaskPrefab;
+
+    }
+
 
 	public string lookUpName(int id){
 
@@ -91,7 +103,18 @@ public class CellPalette : MonoBehaviour {
 		return Color.black;
 	}
 
-	public CellPalette(){
+
+    public Color getGrassBoxColor()
+    {
+        Color g = new Color(
+            v_GrassBox.x / 255f,
+            v_GrassBox.y / 255f,
+            v_GrassBox.z / 255f
+            );
+        return g;
+    }
+
+    public CellPalette(){
 		PopulateList ();
 	}
 
