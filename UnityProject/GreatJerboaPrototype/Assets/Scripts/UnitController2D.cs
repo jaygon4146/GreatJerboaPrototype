@@ -66,11 +66,21 @@ public class UnitController2D : MonoBehaviour {
 		Vector2 v = new Vector2(unitRigidBody2D.velocity.x, y);
 		unitRigidBody2D.velocity = v;
 
-        Vector2 m = new Vector2(maxVelocity.x, unitRigidBody2D.velocity.y);
+        //Vector2 m = new Vector2(maxVelocity.x, unitRigidBody2D.velocity.y);
+
+        float xV = maxVelocity.x;
+        float yV = unitRigidBody2D.velocity.y;
+
+        if (yV < maxVelocity.y)
+        {
+            yV = maxVelocity.y;
+        }
+
+        Vector2 m = new Vector2(xV, yV);        
+
         maxVelocity = m;
     }
-
-
+    
 	public void FreezeRigidbody(){
 		FrozenVelocity = unitRigidBody2D.velocity;
 		FrozenGravity = unitRigidBody2D.gravityScale;

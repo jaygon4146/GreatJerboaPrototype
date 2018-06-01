@@ -295,8 +295,7 @@ public class PlayerCharacter : MonoBehaviour {
 		isPlaying = true;
 		PCUnitController2D.UnFreezeRigidbody ();
 	}
-
-
+    
 	#region ColliderEvents
 	void OnCollisionEnter2D(Collision2D c){
 		if (c.collider.tag == "SolidPlatform") {
@@ -353,6 +352,15 @@ public class PlayerCharacter : MonoBehaviour {
         //touchingPlatform = b;
         JAnimManager.SetDistanceToGround (gDistance);
 		JAnimManager.SetColliderCastHit(numberOfFarResults, passResult);
+
+        if (!onGround)
+        {
+
+
+
+        }
+
+
 	}
 
 	#endregion
